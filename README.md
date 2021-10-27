@@ -1,4 +1,4 @@
-<div align=center>
+<div>
 
 # vite-vue3-element-CLI
 
@@ -9,11 +9,33 @@
 
 ## 已装插件:
 
-- Element Plus
-- Sass
-- Axios
-- Vue router
-- Vue X
+- [Element Plus](https://element-plus.gitee.io/zh-CN/#/zh-CN)
+- [Sass](https://cn.vitejs.dev/guide/features.html#css-pre-processors)
+- [Axios](https://cn.vitejs.dev/guide/features.html#css-pre-processors)
+- [Vue router](https://next.router.vuejs.org/zh/index.html)
+- [Vue X](https://next.vuex.vuejs.org/zh/)
+- [vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons)
+
+## 全局样式：
+```
+src    
+│
+└─── assets
+    |
+    │─── index.scss 全局样式
+    └─── base.scss 基础全局样式
+```
+在index.scss文件中导入其他.scss文件
+## icon-svg使用:
+1. 下载SVG文件
+2. 将SVG文件复制到src/icons/svg文件夹中
+3. 重命名SVG文件格式为 icon- * 
+4. 组件模版中使用 [&lt;icon-svg name="icon-* color='#fff"&gt;&lt;/icon-svg&gt;]
+
+参数|说明|类型|默认值|
+:---:|:---:|:---:|:---:|
+name|图标类名|string|—|
+color|图标颜色|string|#333|
 
 ## 开发
 

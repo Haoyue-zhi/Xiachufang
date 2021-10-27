@@ -1,14 +1,13 @@
 <template>
+  <img alt="Vue logo" src="@/assets/img/logo.png" />
   <p>
     <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite Documentation</a>
     |
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
   </p>
 
-  <el-button type="primary">主要按钮</el-button>
-  <p>
-    {{this.datalist.content}} --{{this.datalist.source}}
-  </p>
+  <el-button type="primary"><icon-svg name="icon-up" color='#fff'></icon-svg>主要按钮</el-button>
+  <p>{{ this.datalist.content }}</p>
 </template>
 
 <script>
@@ -18,11 +17,11 @@ import { list } from '../api/index'
 export default {
   data() {
     return {
-      datalist:''
+      datalist: ''
     }
   },
   created() {
-    this.getlist()
+    // this.getlist()
     // this.test()
   },
   methods: {
@@ -54,7 +53,7 @@ export default {
 <style scoped lang="scss">
 p {
   a {
-    color: #42b983;
+    color: $color;
   }
 }
 </style>

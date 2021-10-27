@@ -5,8 +5,12 @@ import store from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from  '@/utils/axios'
+import 'virtual:svg-icons-register';
+import iconSvg from '@/components/icon-svg/index.vue'
 
 const app = createApp(App)
+// 创建iconSvg全局组件
+app.component('iconSvg', iconSvg)
 // 全局引入axios
 app.config.globalProperties.$axios = axios
 

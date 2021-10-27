@@ -1,13 +1,8 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <router-view/>
+  <router-view />
 </template>
 
-<script setup>
-
-</script>
-
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
