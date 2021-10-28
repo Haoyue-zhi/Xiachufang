@@ -24,6 +24,7 @@
 |    |─── assets                      # 图片、全局样式等静态资源
 |    |─── components                  # 全局公用组件
 |    |─── icons                       # 项目所有 svg icons
+|    |─── mock                        # 项目mock 模拟数据
 |    |─── router                      # 路由
 |    |─── store                       # 全局 store管理
 |    |─── utils                       # 全局公用方法
