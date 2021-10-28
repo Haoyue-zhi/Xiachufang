@@ -7,6 +7,7 @@ import 'element-plus/dist/index.css'
 import axios from  '@/utils/axios'
 import 'virtual:svg-icons-register';
 import iconSvg from '@/components/icon-svg/index.vue'
+import '@/mock'
 
 const app = createApp(App)
 // 创建iconSvg全局组件

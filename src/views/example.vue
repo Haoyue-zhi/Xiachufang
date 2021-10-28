@@ -22,7 +22,7 @@ export default {
   },
   created() {
     // this.getlist()
-    // this.test()
+    this.test()
   },
   methods: {
     // 方式一 （推荐）
@@ -37,11 +37,8 @@ export default {
     // 方式二
     test() {
       this.$axios({
-        url: '',
-        method: 'get',
-        params: {
-          key: 'c4330e4026b463e89f847391c998af94'
-        }
+        url: `/getlist`,
+        method: 'get'
       }).then(res => {
         console.log(res);
       })
