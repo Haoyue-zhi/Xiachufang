@@ -15,7 +15,7 @@
 - [Vue router](https://next.router.vuejs.org/zh/index.html)
 - [Vue X](https://next.vuex.vuejs.org/zh/)
 - [vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons)
-
+- [Mock](http://mockjs.com/)
 ## 目录结构
 ```
 |─── public                           # 静态资源
