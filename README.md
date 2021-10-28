@@ -1,7 +1,7 @@
 <div>
 
 # vite-vue3-element-CLI
-
+![node-current](https://img.shields.io/node/v/vite)
 
 ## 简介
 
