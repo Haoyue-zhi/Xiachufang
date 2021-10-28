@@ -3,7 +3,7 @@ import App from '@/App.vue'
 import axios from "axios"
 
 let config = {
-    baseURL: "http://api.tianapi.com/txapi/",
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 60 * 1000, // Timeout
     // withCredentials: true, // Check cross-site Access-Control
 };

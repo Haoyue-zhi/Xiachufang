@@ -31,6 +31,8 @@
 |    |─── views                       # 所有页面
 |    |─── App.vue                     # 入口页面
 |    └─── main.js                     # 入口文件 加载组件 初始化等
+|─── .env.development                 # 开发环境变量配置
+|─── .env.production                  # 生产环境变量配置
 |─── index.html                       # html模板
 |─── package.json                     # package.json
 └─── vite.config.js                   # vite配置
