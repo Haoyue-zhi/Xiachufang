@@ -6,43 +6,45 @@
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
   </p>
 
-  <el-button type="primary"><icon-svg name="icon-up" color='#fff'></icon-svg>主要按钮</el-button>
-  <p>{{ this.datalist.content }}</p>
+  <el-button type="primary">
+    <icon-svg name="icon-up" color="#fff"></icon-svg>主要按钮
+  </el-button>
+  <p>{{ this.datalist }}</p>
 </template>
 
 <script>
-// import axiso from 'axios'
 import { list } from '../api/index'
+import { onMounted, ref, getCurrentInstance } from 'vue'
 
 export default {
-  data() {
-    return {
-      datalist: ''
-    }
-  },
-  created() {
-    // this.getlist()
-    this.test()
-  },
-  methods: {
+  setup() {
+    const datalist = ref('')
+
     // 方式一 （推荐）
-    async getlist() {
+    async function getlist() {
       let query = {
         key: 'c4330e4026b463e89f847391c998af94'
       }
       const data = await list(query)
-      this.datalist = data.data.newslist[0]
+      datalist.value = data.data.newslist[0].content
       console.log(data.data.newslist[0]);
-    },
+    }
+
     // 方式二
-    test() {
-      this.$axios({
+    const { proxy } = getCurrentInstance()
+    function test() {
+      proxy.$axios({
         url: `/getlist`,
         method: 'get'
-      }).then(res => {
-        console.log(res);
+      }).then(({ data }) => {
+        datalist.value = data.array.join()
+        console.log(data.array.join());
       })
     }
+
+    onMounted(test)
+
+    return { datalist }
   }
 }
 </script>
