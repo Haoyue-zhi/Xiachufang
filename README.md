@@ -16,6 +16,8 @@
 - [Vue X](https://next.vuex.vuejs.org/zh/)
 - [vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons)
 - [Mock](http://mockjs.com/)
+- [Swiper](https://swiperjs.com/)
+- [Echarts](https://echarts.apache.org/zh/index.html)
 ## 目录结构
 ```
 |─── public                           # 静态资源

@@ -6,8 +6,8 @@
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
   </p>
 
-  <el-button type="primary">
-    <icon-svg name="icon-up" color="#fff"></icon-svg>主要按钮
+  <el-button type="primary" @click="open">
+    <icon-svg name="icon-up" color="#fff"></icon-svg>Swiper演示
   </el-button>
   <p>{{ this.datalist }}</p>
 </template>
@@ -15,10 +15,17 @@
 <script>
 import { list } from '../api/index'
 import { onMounted, ref, getCurrentInstance } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   setup() {
+    const router = useRouter()
+    const route = useRoute()
     const datalist = ref('')
+
+    function open() {
+      router.push('/swiper')
+    }
 
     // 方式一 （推荐）
     async function getlist() {
@@ -37,14 +44,17 @@ export default {
         url: `/getlist`,
         method: 'get'
       }).then(({ data }) => {
-        datalist.value = data.array.join()
-        console.log(data.array.join());
+        datalist.value = data.array.join(' ')
+        console.log(data.array.join(' '));
       })
     }
 
-    onMounted(test)
+    onMounted(() => {
+      test()
+      // getlist()
+    })
 
-    return { datalist }
+    return { datalist, open }
   }
 }
 </script>
