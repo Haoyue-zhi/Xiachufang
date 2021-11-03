@@ -1,1 +1,5 @@
-@import "base";
+@import "color"; // 颜色
+@import "element"; // element ui样式覆盖
+@import "global"; // 公共类
+@import "transition"; // 动画相关
+@import "variable"; // 变量

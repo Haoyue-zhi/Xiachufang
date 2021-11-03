@@ -44,8 +44,12 @@
 ## 全局样式
 ```
 |─── assets   
-|    │─── index.scss 全局样式
-|    └─── base.scss 基础全局样式
+|    │─── color.scss                 # 颜色
+|    │─── element.scss               # element ui样式覆盖
+|    │─── global.scss                # 公共类
+|    │─── index.scss                 # 入口文件
+|    │─── transition.scss            # 动画相关
+|    └─── variable.scss              # 变量
 ```
 在index.scss文件中导入其他.scss文件
 ## icon-svg
