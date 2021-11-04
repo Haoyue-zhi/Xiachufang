@@ -60,6 +60,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color:#42b983;
 p {
   a {
     color: $color;

@@ -53,10 +53,10 @@
 ```
 在index.scss文件中导入其他.scss文件
 ## icon-svg
-1. 下载SVG文件
+1. 下载SVG文件 https://www.iconfont.cn/
 2. 将SVG文件复制到src/icons/svg文件夹中
 3. 重命名SVG文件格式为 icon- * 
-4. 组件模版中使用 [&lt;icon-svg name="icon-* color='#fff"&gt;&lt;/icon-svg&gt;]
+4. 组件模版中使用 [&lt;icon-svg name="icon-*" color="#fff"&gt;&lt;/icon-svg&gt;]
 
 参数|说明|类型|默认值|
 :---:|:---:|:---:|:---:|
