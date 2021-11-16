@@ -9,7 +9,7 @@ export function list(query) {
 }
 
 export function updatelist(data) {
-    return request({
+    return axios({
       url: `/`,
       method: 'post',
       data
