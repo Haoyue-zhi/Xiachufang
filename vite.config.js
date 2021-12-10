@@ -2,11 +2,21 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import viteSvgIcons from 'vite-plugin-svg-icons';
+import styleImport from 'vite-plugin-style-import';
 
 
 export default defineConfig({
   plugins: [
     vue(),
+    styleImport({
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => `vant/es/${name}/style/index`,
+        },
+      ],
+    }),
     viteSvgIcons({
       // 指定需要缓存的图标文件夹
       iconDirs: [resolve(process.cwd(), 'src/icons/svg')],

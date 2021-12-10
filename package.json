@@ -1,6 +1,6 @@
 {
-  "name": "vite-vue3-element",
-  "version": "1.1.0",
+  "name": "Xiachufang",
+  "version": "1.0.0",
   "author": "Weilai <zhangwenhaoyue@163.com>",
   "scripts": {
     "dev": "vite",
@@ -9,10 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
-    "echarts": "^5.2.2",
-    "element-plus": "^1.1.0-beta.24",
     "mockjs": "^1.1.0",
     "swiper": "^7.2.0",
+    "vant": "^3.3.6",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
@@ -21,6 +20,7 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "sass": "^1.43.3",
     "vite": "^2.6.4",
+    "vite-plugin-style-import": "^1.4.0",
     "vite-plugin-svg-icons": "^1.0.5"
   },
   "engines": {
