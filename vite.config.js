@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import styleImport from 'vite-plugin-style-import';
 
-
 export default defineConfig({
   plugins: [
     vue(),
@@ -28,27 +27,18 @@ export default defineConfig({
   // 文件夹别名 @ 为src目录
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': resolve(__dirname, '/src')
     }
   },
   server: {
     // 服务器启动时自动在浏览器中打开
     open: true
   },
-  // 暂时废弃
-  // css: {
-  //   //css预处理
-  //   preprocessorOptions: {
-  //     /*
-	// 			引入var.scss全局预定义变量，
-	// 			如果引入多个文件，
-	// 			可以使用
-	// 			'@import "@/assets/scss/globalVariable1.scss";@import "@/assets/scss/globalVariable2.scss";'
-	// 			这种格式
-	// 			 */
-  //     scss: {
-  //       additionalData: `@import "@/assets/scss/index.scss";`
-  //     }
-  //   }
-  // }
+  css: {
+    postcss: {
+      plugins: [
+          require('postcss-pxtorem')({rootValue: 37.5, propList: ['*']})
+      ]
+    },
+  }
 })

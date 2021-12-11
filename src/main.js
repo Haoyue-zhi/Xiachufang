@@ -10,6 +10,7 @@ import '@/mock'
 import { Swiper,SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import { vant } from '@/vant-ui'
+import 'amfe-flexible'
 
 const app = createApp(App)
 // 创建全局组件
