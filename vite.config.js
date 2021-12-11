@@ -8,6 +8,7 @@ import styleImport from 'vite-plugin-style-import';
 export default defineConfig({
   plugins: [
     vue(),
+    // vant按需引入
     styleImport({
       libs: [
         {

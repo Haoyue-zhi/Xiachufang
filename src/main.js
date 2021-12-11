@@ -9,12 +9,12 @@ import iconSvg from '@/components/icon-svg/index.vue'
 import '@/mock'
 import { Swiper,SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
-import { Button } from 'vant';
+import { vant } from '@/vant-ui'
 
 const app = createApp(App)
-// 创建iconSvg全局组件
+// 创建全局组件
 app.component('iconSvg', iconSvg).component('Swiper',Swiper).component('SwiperSlide',SwiperSlide)
 // 全局引入axios
 app.config.globalProperties.$axios = axios
 
-app.use(Button).use(router).use(store).mount('#app')
+app.use(vant).use(router).use(store).mount('#app')

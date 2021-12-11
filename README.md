@@ -58,10 +58,10 @@
 3. 重命名SVG文件格式为 icon- * 
 4. 组件模版中使用 [&lt;icon-svg name="icon-*" color="#fff"&gt;&lt;/icon-svg&gt;]
 
-参数|说明|类型|默认值|
-:---:|:---:|:---:|:---:|
-name|图标类名|string|—|
-color|图标颜色|string|—|
+|  参数   |说明|类型|默认值|
+|-------|-----|:---:|:---:|
+| name  |图标类名|string|—|
+| color |图标颜色|string|—|
 
 ## 安装
 
