@@ -3,8 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
         path: '/',
-        name: 'home',
-        component: () => import('@/views/home/index.vue')
+        component: () => import('@/layout/index.vue'),
+        redirect: 'home',
+        children:[
+            {
+                path: '/home',
+                component: () => import('@/views/home/index.vue')
+            }
+        ]
     }
 ]
 
