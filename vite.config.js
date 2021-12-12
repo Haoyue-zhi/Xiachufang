@@ -5,6 +5,7 @@ import viteSvgIcons from 'vite-plugin-svg-icons';
 import styleImport from 'vite-plugin-style-import';
 
 export default defineConfig({
+  // base:'./',
   plugins: [
     vue(),
     // vant按需引入
@@ -32,7 +33,8 @@ export default defineConfig({
   },
   server: {
     // 服务器启动时自动在浏览器中打开
-    open: true
+    open: true,
+    host:'0.0.0.0'
   },
   css: {
     postcss: {
