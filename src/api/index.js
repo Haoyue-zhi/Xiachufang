@@ -1,10 +1,10 @@
 import axios from '@/utils/axios'
 
-export function list(query) {
+export function list(data) {
     return axios({
-        url: `/pyqwenan/index`,
-        method: 'get',
-        params: query
+        url: `/users/register`,
+        method: 'post',
+        data
     })
 }
 

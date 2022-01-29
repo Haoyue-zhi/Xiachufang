@@ -10,6 +10,7 @@
   "dependencies": {
     "amfe-flexible": "^2.2.1",
     "axios": "^0.23.0",
+    "koa": "^2.13.4",
     "mockjs": "^1.1.0",
     "swiper": "^7.2.0",
     "vant": "^3.3.6",

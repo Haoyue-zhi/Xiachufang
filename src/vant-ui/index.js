@@ -1,10 +1,11 @@
-import { Button, Form, Tabbar, TabbarItem } from 'vant';
+import { Button, Form, Tabbar, TabbarItem, Icon } from 'vant';
 // vant按需引入组件
 const options = [
     Button,
     Form,
     Tabbar,
-    TabbarItem
+    TabbarItem,
+    Icon
 ]
 
 export function vant(app){
