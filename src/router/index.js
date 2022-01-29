@@ -14,11 +14,11 @@ const routes = [
             },
             {
                 path: '/store',
-                component: () => import('@/views/home/index.vue')
+                component: () => import('@/views/store/index.vue')
             },
             {
                 path: '/collect',
-                component: () => import('@/views/home/index.vue')
+                component: () => import('@/views/collect/index.vue')
             },
             {
                 path: '/mine',

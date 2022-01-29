@@ -1,12 +1,12 @@
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {resolve} from 'path'
-import viteSvgIcons from 'vite-plugin-svg-icons';
-import styleImport from 'vite-plugin-style-import';
+import viteSvgIcons from 'vite-plugin-svg-icons'
+import styleImport from 'vite-plugin-style-import'
 import pxtorem from 'postcss-pxtorem'
 
 export default defineConfig({
-    base:"./",
+    base: "./",
     plugins: [
         vue(),
         // vant按需引入
@@ -48,6 +48,10 @@ export default defineConfig({
         host: '0.0.0.0'
     },
     build: {
+        // 指定输出路径
+        outDir: 'dist',
+        // 在 outDir 中生成 manifest.json
+        manifest: false,
         //生成静态资源的存放路径
         assetsDir: "img",
         //自定义底层的 Rollup 打包配置

@@ -22,7 +22,7 @@
   .add{
     position: absolute;
     left: 20px;
-    top: 61px;
+    top: 21px;
     width: 22px;
     height: 22px;
   }
@@ -30,14 +30,14 @@
   .title {
     position: absolute;
     left: 178px;
-    top: 58px;
+    top: 18px;
     font-size: 17px;
   }
 
   .set{
     position: absolute;
     left: 342px;
-    top: 57px;
+    top: 17px;
     width: 28px;
     height: 26px;
     transform: rotate(30deg);
@@ -52,7 +52,7 @@
     width: 232px;
     height: 28px;
     left: 20px;
-    top: 154px;
+    top: 144px;
     font-weight: bold;
     font-size: 26.5px;
     color: $font-dark;

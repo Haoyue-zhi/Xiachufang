@@ -1,5 +1,5 @@
 <template>
-  <button>asdf</button>
+  <h1>首页</h1>
 </template>
 
 <script>
