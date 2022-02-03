@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 import layout from '@/layout/index.vue'
 
@@ -7,7 +7,7 @@ const routes = [
         path: '/',
         component: layout,
         redirect: 'home',
-        children:[
+        children: [
             {
                 path: '/home',
                 component: () => import('@/views/home/index.vue')
@@ -25,13 +25,22 @@ const routes = [
                 component: () => import('@/views/mine/index.vue')
             },
         ]
+    },
+    {
+        path: '/mine/verification',
+        component: () => import('@/views/mine/components/verification.vue'),
+        meta: { transition: 'slide' }
+    },
+    {
+        path:'/mine/password',
+        component: () => import('@/views/mine/components/password.vue'),
+        meta: { transition: 'slide' }
     }
 ]
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
-  })
-
+})
 
 export default router

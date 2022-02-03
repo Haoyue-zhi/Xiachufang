@@ -1,5 +1,7 @@
 <template>
-  <h1>首页</h1>
+  <div>
+    <h1 v-for="item in 20">首页</h1>
+  </div>
 </template>
 
 <script>
@@ -25,15 +27,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$color: #42b983;
-p {
-  a {
-    color: $color;
-  }
-}
 
-button {
-  width: 330px;
-  height: 50.5px;
-}
 </style>

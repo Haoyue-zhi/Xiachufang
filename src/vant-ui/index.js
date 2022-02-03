@@ -1,11 +1,18 @@
-import { Button, Form, Tabbar, TabbarItem, Icon } from 'vant';
+import { Button, Form, Tabbar, TabbarItem, Icon, Search,Checkbox, CheckboxGroup, Cascader, Field, CellGroup, Popup } from 'vant';
 // vant按需引入组件
 const options = [
     Button,
     Form,
     Tabbar,
     TabbarItem,
-    Icon
+    Icon,
+    Search,
+    Checkbox,
+    CheckboxGroup,
+    Cascader,
+    Field,
+    CellGroup,
+    Popup
 ]
 
 export function vant(app){
