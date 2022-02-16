@@ -46,6 +46,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
+import {register} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
@@ -99,7 +100,7 @@ function formatter(value) {
 
 // 回退
 function back() {
-  router.go(-1)
+  router.back()
 }
 
 // 跳转页面

@@ -37,7 +37,7 @@
 |─── .env.production                  # 生产环境变量配置
 |─── index.html                       # html模板
 |─── package.json                     # package.json
-└─── vite.config.js                   # vite配置
+└─── vite.index.js                   # vite配置
 
 ```
 

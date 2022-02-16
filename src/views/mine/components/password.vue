@@ -1,8 +1,7 @@
 <template>
   <div>
     <van-icon name="arrow-left" @click="back" size="25"/>
-    <p class="change" @click="pas">密码登录</p>
-    <p class="title">手机验证码登录</p>
+    <p class="title">密码登录</p>
     <div class="content">
       <van-field class="tel" v-model="value" placeholder="输入手机号" type="tel" :formatter="formatter" center maxlength="13"
                  label-width="80" clearable :border="false">
@@ -18,10 +17,10 @@
         </template>
       </van-field>
       <van-field class="pas" v-model="password" type="password" placeholder="输入密码" :border="false"/>
-      <van-button type="default" :disabled="password.length!==6 "
-                  :color=" password.length === 6 ? '#FA8C7C':'#EEEEEE'"
+      <van-button type="default" :disabled="password.length < 6 "
+                  :color=" password.length < 6 ? '#EEEEEE' : '#FA8C7C'"
                   @click="collect">
-        收取验证码
+        登录
       </van-button>
     </div>
     <van-popup :show="show" round position="bottom">
@@ -47,6 +46,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
+import {login, current} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
@@ -81,9 +81,25 @@ const onFinish = ({selectedOptions}) => {
   fieldValue.value = selectedOptions.map((option) => option.value).join('/');
 };
 
-// 收取验证码
-function collect() {
-  alert('success')
+// 登录
+async function collect() {
+  const data = await login({
+    'phone': fieldValue.value + value.value.replace(/\s/g, ''),
+    'password': password.value
+  })
+  if (data.status == 200) {
+    if (data.data.code == '000000') {
+      // 登录成功
+      // alert(data.data.msg)
+      // 储存token
+      localStorage.setItem('token',`Bearer ${data.data.token}`)
+      // router.push('/mine')
+    } else {
+      alert(data.data.msg)
+    }
+
+  }
+
 }
 
 // 格式化
@@ -101,12 +117,7 @@ function formatter(value) {
 
 // 回退
 function back() {
-  router.go(-1)
-}
-
-// 跳转页面
-function pas() {
-  router.push('/mine/password')
+  router.back()
 }
 </script>
 
@@ -115,14 +126,6 @@ function pas() {
   position: absolute;
   left: 13px;
   top: 10px;
-}
-
-.change {
-  position: absolute;
-  right: 16px;
-  top: 12px;
-  font-size: 14px;
-  color: #A6A6A6;
 }
 
 .title {

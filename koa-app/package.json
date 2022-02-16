@@ -2,14 +2,15 @@
   "name": "koa-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node app.js",
-    "nodemon": "npx nodemon app.js"
+    "start": "node main.js",
+    "nodemon": "npx nodemon main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",

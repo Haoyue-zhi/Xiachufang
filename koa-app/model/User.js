@@ -3,7 +3,7 @@ const { Schema } = mongoose
 // 实例化数据模版
 const userSchema = new Schema({
     phone: {
-        type: Number,
+        type: String,
         required: true
     },
     password: {
