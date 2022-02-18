@@ -4,16 +4,20 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "nodemon": "npx nodemon main.js"
+    "start": "nodemon main.js",
+    "pkg": "pkg -t node16-linux main.js",
+    "up": "npx gulp"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@foxtail/gulp-sftp-up4": "^0.1.8",
+    "gulp": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
-    "mongoose": "^6.1.5"
+    "mongoose": "^6.1.5",
+    "nodemon": "^2.0.15"
   }
 }

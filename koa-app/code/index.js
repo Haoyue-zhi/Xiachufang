@@ -1,10 +1,19 @@
 module.exports = {
     userPasswordError: {
-        code: '000001',
+        code: '100001',
         msg: '密码错误！',
     },
     userNoInformation: {
-        code: '000002',
+        code: '100002',
         msg: '用户不存在！',
+    },
+    TokenExpiredError:{
+        code: '401',
+        msg: 'Token已过期',
+    },
+    JsonWebTokenError:{
+        code: '403',
+        msg: 'Token无效',
     }
+
 }

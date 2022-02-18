@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 const {secret} = require('../config')
+const {TokenExpiredError, JsonWebTokenError} = require('../code')
 
 async function checkToken(ctx, next) {
-
     if (ctx.url === ('/api/users/login' || '/api/users/register')) {
         await next()
     } else {
@@ -10,14 +10,15 @@ async function checkToken(ctx, next) {
         let token = authorization.replace('Bearer ', '')
         if (token) {
             try {
-                var decoded = jwt.verify(token, secret);
+                const decoded = jwt.verify(token, secret);
             } catch (err) {
                 switch (err.name) {
                     case 'TokenExpiredError':
-                        console.log('Token已过期')
+                        ctx.app.emit('error', TokenExpiredError, ctx)
                         break
                     case 'JsonWebTokenError':
                         console.log('Token无效')
+                        ctx.app.emit('error', JsonWebTokenError, ctx)
                         break
                 }
             }

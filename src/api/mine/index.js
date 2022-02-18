@@ -19,9 +19,9 @@ export function login(data) {
 }
 
 // 获取用户token信息
-export function current(query) {
+export function info(query) {
     return axios({
-        url: `/users/current`,
+        url: `/users/info`,
         method: 'get',
         query
     })

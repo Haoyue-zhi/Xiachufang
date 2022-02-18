@@ -46,7 +46,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
-import {login, current} from '@/api/mine/index'
+import {login, info} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
@@ -90,16 +90,14 @@ async function collect() {
   if (data.status == 200) {
     if (data.data.code == '000000') {
       // 登录成功
-      // alert(data.data.msg)
+      alert(data.data.msg)
       // 储存token
       localStorage.setItem('token',`Bearer ${data.data.token}`)
       // router.push('/mine')
     } else {
       alert(data.data.msg)
     }
-
   }
-
 }
 
 // 格式化

@@ -31,7 +31,7 @@ app.use(bodyParser());
 
 // 配置路由
 app.use(router.routes()).use(router.allowedMethods());
-
+// 统一错误处理
 app.on('error', errHandler)
 
 module.exports = app

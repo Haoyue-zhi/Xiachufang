@@ -1,14 +1,11 @@
 module.exports = (err, ctx) => {
-    let status = 500
+    let status;
     switch (err.code) {
-        case '000001':
-            status = 400
-            break
-        case '000002':
-            status = 409
+        case '999999':
+            status = 500
             break
         default:
-            status
+            status = 200
     }
     ctx.status = status
     ctx.body = err

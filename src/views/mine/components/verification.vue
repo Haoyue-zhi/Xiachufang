@@ -46,7 +46,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
-import {register} from '@/api/mine/index'
+import {register,info} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
@@ -81,8 +81,27 @@ const onFinish = ({selectedOptions}) => {
 };
 
 // 收取验证码
-function collect() {
-  alert('success')
+async function collect() {
+  const data = await register({
+    'phone': fieldValue.value + value.value.replace(/\s/g, '')
+  })
+  if (data.status == 200) {
+    if (data.data.code == '000000') {
+      getInfo()
+      // 登录成功
+      alert(data.data.msg)
+      // 储存token
+      localStorage.setItem('token',`Bearer ${data.data.token}`)
+      router.push('/mine')
+    } else {
+      alert(data.data.msg)
+    }
+  }
+}
+
+async function getInfo(){
+  const list = await info()
+  console.log(list)
 }
 
 // 格式化

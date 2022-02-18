@@ -21,6 +21,9 @@ _axios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 _axios.interceptors.response.use(function (response) {
         // 2xx 范围内的状态码都会触发该函数。
+        if (response.data && response.data.code === (401 || 403)) { // 401,token失效;403,token无效.
+            console.log(response.data)
+        }
         // 对响应数据做点什么
         return response;
     }, function (error) {
