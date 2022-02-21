@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon main.js",
-    "build:pkg": "pkg -t node16-linux main.js && npx gulp"
+    "build": "pkg -t node16-linux main.js -o koaApi && npx gulp"
   },
   "author": "",
   "license": "ISC",

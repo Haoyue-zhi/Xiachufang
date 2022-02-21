@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const sftp = require('@foxtail/gulp-sftp-up4')
 
 const up = () => {
-    return gulp.src('./main')
+    return gulp.src('./koaApi')
         .pipe(sftp({
             host: '42.192.195.156',
             user: 'ubuntu',
