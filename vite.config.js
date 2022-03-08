@@ -29,7 +29,7 @@ export default defineConfig({
     // 文件夹别名 @ 为src目录
     resolve: {
         alias: {
-            '@': resolve(__dirname, '/src')
+            '@': resolve(__dirname, 'src')
         }
     },
     css: {

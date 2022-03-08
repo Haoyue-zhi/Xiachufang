@@ -93,7 +93,7 @@ async function collect() {
       alert(data.data.msg)
       // 储存token
       localStorage.setItem('token',`Bearer ${data.data.token}`)
-      // router.push('/mine')
+      router.replace('/mine')
     } else {
       alert(data.data.msg)
     }

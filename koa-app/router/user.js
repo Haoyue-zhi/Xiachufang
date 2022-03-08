@@ -88,6 +88,7 @@ router.post('/login', async ctx => {
  * @desc 用户信息接口地址
  */
 router.get('/info', checkToken, async ctx => {
+    ctx.status = 200
     ctx.body = {
         code: '000000',
         message: '信息获取成功',
