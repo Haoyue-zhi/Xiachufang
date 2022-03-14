@@ -1,98 +1,54 @@
-const Router = require('koa-router')
-const jwt = require('jsonwebtoken')
-const {secret} = require('../config')
-const checkToken = require('../middleware/checkToken')
-const {userPasswordError, userNoInformation} = require('../code')
-
-// 引入User
-const User = require('../model/User')
-// 实例化
-const router = new Router({prefix: '/users'})
+const Router = require("koa-router");
+const {
+  test,
+  sendSms,
+  register,
+  login,
+} = require("../controller/user.controller"); // 引入控制器
+const checkToken = require("../middleware/checkToken"); // token验证中间件
+const {
+  smsValidator,
+  codeValidator,
+  userValidator,
+  codeError,
+  pasError,
+  unregistered,
+} = require("../middleware/user.middleware"); // 错误处理
+const router = new Router({ prefix: "/users" }); // 实例化
 
 /**
  * @route GET /api/users/test
  * @desc 测试接口地址
  */
-router.get('/test', async ctx => {
-    ctx.status = 200
-    ctx.body = {
-        msg: 'Success!!!'
-    }
-});
+router.get("/test", test);
+
+/**
+ * @route POST /api/users/sendSms
+ * @desc 发送验证码
+ * @param {string} phone - 手机号
+ */
+router.post("/sendSms", smsValidator, sendSms);
 
 /**
  * @route POST /api/users/register
  * @desc 验证码注册/登录接口地址
+ * @param {string} _id - ID
+ * @param {string} user_code - 验证码
  */
-router.post('/register', async ctx => {
-    const findResult = await User.findOne({phone: ctx.request.body.phone})
-    if (findResult) {
-        if (findResult.phone == ctx.request.body.phone) {
-            // 生成token
-            let token = jwt.sign({phone: findResult.phone}, secret, {expiresIn: '2d'});
-            ctx.status = 200
-            ctx.body = {
-                token: token,
-                code: '000000',
-                msg: '登录成功！'
-            }
-        }
-    } else {
-        const newResult = new User({
-            phone: ctx.request.body.phone,
-            password: ''
-        })
-        // 存储到数据库
-        newResult.save()
-        ctx.status = 200
-        ctx.body = {
-            msg: '注册成功！',
-            code: '000000'
-        }
-    }
-
-});
+router.post("/register", codeValidator, codeError, register);
 
 /**
  * @route POST /api/users/login
  * @desc 密码登录接口地址
+ * @param {string} phone - 手机号
+ * @param {string} password - 密码
  */
-router.post('/login', async ctx => {
-    // 存储到数据库
-    const findResult = await User.findOne({phone: ctx.request.body.phone})
-    // 查到用户数据
-    if (findResult) {
-        // 密码正确
-        if (findResult.password == ctx.request.body.password) {
-            // 生成token
-            let token = jwt.sign({phone: findResult.phone}, secret, {expiresIn: '2d'});
-            ctx.status = 200
-            ctx.body = {
-                token: token,
-                code: '000000',
-                msg: '登录成功！'
-            }
-        } else {
-            // 密码错误
-            ctx.app.emit('error', userPasswordError, ctx)
-        }
-    } else {
-        // 未查到用户数据
-        ctx.app.emit('error', userNoInformation, ctx)
-    }
-
-});
+router.post("/login", userValidator, pasError, unregistered, login);
 
 /**
  * @route POST /api/users/info
  * @desc 用户信息接口地址
  */
-router.get('/info', checkToken, async ctx => {
-    ctx.status = 200
-    ctx.body = {
-        code: '000000',
-        message: '信息获取成功',
-    }
-});
+router.get("/info", checkToken);
 
-module.exports = router
+module.exports = router;

@@ -4,11 +4,11 @@
     <p class="change" @click="pas">密码登录</p>
     <p class="title">手机验证码登录</p>
     <div class="content">
-      <van-field class="tel" v-model="value" placeholder="输入手机号" type="tel" :formatter="formatter" center maxlength="13"
+      <van-field class="tel" v-model="phone" placeholder="输入手机号" type="tel" :formatter="formatter" center maxlength="13"
                  label-width="80" clearable :border="false">
         <template #label>
           <van-field
-              v-model="fieldValue"
+              v-model="areaCode"
               is-link
               readonly
               input-align="left"
@@ -17,8 +17,8 @@
           />
         </template>
       </van-field>
-      <van-button type="default" :disabled="value.length!==13 "
-                  :color=" value.length === 13 ? '#FA8C7C':'#EEEEEE'"
+      <van-button type="default" :disabled="phone.length!==13 "
+                  :color=" phone.length === 13 ? '#FA8C7C':'#EEEEEE'"
                   @click="collect">
         收取验证码
       </van-button>
@@ -32,7 +32,7 @@
           @close="show = false"
           @finish="onFinish"
       >
-        <template #option="{ option,selected}">
+        <template #option="{ option }">
           <div class="option">
             <div>{{ option.text }}</div>
             <div>{{ option.value }}</div>
@@ -44,16 +44,22 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
-import {register,info} from '@/api/mine/index'
+import { useStore } from 'vuex'
+import {Toast} from 'vant';
+import {createApp} from 'vue';
+import { test } from '../../../api/mine';
+const app = createApp();
+app.use(Toast);
 
 const router = useRouter()
 const route = useRoute()
+const store = useStore()
 
-const value = ref(''); // 手机号码
-const show = ref(false); //菜单显示
-const fieldValue = ref('+86');
+const phone = ref(''); // 手机号码
+const show = ref(false); // 菜单显示
+const areaCode = ref('+86'); // 区号
 const cascaderValue = ref('+86');
 // 选项列表，children 代表子选项，支持多级嵌套
 const options = [
@@ -77,36 +83,50 @@ const options = [
 // 全部选项选择完毕后，会触发 finish 事件
 const onFinish = ({selectedOptions}) => {
   show.value = false;
-  fieldValue.value = selectedOptions.map((option) => option.value).join('/');
+  areaCode.value = selectedOptions.map((option) => option.value).join('/');
 };
+
+onMounted(()=>{
+  if(store.state.phone){
+    phone.value = store.state.phone
+  }
+})
 
 // 收取验证码
 async function collect() {
-  const data = await register({
-    'phone': fieldValue.value + value.value.replace(/\s/g, '')
-  })
-  if (data.status == 200) {
-    if (data.data.code == '000000') {
-      getInfo()
-      // 登录成功
-      alert(data.data.msg)
-      // 储存token
-      localStorage.setItem('token',`Bearer ${data.data.token}`)
-      router.replace('/mine')
-    } else {
-      alert(data.data.msg)
-    }
-  }
-}
+  const data = await test()
+  // if(store.state.timer){
+  //   if(phone.value.replace(/\s/g, '') === store.state.phone){
+  //     store.commit('setPhone', {areaCode:areaCode.value, phone:phone.value.replace(/\s/g, '')})
+  //     router.push('/mine/checkCode')
+  //   } else {
+  //     Toast({message:'你获取验证码太快了，等一分钟再试试吧',duration:1000});
+  //   }
+  // } else {
+  //   store.commit('setPhone', {areaCode:areaCode.value, phone:phone.value.replace(/\s/g, '')})
+  //   router.push('/mine/checkCode')
+  // }
 
-async function getInfo(){
-  const list = await info()
-  console.log(list)
+  // const data = await register({
+  //   'phone': areaCode.value + value.value.replace(/\s/g, '')
+  // })
+  // if (data.status == 200) {
+  //   if (data.data.code == '000000') {
+  //     getInfo()
+  //     // 登录成功
+  //     alert(data.data.msg)
+  //     // 储存token
+  //     localStorage.setItem('token',`Bearer ${data.data.token}`)
+  //     router.replace('/mine')
+  //   } else {
+  //     alert(data.data.msg)
+  //   }
+  // }
 }
 
 // 格式化
-function formatter(value) {
-  const tel = value.replace(/\D/g, '')
+function formatter(phone) {
+  const tel = phone.replace(/\D/g, '')
   const {length} = tel
   if (length <= 3) {
     return tel;

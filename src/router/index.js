@@ -35,6 +35,11 @@ const routes = [
         path:'/mine/password',
         component: () => import('@/views/mine/components/password.vue'),
         meta: { transition: 'slide' }
+    },
+    {
+        path:'/mine/checkCode',
+        component: () => import('@/views/mine/components/checkCode.vue'),
+        meta: { transition: 'slide' }
     }
 ]
 

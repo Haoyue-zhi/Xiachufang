@@ -17,6 +17,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "mongoose": "^6.1.5",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "tencentcloud-sdk-nodejs-sms": "^4.0.306"
   }
 }

@@ -9,4 +9,6 @@
 import tab from './components/tabbar.vue'
 import statusBar from './components/statusbar.vue'
 import content from './components/content.vue'
+
+
 </script>

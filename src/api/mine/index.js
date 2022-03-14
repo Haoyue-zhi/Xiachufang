@@ -1,4 +1,12 @@
 import axios from '@/utils/axios'
+// 测试
+export function test(data) {
+    return axios({
+        url: `/users/test`,
+        method: 'get',
+        data
+    })
+}
 
 // 注册
 export function register(data) {

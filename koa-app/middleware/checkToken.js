@@ -1,30 +1,33 @@
-const jwt = require('jsonwebtoken')
-const {secret} = require('../config')
-const {TokenExpiredError, JsonWebTokenError} = require('../code')
+const jwt = require("jsonwebtoken");
+const { secret } = require("../config");
+const {
+  tokenExpiredError,
+  jsonWebTokenError,
+} = require("../constant/err.type");
 
 async function checkToken(ctx, next) {
-    if (ctx.url === ('/api/users/login' || '/api/users/register')) {
-        await next()
-    } else {
-        let {authorization} = ctx.request.header
-        let token = authorization.replace('Bearer ', '')
-        if (token) {
-            try {
-                const decoded = jwt.verify(token, secret);
-            } catch (err) {
-                switch (err.name) {
-                    case 'TokenExpiredError':
-                        ctx.app.emit('error', TokenExpiredError, ctx)
-                        break
-                    case 'JsonWebTokenError':
-                        console.log('Token无效')
-                        ctx.app.emit('error', JsonWebTokenError, ctx)
-                        break
-                }
-            }
-            await next()
-        }
+  let { authorization } = ctx.request.header;
+  let token = authorization.replace("Bearer ", "");
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, secret);
+      if (!decoded) {
+        return;
+      }
+    } catch (err) {
+      switch (err.name) {
+        case "TokenExpiredError":
+          console.error("Token已过期！", err);
+          ctx.app.emit("error", tokenExpiredError, ctx);
+          break;
+        case "JsonWebTokenError":
+          console.error("Token无效！", err);
+          ctx.app.emit("error", jsonWebTokenError, ctx);
+          break;
+      }
     }
+    await next();
+  }
 }
 
-module.exports = checkToken
+module.exports = checkToken;
