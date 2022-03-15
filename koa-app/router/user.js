@@ -3,7 +3,7 @@ const {
   test,
   sendSms,
   register,
-  login,
+  login
 } = require("../controller/user.controller"); // 引入控制器
 const checkToken = require("../middleware/checkToken"); // token验证中间件
 const {
@@ -11,8 +11,7 @@ const {
   codeValidator,
   userValidator,
   codeError,
-  pasError,
-  unregistered,
+  pasError
 } = require("../middleware/user.middleware"); // 错误处理
 const router = new Router({ prefix: "/users" }); // 实例化
 
@@ -43,7 +42,7 @@ router.post("/register", codeValidator, codeError, register);
  * @param {string} phone - 手机号
  * @param {string} password - 密码
  */
-router.post("/login", userValidator, pasError, unregistered, login);
+router.post("/login", userValidator, pasError, login);
 
 /**
  * @route POST /api/users/info

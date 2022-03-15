@@ -38,5 +38,5 @@ module.exports = {
     code: "10008",
     msg: "用户不存在!",
     data: {},
-  },
+  }
 };

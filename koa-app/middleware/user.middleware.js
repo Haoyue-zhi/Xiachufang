@@ -19,7 +19,7 @@ const smsValidator = async (ctx, next) => {
   }
   await next();
 };
-// 手机号或验证码为空
+// 验证码为空
 const codeValidator = async (ctx, next) => {
   const { user_code } = ctx.request.body;
   if (!user_code) {
@@ -50,24 +50,20 @@ const codeError = async (ctx, next) => {
   }
   await next();
 };
-// 密码错误
+// 用户不存在/密码错误
 const pasError = async (ctx, next) => {
   const { phone, password } = ctx.request.body;
   const userInfo = await getUserInfo(phone);
-  if (userInfo.password !== password) {
-    console.error("密码错误！", ctx.request.body);
-    ctx.app.emit("error", userPasError, ctx);
-    return;
-  }
-  await next();
-};
-// 用户不存在
-const unregistered = async (ctx, next) => {
-  const { phone, password } = ctx.request.body;
-  const userInfo = await getUserInfo(phone);
+  // 用户不存在
   if (!userInfo) {
     console.error("用户不存在！", ctx.request.body);
     ctx.app.emit("error", userUnregistered, ctx);
+    return;
+  }
+  // 密码错误
+  if (userInfo.password !== password) {
+    console.error("密码错误！", ctx.request.body);
+    ctx.app.emit("error", userPasError, ctx);
     return;
   }
   await next();
@@ -78,6 +74,5 @@ module.exports = {
   codeValidator,
   userValidator,
   codeError,
-  pasError,
-  unregistered,
+  pasError
 };

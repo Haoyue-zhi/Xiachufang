@@ -4,14 +4,14 @@
     <p class="title">
       请输入验证码
       <div class="tips">
-        验证码已通过短信发送至 {{store.state.areaCode}} {{phone}}
+        验证码已通过短信发送至 {{ store.state.areaCode }} {{ phone }}
       </div>
     </p>
     <div class="content">
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
           <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;" :disabled="store.state.time === 0 ? false : true" @click="resend">
-            <template v-if="store.state.time !== 0">{{store.state.time}}</template>
+            <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
         </template>
@@ -27,6 +27,7 @@
 </template>
 
 <script setup>
+import { sendSms } from "@/api/mine";
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -37,17 +38,26 @@ const store = useStore();
 
 const phone = ref(
   store.state.phone.substring(0, 3) +
-    "****" +
-    store.state.phone.substring(7, 11)
+  "****" +
+  store.state.phone.substring(7, 11)
 );
 
 onMounted(() => {
   store.dispatch("setTime");
+  test()
 });
 
+async function test() {
+  let data = {
+    phone:store.state.areaCode + store.state.phone
+  }
+  const res = await sendSms(data)
+  console.log(res);
+}
+
 const areaCode = ref(""); // 验证码
-function resend(){
-  alert('已发送')
+function resend() {
+  alert("已发送");
   store.dispatch("setTime");
 }
 

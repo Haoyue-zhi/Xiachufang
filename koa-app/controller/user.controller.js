@@ -12,7 +12,9 @@ class UserController {
   async test(ctx, next) {
     ctx.status = 200;
     ctx.body = {
-      msg: "Success!!!",
+      code: "00000",
+      msg: "Success!",
+      data: {}
     };
   }
 
@@ -62,7 +64,7 @@ class UserController {
     } else {
       // 未注册
       await signUp(phone);
-      ctx.status = 200;
+      ctx.status = 201;
       ctx.body = {
         code: "00000",
         msg: "注册成功！",

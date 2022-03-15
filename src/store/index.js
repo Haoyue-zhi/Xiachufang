@@ -6,7 +6,8 @@ export default createStore({
     phone: '', // 手机号
     time: '', // 验证码倒计时,
     timer: null, // 计时器开关
-    info:{} // 用户信息
+    info:{}, // 用户信息
+    code_id:'' // 短信ID
   },
   mutations: {
     // 保存区号、手机号

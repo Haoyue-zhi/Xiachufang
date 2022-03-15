@@ -1,36 +1,36 @@
-import axios from '@/utils/axios'
+import axios from "@/utils/axios";
 // 测试
-export function test(data) {
-    return axios({
-        url: `/users/test`,
-        method: 'get',
-        data
-    })
+export function test(params) {
+  return axios({
+    url: `/users/test`,
+    method: "get",
+    params,
+  });
 }
 
-// 注册
+// 发送验证码
+export function sendSms(data) {
+  return axios({
+    url: `/users/sendSms`,
+    method: "post",
+    data,
+  });
+}
+
+// 验证码注册/登录
 export function register(data) {
-    return axios({
-        url: `/users/register`,
-        method: 'post',
-        data
-    })
+  return axios({
+    url: `/users/register`,
+    method: "post",
+    data,
+  });
 }
 
 // 登录
 export function login(data) {
-    return axios({
-        url: `/users/login`,
-        method: 'post',
-        data
-    })
-}
-
-// 获取用户token信息
-export function info(query) {
-    return axios({
-        url: `/users/info`,
-        method: 'get',
-        query
-    })
+  return axios({
+    url: `/users/login`,
+    method: "post",
+    data,
+  });
 }
