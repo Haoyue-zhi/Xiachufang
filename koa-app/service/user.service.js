@@ -4,8 +4,8 @@ const User = require("../model/User"); // 引入User
 
 class UserService {
   // 生成Token
-  createToken(phone) {
-    return jwt.sign({phone}, secret, {expiresIn: '2d'})
+  createToken(userInfo) {
+    return jwt.sign({userInfo}, secret, {expiresIn: '2d'})
   }
 
   // 查询用户信息

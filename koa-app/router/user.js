@@ -5,7 +5,6 @@ const {
   register,
   login
 } = require("../controller/user.controller"); // 引入控制器
-const checkToken = require("../middleware/checkToken"); // token验证中间件
 const {
   smsValidator,
   codeValidator,
@@ -48,6 +47,6 @@ router.post("/login", userValidator, pasError, login);
  * @route POST /api/users/info
  * @desc 用户信息接口地址
  */
-router.get("/info", checkToken);
+// router.get("/info", checkToken);
 
 module.exports = router;

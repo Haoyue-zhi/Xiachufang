@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-import { test } from "@/api/mine";
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -99,7 +98,7 @@ const onFinish = ({ selectedOptions }) => {
 
 // 收取验证码
 async function collect() {
-
+  
   store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
   router.push('/mine/checkCode')
 

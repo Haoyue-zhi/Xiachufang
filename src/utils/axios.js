@@ -19,6 +19,9 @@ const _axios = axios.create(config);
 // 添加请求拦截器
 _axios.interceptors.request.use(
   function (config) {
+    if(config.otherURL === 'java'){
+      config.baseURL = import.meta.env.VITE_BASE_URL2
+    }
     config.headers["Authorization"] = getToken(); // 请求头带上token
     return config;
   },
@@ -86,8 +89,7 @@ _axios.interceptors.response.use(
         response.data.msg = msg;
       }
     }
-
-    return response;
+    return response.data;
   },
   function (error) {
     error.data = {};

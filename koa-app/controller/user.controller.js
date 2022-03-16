@@ -50,7 +50,7 @@ class UserController {
     const { phone } = await getCode(_id); // 从验证码表查到手机号
     // 验证码正确
     const userInfo = await getUserInfo(phone);
-    const token = createToken(phone);
+    const token = createToken(userInfo);
     if (userInfo) {
       // 已注册
       ctx.status = 200;
@@ -83,7 +83,8 @@ class UserController {
    */
   async login(ctx, next) {
     const { phone } = ctx.request.body;
-    const token = createToken(phone);
+    const userInfo = await getUserInfo(phone);
+    const token = createToken(userInfo);
     // 密码输入正确
     ctx.status = 200;
     ctx.body = {

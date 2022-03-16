@@ -4,6 +4,7 @@ export function test(params) {
   return axios({
     url: `/users/test`,
     method: "get",
+    // otherURL:'java', 调用java接口
     params,
   });
 }

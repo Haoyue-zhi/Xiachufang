@@ -14,28 +14,18 @@ module.exports = {
     msg: "手机号或密码为空！",
     data: {},
   },
-  tokenExpiredError: {
-    code: "10004",
-    msg: "Token已过期!",
-    data: {},
-  },
-  jsonWebTokenError: {
-    code: "10005",
-    msg: "Token无效!",
-    data: {},
-  },
   userCodeError: {
-    code: "10006",
+    code: "10004",
     msg: "验证码错误!",
     data: {},
   },
   userPasError: {
-    code: "10007",
+    code: "10005",
     msg: "密码错误!",
     data: {},
   },
   userUnregistered: {
-    code: "10008",
+    code: "10006",
     msg: "用户不存在!",
     data: {},
   }
