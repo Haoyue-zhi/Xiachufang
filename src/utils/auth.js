@@ -4,8 +4,8 @@ export function getToken() {
 }
 
 // 设置token
-export function setToken() {
-  localStorage.setItem("token", `Bearer ${data.data.token}`);
+export function setToken(token) {
+  localStorage.setItem("token", `Bearer ${token}`);
 }
 
 // 删除token

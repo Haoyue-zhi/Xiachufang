@@ -96,39 +96,27 @@ const onFinish = ({ selectedOptions }) => {
   areaCode.value = selectedOptions.map((option) => option.value).join("/");
 };
 
+onMounted(() => {
+  if (store.state.phone && store.state.areaCode) {
+    phone.value = store.state.phone
+    areaCode.value = store.state.areaCode
+  }
+})
+
 // 收取验证码
 async function collect() {
-  
-  store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
-  router.push('/mine/checkCode')
 
-  // if(store.state.timer){
-  //   if(phone.value.replace(/\s/g, '') === store.state.phone){
-  //     store.commit('setPhone', {areaCode:areaCode.value, phone:phone.value.replace(/\s/g, '')})
-  //     router.push('/mine/checkCode')
-  //   } else {
-  //     Toast({message:'你获取验证码太快了，等一分钟再试试吧',duration:1000});
-  //   }
-  // } else {
-  //   store.commit('setPhone', {areaCode:areaCode.value, phone:phone.value.replace(/\s/g, '')})
-  //   router.push('/mine/checkCode')
-  // }
-
-  // const data = await register({
-  //   'phone': areaCode.value + value.value.replace(/\s/g, '')
-  // })
-  // if (data.status == 200) {
-  //   if (data.data.code == '000000') {
-  //     getInfo()
-  //     // 登录成功
-  //     alert(data.data.msg)
-  //     // 储存token
-  //     localStorage.setItem('token',`Bearer ${data.data.token}`)
-  //     router.replace('/mine')
-  //   } else {
-  //     alert(data.data.msg)
-  //   }
-  // }
+  if (store.state.timer) {
+    if (phone.value.replace(/\s/g, '') === store.state.phone) {
+      store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
+      router.push('/mine/checkCode')
+    } else {
+      Toast({ message: '你获取验证码太快了，等一分钟再试试吧', duration: 1000 });
+    }
+  } else {
+    store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
+    router.push('/mine/checkCode')
+  }
 }
 
 // 格式化

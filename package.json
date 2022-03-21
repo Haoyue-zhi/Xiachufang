@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview --port 8080"
+    "serve": "vite preview --port 8080",
+    "up": "npx gulp"
   },
   "dependencies": {
+    "@foxtail/gulp-sftp-up4": "^0.1.8",
     "amfe-flexible": "^2.2.1",
     "axios": "^0.23.0",
+    "gulp": "^4.0.2",
     "mockjs": "^1.1.0",
     "swiper": "^7.2.0",
     "vant": "^3.4.3",

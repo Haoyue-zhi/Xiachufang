@@ -35,3 +35,13 @@ export function login(data) {
     data,
   });
 }
+
+// 获取用户信息
+export function getInfo(params) {
+  return axios({
+    url: "/user/simple",
+    method: "get",
+    otherURL: "java",
+    params,
+  });
+}

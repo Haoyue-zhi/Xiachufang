@@ -46,7 +46,8 @@
 <script setup>
 import {ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router'
-import {login, info} from '@/api/mine/index'
+import {setToken} from "@/utils/auth";
+import {login} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
@@ -83,20 +84,14 @@ const onFinish = ({selectedOptions}) => {
 
 // 登录
 async function collect() {
-  const data = await login({
+  let data = {
     'phone': fieldValue.value + value.value.replace(/\s/g, ''),
     'password': password.value
-  })
-  if (data.status == 200) {
-    if (data.data.code == '000000') {
-      // 登录成功
-      alert(data.data.msg)
-      // 储存token
-      localStorage.setItem('token',`Bearer ${data.data.token}`)
-      router.replace('/mine')
-    } else {
-      alert(data.data.msg)
-    }
+  }
+  const res = await login(data)
+  if (res.code && res.code === '00000') {
+    setToken(res.data.token)
+    router.replace('/mine')
   }
 }
 

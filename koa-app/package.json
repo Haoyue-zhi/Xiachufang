@@ -4,14 +4,11 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon main.js",
-    "build": "pkg -t node16-linux main.js -o koaApi && npx gulp"
+    "start": "nodemon main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@foxtail/gulp-sftp-up4": "^0.1.8",
-    "gulp": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",

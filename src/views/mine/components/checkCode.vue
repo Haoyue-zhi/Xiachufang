@@ -1,65 +1,89 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
-    <van-icon name="arrow-left" @click="back" size="25" />
+    <van-icon name="arrow-left" @click="back" size="25"/>
     <p class="title">
-      请输入验证码
-      <div class="tips">
-        验证码已通过短信发送至 {{ store.state.areaCode }} {{ phone }}
-      </div>
+      请输入验证码<br>
+      <span class="tips">
+      验证码已通过短信发送至 {{ store.state.areaCode }} {{ phone }}
+      </span>
     </p>
     <div class="content">
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
-          <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;" :disabled="store.state.time === 0 ? false : true" @click="resend">
+          <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;"
+                      :disabled="store.state.time === 0 ? false : true" @click="resend">
             <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
         </template>
       </van-field>
       <van-button
-        class="success"
-        type="default"
-        :disabled="areaCode.length !== 6"
-        :color="areaCode.length === 6 ? '#FA8C7C' : '#EEEEEE'"
-      >登录</van-button>
+          class="success"
+          type="default"
+          :disabled="areaCode.length !== 6"
+          :color="areaCode.length === 6 ? '#FA8C7C' : '#EEEEEE'"
+          @click="login"
+      >登录
+      </van-button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { sendSms } from "@/api/mine";
-import { ref, computed, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
+import {ref, computed, onMounted} from "vue";
+import {useRouter, useRoute} from "vue-router";
+import {useStore} from "vuex";
+import {sendSms, register} from "@/api/mine";
+import {setToken} from "@/utils/auth";
+
 
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
 const phone = ref(
-  store.state.phone.substring(0, 3) +
-  "****" +
-  store.state.phone.substring(7, 11)
+    store.state.phone.substring(0, 3) +
+    "****" +
+    store.state.phone.substring(7, 11)
 );
 
 onMounted(() => {
-  store.dispatch("setTime");
-  test()
+  sendCode()
 });
 
-async function test() {
-  let data = {
-    phone:store.state.areaCode + store.state.phone
+// 发送验证码
+async function sendCode() {
+  if (!store.state.timer) {
+    let data = {
+      phone: store.state.areaCode + store.state.phone
+    }
+    const res = await sendSms(data)
+    if (res.code && res.code === '00000') {
+      store.dispatch("setTime")
+      store.commit("setCodeid", res.data.code_id)
+    }
   }
-  const res = await sendSms(data)
-  console.log(res);
+}
+
+// 重新发送验证码
+function resend() {
+  sendCode()
 }
 
 const areaCode = ref(""); // 验证码
-function resend() {
-  alert("已发送");
-  store.dispatch("setTime");
+// 登录
+async function login() {
+  let data = {
+    _id: store.state.code_id,
+    user_code: areaCode.value
+  }
+  const res = await register(data)
+  if (res.code && res.code === '00000') {
+    setToken(res.data.token)
+    router.replace('/mine')
+  }
 }
+
 
 // 回退
 function back() {
@@ -79,6 +103,7 @@ function back() {
   left: 28px;
   top: 100px;
   font-size: 27px;
+
   .tips {
     font-size: 12px;
     color: #b1b1b1;

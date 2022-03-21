@@ -10,14 +10,14 @@ import tab from './components/tabbar.vue'
 import content from './components/content.vue'
 import { onMounted } from 'vue'
 
-import { test } from "@/api/mine";
+import { getInfo } from "@/api/mine";
 
 onMounted(() => {
-  getInfo()
+  // getUserInfo()
 })
 
-async function getInfo() {
-  const res = await test()
+async function getUserInfo() {
+  const res = await getInfo()
   console.log(res);
 }
 
