@@ -8,17 +8,24 @@
 <script setup>
 import tab from './components/tabbar.vue'
 import content from './components/content.vue'
-import { onMounted } from 'vue'
+import {onMounted} from 'vue'
+import {useStore, mapMutations} from "vuex";
+import {getInfo} from "@/api/mine";
 
-import { getInfo } from "@/api/mine";
+const store = useStore()
 
 onMounted(() => {
-  // getUserInfo()
+  getUserInfo()
 })
 
+// 获取用户信息
 async function getUserInfo() {
   const res = await getInfo()
-  console.log(res);
+  // && res.code === '00000'
+  if (res.code) {
+    store.commit('setInfo', res.data)
+    // console.log(res)
+  }
 }
 
 </script>

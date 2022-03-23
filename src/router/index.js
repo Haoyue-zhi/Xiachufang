@@ -28,17 +28,17 @@ const routes = [
     },
     {
         path: '/mine/verification',
-        component: () => import('@/views/mine/components/verification.vue'),
+        component: () => import('@/views/mine/verification.vue'),
         meta: { transition: 'slide' }
     },
     {
         path:'/mine/password',
-        component: () => import('@/views/mine/components/password.vue'),
+        component: () => import('@/views/mine/password.vue'),
         meta: { transition: 'slide' }
     },
     {
         path:'/mine/checkCode',
-        component: () => import('@/views/mine/components/checkCode.vue'),
+        component: () => import('@/views/mine/checkCode.vue'),
         meta: { transition: 'slide' }
     }
 ]

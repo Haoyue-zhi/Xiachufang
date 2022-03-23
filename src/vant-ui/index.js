@@ -1,4 +1,19 @@
-import { Button, Form, Tabbar, TabbarItem, Icon, Search,Checkbox, CheckboxGroup, Cascader, Field, CellGroup, Popup } from 'vant';
+import {
+    Button,
+    Form,
+    Tabbar,
+    TabbarItem,
+    Icon,
+    Search,
+    Checkbox,
+    CheckboxGroup,
+    Cascader,
+    Field,
+    CellGroup,
+    Popup,
+    NavBar,
+    PullRefresh
+} from 'vant';
 // vant按需引入组件
 const options = [
     Button,
@@ -12,11 +27,13 @@ const options = [
     Cascader,
     Field,
     CellGroup,
-    Popup
+    Popup,
+    NavBar,
+    PullRefresh
 ]
 
-export function vant(app){
-    options.forEach((component)=>{
+export function vant(app) {
+    options.forEach((component) => {
         app.use(component)
     })
 }

@@ -39,7 +39,7 @@ export function login(data) {
 // 获取用户信息
 export function getInfo(params) {
   return axios({
-    url: "/user/simple",
+    url: "/usve/user/simple",
     method: "get",
     otherURL: "java",
     params,
