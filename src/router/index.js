@@ -40,6 +40,11 @@ const routes = [
         path:'/mine/checkCode',
         component: () => import('@/views/mine/checkCode.vue'),
         meta: { transition: 'slide' }
+    },
+    {
+        path:'/mine/setting',
+        component: () => import('@/views/mine/setting.vue'),
+        meta: { transition: 'slide' }
     }
 ]
 

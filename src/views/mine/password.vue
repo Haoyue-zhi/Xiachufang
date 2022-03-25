@@ -27,7 +27,7 @@
       <van-cascader
           v-model="cascaderValue"
           title="国家/地区"
-          active-color="#FA8C7C"
+          active-color="#E86F58"
           :options="options"
           @close="show = false"
           @finish="onFinish"

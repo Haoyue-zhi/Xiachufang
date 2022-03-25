@@ -38,7 +38,7 @@
       <van-cascader
         v-model="cascaderValue"
         title="国家/地区"
-        active-color="#FA8C7C"
+        active-color="#E86F58"
         :options="options"
         @close="show = false"
         @finish="onFinish"
@@ -55,11 +55,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { createApp, onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { Toast } from "vant";
-import { createApp } from "vue";
 const app = createApp();
 app.use(Toast);
 

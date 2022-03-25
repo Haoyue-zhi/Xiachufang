@@ -14,7 +14,7 @@
     "developer" : {
         "name" : "Zhi", /*开发者名称*/
         "email" : "zhangwenhaoyue@163.com", /*开发者邮箱地址*/
-        "url" : "https://seaofflowers.cn/home" /*开发者个人主页地址*/
+        "url" : "https://seaofflowers.cn/" /*开发者个人主页地址*/
     },
     "permissions" : {
         "Accelerometer" : {
@@ -111,6 +111,9 @@
                 "keystore" : "", /*Android应用打包使用的密钥库文件*/
                 "password" : "", /*Android应用打包使用密钥库中证书的密码*/
                 "aliasname" : "", /*Android应用打包使用密钥库中证书的别名*/
+                "permissionExternalStorage": {
+                    "request": "none"
+                },
                 "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",

@@ -1,17 +1,26 @@
 <template>
   <div class="nav">
-    <icon-svg v-show="false" class="add" name="icon-add"></icon-svg>
-    <div class="title">我</div>
-    <van-search v-show="false" placeholder="搜索我的菜谱" background="#ffffff"/>
-    <icon-svg v-show="false" class="adduser" name="icon-adduser"></icon-svg>
-    <icon-svg v-show="false" class="set" name="icon-set"></icon-svg>
+    <icon-svg v-show="info" class="add" name="icon-add"></icon-svg>
+    <div v-show="!info" class="title">我</div>
+    <van-search v-show="info" placeholder="搜索我的菜谱" background="#ffffff"/>
+    <icon-svg v-show="info" class="adduser" name="icon-adduser"></icon-svg>
+    <icon-svg v-show="info" class="set" name="icon-set" @click="router.push('/mine/setting')"></icon-svg>
   </div>
 </template>
 
-<script>
-export default {
-  name: "navbar"
-}
+<script setup>
+import {computed} from "vue";
+import {useStore} from "vuex";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+const store = useStore();
+
+const info = computed(() => {
+  return Object.keys(store.state.info).length !== 0
+})
+
 </script>
 
 <style scoped lang="scss">
