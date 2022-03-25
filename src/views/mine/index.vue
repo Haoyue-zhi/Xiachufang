@@ -17,7 +17,7 @@
       </template>
       <!-- 已登录页面 -->
       <template v-else>
-        <van-pull-refresh class="main">
+        <van-pull-refresh class="main" v-model="loading" @refresh="onRefresh">
           <div class="info">
             <div class="top">
               <div class="name">{{info.userName}}</div>
@@ -53,7 +53,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { createApp } from 'vue';
 import { Toast } from 'vant';
 import { useStore } from "vuex";
-import { removeToken } from '../../utils/auth'
+import { removeToken } from '@/utils/auth'
+import { getInfo } from "@/api/mine";
 const app = createApp();
 app.use(Toast);
 
@@ -61,9 +62,7 @@ const router = useRouter()
 const route = useRoute()
 const store = useStore()
 
-const value = ref('');
 const checked = ref(false);
-const horizontal = ref(false);
 
 // 登录
 function login () {
@@ -74,11 +73,36 @@ function login () {
   }
 }
 
-const info = computed(() => store.state.info)
 
 function logout () {
   removeToken()
   store.commit('resetStore')
+}
+
+const info = computed({
+  get () {
+    return store.state.info
+  },
+  set (val) {
+    store.commit('setInfo', val)
+  }
+})
+
+// 下拉刷新
+const loading = ref(false);
+const onRefresh = () => {
+  setTimeout(() => {
+    getUserInfo()
+    loading.value = false;
+  }, 1000);
+};
+
+// 获取用户信息
+async function getUserInfo () {
+  const res = await getInfo()
+  if (res.code) {
+    info.value = res.data || {}
+  }
 }
 
 </script>
