@@ -10,7 +10,8 @@ const {
   codeValidator,
   userValidator,
   codeError,
-  pasError
+  pasError,
+  userEmpty
 } = require("../middleware/user.middleware"); // 错误处理
 const router = new Router({ prefix: "/users" }); // 实例化
 
@@ -41,7 +42,7 @@ router.post("/register", codeValidator, codeError, register);
  * @param {string} phone - 手机号
  * @param {string} password - 密码
  */
-router.post("/login", userValidator, pasError, login);
+router.post("/login", userEmpty, userValidator, pasError, login);
 
 /**
  * @route POST /api/users/info

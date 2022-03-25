@@ -9,6 +9,6 @@ export function setToken(token) {
 }
 
 // 删除token
-export function delToken() {
+export function removeToken() {
   return localStorage.removeItem("token");
 }

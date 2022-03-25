@@ -4,38 +4,43 @@
 
     <div class="content">
       <!-- 未登录页面 -->
-      <div class="default" v-if="!info">
-        <div class="tips">开始准备好好吃饭</div>
-        <van-checkbox :class="{ 'shake-horizontal': horizontal }" v-model="checked" checked-color="#FA8C7C">
-          我已阅读并同意下厨房的<a>《用户协议》</a>和<a>《隐私政策》</a>
-        </van-checkbox>
-        <div class="btn">
-          <van-button type="default" @click="login" color="#EEEEEE">手机登录</van-button>
-        </div>
-      </div>
-
-      <van-pull-refresh class="main" v-else>
-        <div class="info">
-          <div class="top">
-            <div class="name">{{info.userName}}</div>
-            <img :src="info.userAvatar">
+      <template v-if="Object.keys(info).length === 0">
+        <div class="default">
+          <div class="tips">开始准备好好吃饭</div>
+          <van-checkbox v-model="checked" checked-color="#FA8C7C">
+            我已阅读并同意下厨房的<a>《用户协议》</a>和<a>《隐私政策》</a>
+          </van-checkbox>
+          <div class="btn">
+            <van-button type="default" @click="login" color="#EEEEEE">手机登录</van-button>
           </div>
-          <div class="bottom">
-            <div class="follow">
-              <div class="num">0</div>
-              <div class="item">关注</div>
+        </div>
+      </template>
+      <!-- 已登录页面 -->
+      <template v-else>
+        <van-pull-refresh class="main">
+          <div class="info">
+            <div class="top">
+              <div class="name">{{info.userName}}</div>
+              <img :src="info.userAvatar">
             </div>
-            <div class="fans">
-              <div class="num">0</div>
-              <div class="item">粉丝</div>
+            <div class="bottom">
+              <div class="follow">
+                <div class="num">0</div>
+                <div class="item">关注</div>
+              </div>
+              <div class="fans">
+                <div class="num">0</div>
+                <div class="item">粉丝</div>
+              </div>
             </div>
+
           </div>
+          <div class="introduce">
+            <button @click="logout">退出</button>
+          </div>
+        </van-pull-refresh>
+      </template>
 
-        </div>
-        <div class="introduce">
-
-        </div>
-      </van-pull-refresh>
     </div>
   </div>
 
@@ -43,12 +48,12 @@
 
 <script setup>
 import navbar from './components/navbar.vue'
-import {computed, ref} from 'vue'
-import {useRouter, useRoute} from 'vue-router'
-import {createApp} from 'vue';
-import {Toast} from 'vant';
-import {useStore} from "vuex";
-
+import { computed, onMounted, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { createApp } from 'vue';
+import { Toast } from 'vant';
+import { useStore } from "vuex";
+import { removeToken } from '../../utils/auth'
 const app = createApp();
 app.use(Toast);
 
@@ -61,20 +66,21 @@ const checked = ref(false);
 const horizontal = ref(false);
 
 // 登录
-function login() {
+function login () {
   if (checked.value === false) {
-    horizontal.value = true
-    setTimeout(() => {
-      horizontal.value = false
-    }, 500)
-    Toast({message: '登录/注册前请先阅读并同意相关协议', duration: 1000});
+    Toast({ message: '登录/注册前请先阅读并同意相关协议', duration: 1000 });
   } else {
     router.push('/mine/verification')
   }
 }
 
-const info = computed(()=> store.state.info)
-console.log(info.value)
+const info = computed(() => store.state.info)
+
+function logout () {
+  removeToken()
+  store.commit('resetStore')
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -139,11 +145,10 @@ console.log(info.value)
     }
 
     .main {
-
       .info {
         height: 170px;
         position: relative;
-        border: 0.5px solid #E5E5E3;
+        border-bottom: 0.5px solid #e5e5e3;
 
         .top {
           display: flex;
@@ -172,7 +177,8 @@ console.log(info.value)
           width: 100%;
           display: flex;
 
-          .follow, .fans {
+          .follow,
+          .fans {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -199,9 +205,8 @@ console.log(info.value)
       .introduce {
         min-height: 122px;
         width: 100%;
-        border: 0.5px solid #E5E5E3;
+        border-bottom: 0.5px solid #e5e5e3;
       }
-
     }
   }
 }

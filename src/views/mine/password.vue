@@ -18,7 +18,7 @@
       </van-field>
       <van-field class="pas" v-model="password" type="password" placeholder="输入密码" :border="false"/>
       <van-button type="default" :disabled="password.length < 6 "
-                  :color=" password.length < 6 ? '#EEEEEE' : '#FA8C7C'"
+                  :color=" password.length < 6 ? '#EEEEEE' : '#E86F58'"
                   @click="collect">
         登录
       </van-button>

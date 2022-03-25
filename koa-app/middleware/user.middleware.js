@@ -6,12 +6,18 @@ const {
   userPasError,
   userUnregistered,
 } = require("../constant/err.type");
-const { getUserInfo } = require("../service/user.service");
-const { getCode } = require("../service/sms.service");
+const {
+  getUserInfo
+} = require("../service/user.service");
+const {
+  getCode
+} = require("../service/sms.service");
 
 // 手机号为空
 const smsValidator = async (ctx, next) => {
-  const { phone } = ctx.request.body;
+  const {
+    phone
+  } = ctx.request.body;
   if (!phone) {
     console.error("手机号为空！", ctx.request.body);
     ctx.app.emit("error", userPhoneEmpty, ctx);
@@ -21,7 +27,9 @@ const smsValidator = async (ctx, next) => {
 };
 // 验证码为空
 const codeValidator = async (ctx, next) => {
-  const { user_code } = ctx.request.body;
+  const {
+    user_code
+  } = ctx.request.body;
   if (!user_code) {
     console.error("验证码为空！", ctx.request.body);
     ctx.app.emit("error", userCodeEmpty, ctx);
@@ -31,7 +39,10 @@ const codeValidator = async (ctx, next) => {
 };
 // 手机号或密码为空
 const userValidator = async (ctx, next) => {
-  const { phone, password } = ctx.request.body;
+  const {
+    phone,
+    password
+  } = ctx.request.body;
   if (!phone || !password) {
     console.error("手机号或密码为空！", ctx.request.body);
     ctx.app.emit("error", userPasEmpty, ctx);
@@ -41,8 +52,13 @@ const userValidator = async (ctx, next) => {
 };
 // 验证码错误
 const codeError = async (ctx, next) => {
-  const { _id, user_code } = ctx.request.body;
-  const { code } = await getCode(_id);
+  const {
+    _id,
+    user_code
+  } = ctx.request.body;
+  const {
+    code
+  } = await getCode(_id);
   if (code !== user_code) {
     console.error("验证码错误！", ctx.request.body);
     ctx.app.emit("error", userCodeError, ctx);
@@ -50,17 +66,13 @@ const codeError = async (ctx, next) => {
   }
   await next();
 };
-// 用户不存在/密码错误
+// 密码错误
 const pasError = async (ctx, next) => {
-  const { phone, password } = ctx.request.body;
+  const {
+    phone,
+    password
+  } = ctx.request.body;
   const userInfo = await getUserInfo(phone);
-  // 用户不存在
-  if (!userInfo) {
-    console.error("用户不存在！", ctx.request.body);
-    ctx.app.emit("error", userUnregistered, ctx);
-    return;
-  }
-  // 密码错误
   if (userInfo.password !== password) {
     console.error("密码错误！", ctx.request.body);
     ctx.app.emit("error", userPasError, ctx);
@@ -68,11 +80,23 @@ const pasError = async (ctx, next) => {
   }
   await next();
 };
+// 用户不存在
+const userEmpty = async (ctx, next) => {
+  const { phone } = ctx.request.body;
+  const userInfo = await getUserInfo(phone);
+  if (!userInfo) {
+    console.error("用户不存在！", ctx.request.body);
+    ctx.app.emit("error", userUnregistered, ctx);
+    return;
+  }
+  await next();
+}
 
 module.exports = {
   smsValidator,
   codeValidator,
   userValidator,
   codeError,
-  pasError
+  pasError,
+  userEmpty
 };

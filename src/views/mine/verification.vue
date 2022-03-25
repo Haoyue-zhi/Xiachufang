@@ -30,7 +30,7 @@
       <van-button
         type="default"
         :disabled="phone.length !== 13"
-        :color="phone.length === 13 ? '#FA8C7C' : '#EEEEEE'"
+        :color="phone.length === 13 ? '#E86F58' : '#EEEEEE'"
         @click="collect"
       >收取验证码</van-button>
     </div>

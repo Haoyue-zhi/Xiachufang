@@ -8,23 +8,36 @@
 <script setup>
 import tab from './components/tabbar.vue'
 import content from './components/content.vue'
-import {onMounted} from 'vue'
-import {useStore, mapMutations} from "vuex";
-import {getInfo} from "@/api/mine";
+import { computed } from 'vue';
+import { useStore } from "vuex";
+import { getInfo } from "@/api/mine";
+import { getToken } from '@/utils/auth';
 
 const store = useStore()
 
-onMounted(() => {
-  getUserInfo()
+getUserInfo()
+
+const info = computed({
+  get () {
+    return store.state.info
+  },
+  set (val) {
+    store.commit('setInfo', val)
+  }
 })
 
 // 获取用户信息
-async function getUserInfo() {
-  const res = await getInfo()
-  // && res.code === '00000'
-  if (res.code) {
-    store.commit('setInfo', res.data)
-    // console.log(res)
+async function getUserInfo () {
+  const hasToken = getToken()
+  if (hasToken) {
+    if (!localStorage.getItem('info')) {
+      const res = await getInfo()
+      if (res.code) {
+        info.value = res.data || {}
+      }
+    } else {
+      store.commit('resetInfo')
+    }
   }
 }
 

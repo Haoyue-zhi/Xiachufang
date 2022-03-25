@@ -1,4 +1,6 @@
-import {createStore} from "vuex";
+import {
+    createStore
+} from "vuex";
 
 export default createStore({
     state: {
@@ -36,6 +38,26 @@ export default createStore({
         // 保存用户信息
         setInfo(state, data) {
             state.info = data
+            localStorage.setItem('info', JSON.stringify(data))
+        },
+        // 读取store中用户信息
+        resetInfo(state) {
+            state.info = JSON.parse(localStorage.getItem('info'))
+        },
+        // 重置state
+        resetStore(state) {
+            localStorage.removeItem('info')
+            for (let key in state) {
+                state.key = ''
+                if (key === 'info') {
+                    state.info = {}
+                }
+            }
+        },
+        // 清空定时器
+        clearTimer(state) {
+            state.timer = clearInterval(state.timer)
+            state.timer = null
         }
     },
     actions: {

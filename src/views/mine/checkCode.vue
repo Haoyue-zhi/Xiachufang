@@ -11,7 +11,7 @@
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
           <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;"
-                      :disabled="store.state.time === 0 ? false : true" @click="resend">
+                      :disabled="store.state.time === 0 ? false : true" @click="sendCode">
             <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
@@ -21,7 +21,7 @@
           class="success"
           type="default"
           :disabled="areaCode.length !== 6"
-          :color="areaCode.length === 6 ? '#FA8C7C' : '#EEEEEE'"
+          :color="areaCode.length === 6 ? '#E86F58' : '#EEEEEE'"
           @click="login"
       >登录
       </van-button>
@@ -65,11 +65,6 @@ async function sendCode() {
   }
 }
 
-// 重新发送验证码
-function resend() {
-  sendCode()
-}
-
 const areaCode = ref(""); // 验证码
 // 登录
 async function login() {
@@ -80,6 +75,7 @@ async function login() {
   const res = await register(data)
   if (res.code && res.code === '00000') {
     setToken(res.data.token)
+    store.commit('clearTimer')
     router.replace('/mine')
   }
 }
