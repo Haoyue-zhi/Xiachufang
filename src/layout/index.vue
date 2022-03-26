@@ -14,6 +14,7 @@ import {useRouter, useRoute} from "vue-router";
 import {getInfo} from "@/api/mine";
 import {getToken} from '@/utils/auth';
 import {Toast} from 'vant';
+
 const app = createApp();
 app.use(Toast);
 
@@ -31,6 +32,7 @@ const info = computed({
     store.commit('setInfo', val)
   }
 })
+
 async function getUserInfo() {
   const hasToken = getToken()
   if (hasToken) {
@@ -50,7 +52,13 @@ const nowRoute = computed(() => route.path)
 const first = ref(null)
 if (window.plus) {
   plus.key.addEventListener("backbutton", function () {
-    if (['/home', '/store', '/collect', '/mine'].includes(nowRoute.value)) {
+    if (['/store', '/collect', '/mine'].includes(nowRoute.value)) {
+      router.replace('/home')
+    } else {
+      router.go(-1);
+    }
+
+    if (nowRoute.value === '/home') {
       if (!first.value) {
         first.value = new Date().getTime();
         Toast({message: '再按一次退出应用', duration: 1000});
@@ -62,9 +70,8 @@ if (window.plus) {
           plus.runtime.quit();
         }
       }
-    } else {
-      router.go(-1);
     }
+
   })
 }
 
