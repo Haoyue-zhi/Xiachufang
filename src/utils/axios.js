@@ -44,7 +44,6 @@ _axios.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        console.log({error})
         if(error.response === undefined){
             Toast({message: '服务器连接超时！', duration: 1000});
         } else {
