@@ -8,15 +8,11 @@
 <script setup>
 import tab from './components/tabbar.vue'
 import content from './components/content.vue'
-import {createApp, computed, ref} from 'vue';
+import { computed} from 'vue';
 import {useStore} from "vuex";
 import {useRouter, useRoute} from "vue-router";
 import {getInfo} from "@/api/mine";
 import {getToken} from '@/utils/auth';
-import {Toast} from 'vant';
-
-const app = createApp();
-app.use(Toast);
 
 const store = useStore()
 const router = useRouter()
@@ -46,33 +42,4 @@ async function getUserInfo() {
     }
   }
 }
-
-// 双击返回桌面
-const nowRoute = computed(() => route.path)
-const first = ref(null)
-if (window.plus) {
-  plus.key.addEventListener("backbutton", function () {
-    if (['/store', '/collect', '/mine'].includes(nowRoute.value)) {
-      router.replace('/home')
-    } else {
-      router.go(-1);
-    }
-
-    if (nowRoute.value === '/home') {
-      if (!first.value) {
-        first.value = new Date().getTime();
-        Toast({message: '再按一次退出应用', duration: 1000});
-        setTimeout(function () {
-          first.value = null;
-        }, 1000);
-      } else {
-        if (new Date().getTime() - first.value < 1500) {
-          plus.runtime.quit();
-        }
-      }
-    }
-
-  })
-}
-
 </script>
