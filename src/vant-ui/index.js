@@ -12,7 +12,12 @@ import {
     CellGroup,
     Popup,
     NavBar,
-    PullRefresh
+    PullRefresh,
+    Grid,
+    GridItem,
+    Divider,
+    Tab,
+    Tabs
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -29,7 +34,12 @@ const options = [
     CellGroup,
     Popup,
     NavBar,
-    PullRefresh
+    PullRefresh,
+    Grid,
+    GridItem,
+    Divider,
+    Tab,
+    Tabs
 ]
 
 export function vant(app) {

@@ -25,7 +25,7 @@ const info = computed({
     return store.state.info
   },
   set(val) {
-    store.commit('setInfo', val)
+    store.dispatch('setInfo', val)
   }
 })
 
@@ -34,8 +34,8 @@ async function getUserInfo() {
   if (hasToken) {
     if (!localStorage.getItem('info')) {
       const res = await getInfo()
-      if (res.code) {
-        info.value = res.data || {}
+      if (res.code && res.code === '00000') {
+        info.value = res.data
       }
     } else {
       store.commit('resetInfo')

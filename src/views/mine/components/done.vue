@@ -1,5 +1,6 @@
 <template>
   <van-pull-refresh class="main" v-model="loading" @refresh="onRefresh">
+    <!-- 个人信息 -->
     <div class="info">
       <div class="top">
         <div class="name">{{ info.userName }}</div>
@@ -15,19 +16,53 @@
           <div class="item">粉丝</div>
         </div>
       </div>
-
     </div>
+    <!-- 介绍 -->
     <div class="introduce">
+      <div class="base">
+        {{ info.userSex ? '女' : '男' }} · {{ info.createTime.slice(0, 4) }}年 加入
+      </div>
+      <p class="describe">
+        {{ info.userText }}
+      </p>
     </div>
+    <!-- 宫格 -->
+    <div>
+      <van-grid :border="false" :column-num="2" icon-size="22px">
+        <van-grid-item icon="clock-o" text="浏览历史"/>
+        <van-grid-item icon="orders-o" text="订单"/>
+      </van-grid>
+      <van-divider :style="{ color: '#e5e5e3',margin:0 }"/>
+    </div>
+    <!-- 标签页 -->
+    <div class="tabs">
+      <van-tabs line-width="20px">
+        <van-tab title="菜谱 0">
+          <div class="menu">
+            创建菜谱的人是厨房里的天使
+            <button>开始创建第一道菜谱</button>
+          </div>
+        </van-tab>
+        <van-tab title="作品 0">
+          <div class="works">
+            记录美食，味道因回忆而美丽
+            <button>分享我的美食作品</button>
+          </div>
+        </van-tab>
+      </van-tabs>
+    </div>
+
   </van-pull-refresh>
+
 </template>
 
 <script setup>
-import { createApp, computed, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useStore } from "vuex";
-import { getInfo } from "@/api/mine";
-import { Toast } from 'vant';
+import {createApp, computed, ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useStore} from "vuex";
+import {getInfo} from "@/api/mine";
+import {Toast} from 'vant';
+
 const app = createApp();
 app.use(Toast);
 
@@ -36,10 +71,10 @@ const route = useRoute()
 const store = useStore()
 
 const info = computed({
-  get () {
+  get() {
     return store.state.info
   },
-  set (val) {
+  set(val) {
     store.commit('setInfo', val)
   }
 })
@@ -54,10 +89,11 @@ const onRefresh = () => {
 };
 
 // 获取用户信息
-async function getUserInfo () {
+async function getUserInfo() {
   const res = await getInfo()
-  if (res.code) {
+  if (res.code && res.code === '00000') {
     info.value = res.data
+    console.log(info.value)
   }
 }
 </script>
@@ -66,6 +102,9 @@ async function getUserInfo () {
 @import "@/assets/scss/color";
 
 .main {
+  height: calc(100vh - 100px) !important;
+  overflow: auto !important;
+
   .info {
     height: 170px;
     position: relative;
@@ -124,9 +163,57 @@ async function getUserInfo () {
   }
 
   .introduce {
-    min-height: 122px;
+    min-height: 105px;
     width: 100%;
     border-bottom: 0.5px solid #e5e5e3;
+
+    .base {
+      padding-top: 30px;
+      padding-left: 20px;
+      font-size: 13px;
+    }
+
+    .describe {
+      padding-top: 5px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 5px;
+      font-size: 13px;
+    }
+  }
+
+  .tabs {
+    .van-tabs {
+      height: 289px !important;
+
+      :deep .van-tabs__wrap{
+        padding: 0 100px;
+      }
+
+      :deep .van-tabs__content, .van-tab__panel {
+        height: 100% !important;
+      }
+    }
+
+    .menu, .works {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      color: #3D3D3D;
+
+      button{
+        border: none;
+        background: none;
+        margin-top: 35px;
+        font-size: 17px;
+        color: $theme-color;
+      }
+    }
   }
 }
 </style>

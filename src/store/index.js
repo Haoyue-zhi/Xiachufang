@@ -64,6 +64,9 @@ export default createStore({
         setTime(context) {
             context.commit("setTime");
         },
+        setInfo(context, data) {
+            context.commit("setInfo", data);
+        }
     },
     modules: {},
 });

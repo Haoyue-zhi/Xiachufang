@@ -5,9 +5,9 @@
     <!-- 主要内容 -->
     <div class="content">
       <!-- 未登录页面 -->
-      <def v-if="info"></def>
+      <def v-show="info"></def>
       <!-- 已登录页面 -->
-      <done v-else></done>
+      <done v-show="!info"></done>
     </div>
   </div>
 
