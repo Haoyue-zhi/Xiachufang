@@ -36,7 +36,7 @@
     </div>
     <!-- 标签页 -->
     <div class="tabs">
-      <van-tabs line-width="20px">
+      <van-tabs v-model:active="active" sticky offset-top="52" line-width="20px" color="#E86F58">
         <van-tab title="菜谱 0">
           <div class="menu">
             创建菜谱的人是厨房里的天使
@@ -70,6 +70,8 @@ const router = useRouter()
 const route = useRoute()
 const store = useStore()
 
+const active = ref(0);
+
 const info = computed({
   get() {
     return store.state.info
@@ -78,6 +80,7 @@ const info = computed({
     store.commit('setInfo', val)
   }
 })
+
 
 // 下拉刷新
 const loading = ref(false);
@@ -184,10 +187,11 @@ async function getUserInfo() {
 
   .tabs {
     .van-tabs {
-      height: 289px !important;
+      min-height: 289px !important;
 
       :deep .van-tabs__wrap{
         padding: 0 100px;
+        background: #fff;
       }
 
       :deep .van-tabs__content, .van-tab__panel {

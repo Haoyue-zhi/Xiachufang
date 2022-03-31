@@ -25,16 +25,6 @@ const info = computed(() => {
 
 <style scoped lang="scss">
 .nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 47px;
-  margin-top: 8px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 99999;
 
   .title {
     font-size: 17px;
@@ -56,8 +46,8 @@ const info = computed(() => {
   .add {
     position: absolute;
     left: 20px;
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
   }
 
   .adduser {

@@ -3,20 +3,3 @@
 @import "global"; // 公共类
 @import "transition"; // 动画相关
 @import "variable"; // 变量
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
-body, html, #app {
-  box-sizing: border-box;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-//滚动条样式
-::-webkit-scrollbar{
-  display: none;
-}

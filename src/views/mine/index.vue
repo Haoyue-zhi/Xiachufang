@@ -30,13 +30,4 @@ const info = computed(() => {
 <style scoped lang="scss">
 @import "@/assets/scss/color";
 
-.box {
-  height: 100%;
-
-  .content {
-    height: calc(100% - 55px);
-    position: relative;
-    top: 55px;
-  }
-}
 </style>
