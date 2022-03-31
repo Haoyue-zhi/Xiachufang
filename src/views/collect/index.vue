@@ -19,7 +19,9 @@
 
 <script setup>
 import navbar from './components/navbar.vue'
+import {ref} from 'vue'
 
+const active = ref(0)
 </script>
 
 <style scoped lang="scss">
