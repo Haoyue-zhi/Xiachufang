@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import {createApp, computed, ref, watch} from 'vue';
+import {createApp, computed, ref} from 'vue';
 import {useRouter, useRoute} from "vue-router";
 import {Toast} from 'vant';
 

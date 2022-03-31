@@ -36,7 +36,7 @@
     </div>
     <!-- 标签页 -->
     <div class="tabs">
-      <van-tabs v-model:active="active" sticky offset-top="52" line-width="20px" color="#E86F58">
+      <van-tabs v-model:active="active" swipeable sticky offset-top="52" line-width="20px" color="#E86F58">
         <van-tab title="菜谱 0">
           <div class="menu">
             创建菜谱的人是厨房里的天使
@@ -189,17 +189,14 @@ async function getUserInfo() {
     .van-tabs {
       min-height: 289px !important;
 
-      :deep .van-tabs__wrap{
-        padding: 0 100px;
-        background: #fff;
-      }
-
-      :deep .van-tabs__content, .van-tab__panel {
-        height: 100% !important;
+      :deep .van-tabs__nav--line {
+        padding-left: 100px;
+        padding-right: 100px;
       }
     }
 
     .menu, .works {
+      margin-top: 75px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -210,7 +207,7 @@ async function getUserInfo() {
       letter-spacing: 0.01em;
       color: #3D3D3D;
 
-      button{
+      button {
         border: none;
         background: none;
         margin-top: 35px;
