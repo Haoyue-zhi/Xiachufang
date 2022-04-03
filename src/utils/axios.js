@@ -27,8 +27,12 @@ _axios.interceptors.request.use(
     function (config) {
         if (config.otherURL === 'java') {
             config.baseURL = import.meta.env.VITE_BASE_URL2
+        } else if(config.otherURL === 'map'){
+            config.baseURL = import.meta.env.VITE_BASE_URL3
         }
-        config.headers["Authorization"] = getToken() || ''; // 请求头带上token
+        if(config.otherURL !== 'map'){
+            config.headers["Authorization"] = getToken() || ''; // 请求头带上token
+        }
         console.log(config);
         return config;
     },

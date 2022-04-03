@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="location">
       <icon-svg class="vector" name="icon-vector"></icon-svg>
-      <div>杭州市</div>
+      <div>{{address}}</div>
     </div>
     <van-search placeholder="搜索商品" background="#ffffff"/>
     <icon-svg class="cart" name="icon-cart"></icon-svg>
@@ -10,9 +10,11 @@
 </template>
 
 <script setup>
-import {computed} from "vue";
+import {computed,defineProps} from "vue";
 import {useStore} from "vuex";
 import {useRouter, useRoute} from "vue-router";
+
+const props = defineProps(['address'])
 
 const router = useRouter();
 const route = useRoute();

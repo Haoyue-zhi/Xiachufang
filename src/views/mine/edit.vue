@@ -1,8 +1,9 @@
 <template>
   <div class="setting">
     <van-nav-bar
-        title="设置"
+        title="编辑个人资料"
         @click-left="onClickLeft"
+        right-text="保存"
         fixed
         placeholder
         :border="false"
