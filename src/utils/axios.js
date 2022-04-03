@@ -27,12 +27,10 @@ _axios.interceptors.request.use(
     function (config) {
         if (config.otherURL === 'java') {
             config.baseURL = import.meta.env.VITE_BASE_URL2
-        } else if(config.otherURL === 'map'){
+        } else if (config.otherURL === 'map') {
             config.baseURL = import.meta.env.VITE_BASE_URL3
         }
-        if(config.otherURL !== 'map'){
-            config.headers["Authorization"] = getToken() || ''; // 请求头带上token
-        }
+        config.otherURL !== 'map' ? config.headers["Authorization"] = getToken() : ''; // 除定位接口外请求头带上token
         console.log(config);
         return config;
     },

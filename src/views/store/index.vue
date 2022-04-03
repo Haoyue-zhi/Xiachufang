@@ -20,10 +20,10 @@ getMap()
 // 获取定位
 const address = ref('')
 async  function getMap(){
-  const param = {
+  const params = {
     key:'765497128df15f589daa56c0c79b35a5',
   }
-  const res = await map(param)
+  const res = await map(params)
   if(res&&res.infocode === "10000"){
     address.value = res.city
   }
