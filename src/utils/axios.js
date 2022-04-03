@@ -1,7 +1,8 @@
 import axios from "axios";
-import {getToken} from "./auth";
+import {getToken, removeToken} from "./auth";
 import {Toast} from "vant";
 import {createApp} from "vue";
+import store from '@/store'
 
 const app = createApp();
 app.use(Toast);
@@ -44,12 +45,15 @@ _axios.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        if(error.response === undefined){
+        if (error.response === undefined) { // 服务器连接超时
             Toast({message: '服务器连接超时！', duration: 1000});
+        } else if (error.response.data.code === '20100' || error.response.data.code === '20101') { // token过期或无效
+            removeToken()
+            store.dispatch('resetStore')
         } else {
             Toast({message: error.response.data.msg, duration: 1000});
         }
-        return Promise.reject(error.response);
+        return Promise.reject(error.response || 'Error');
     }
 );
 

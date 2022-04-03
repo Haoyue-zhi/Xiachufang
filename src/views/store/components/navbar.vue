@@ -1,8 +1,11 @@
 <template>
   <div class="nav">
+    <div class="location">
+      <icon-svg class="vector" name="icon-vector"></icon-svg>
+      <div>杭州市</div>
+    </div>
     <van-search placeholder="搜索商品" background="#ffffff"/>
-    <icon-svg class="add" name="icon-add"></icon-svg>
-    <icon-svg class="bag" name="icon-bag"></icon-svg>
+    <icon-svg class="cart" name="icon-cart"></icon-svg>
   </div>
 </template>
 
@@ -23,7 +26,7 @@ const store = useStore();
 
   .van-search {
     position: absolute;
-    left: 11px;
+    left: 56px;
     padding: 0;
     width: 281px;
     height: 36px;
@@ -33,18 +36,28 @@ const store = useStore();
     }
   }
 
-  .add {
+  .location {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    right: 65px;
-    width: 26px;
-    height: 26px;
+    left: 12px;
+    font-size: 10px;
+    transform: scale(0.8);
+
+    .vector {
+      width: 13px;
+      height: 13px;
+      transform: rotate(45deg);
+    }
   }
 
-  .bag {
+  .cart {
     position: absolute;
     right: 15px;
-    width: 28px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

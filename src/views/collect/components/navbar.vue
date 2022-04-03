@@ -1,9 +1,8 @@
 <template>
   <div class="nav">
-    <icon-svg class="add" name="icon-add"></icon-svg>
     <van-search placeholder="搜索我的收藏" background="#ffffff"/>
-    <icon-svg class="adduser" name="icon-adduser"></icon-svg>
-    <icon-svg class="set" name="icon-set"></icon-svg>
+    <icon-svg class="add" name="icon-add"></icon-svg>
+    <icon-svg class="bag" name="icon-bag"></icon-svg>
   </div>
 </template>
 
@@ -23,10 +22,10 @@ const store = useStore();
 
   .van-search {
     position: absolute;
-    left: 56px;
+    left: 11px;
     right: 100px;
     padding: 0;
-    width: 234px;
+    width: 268px;
     height: 36px;
 
     :deep(.van-search__content) {
@@ -36,7 +35,7 @@ const store = useStore();
 
   .add {
     position: absolute;
-    left: 20px;
+    right: 65px;
     width: 26px;
     height: 26px;
   }
@@ -48,12 +47,11 @@ const store = useStore();
     height: 20px;
   }
 
-  .set {
+  .bag {
     position: absolute;
     right: 20px;
     width: 28px;
     height: 26px;
-    transform: rotate(30deg);
   }
 }
 </style>

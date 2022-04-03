@@ -8,7 +8,7 @@
 <script setup>
 import tab from './components/tabbar.vue'
 import content from './components/content.vue'
-import { computed} from 'vue';
+import {computed} from 'vue';
 import {useStore} from "vuex";
 import {useRouter, useRoute} from "vue-router";
 import {getInfo} from "@/api/mine";
@@ -32,13 +32,14 @@ const info = computed({
 async function getUserInfo() {
   const hasToken = getToken()
   if (hasToken) {
-    if (!localStorage.getItem('info')) {
-      const res = await getInfo()
-      if (res.code && res.code === '00000') {
-        info.value = res.data
-      }
-    } else {
-      store.commit('resetInfo')
+    if (localStorage.getItem('info')) {
+      // 先读缓存
+      store.commit('readInfo')
+    }
+    // 从后台获取
+    const res = await getInfo()
+    if (res.code && res.code === '00000') {
+      info.value = res.data
     }
   }
 }

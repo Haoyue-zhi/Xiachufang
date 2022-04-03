@@ -34,7 +34,7 @@ function logout () {
 }
 
 function onClickLeft() {
-  router.go(-1)
+  router.back()
 }
 </script>
 

@@ -60,9 +60,8 @@ const info = computed(() => {
   .set {
     position: absolute;
     right: 20px;
-    width: 28px;
-    height: 26px;
-    transform: rotate(30deg);
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

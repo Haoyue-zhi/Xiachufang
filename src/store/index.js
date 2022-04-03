@@ -41,7 +41,7 @@ export default createStore({
             localStorage.setItem('info', JSON.stringify(data))
         },
         // 读取store中用户信息
-        resetInfo(state) {
+        readInfo(state) {
             state.info = JSON.parse(localStorage.getItem('info'))
         },
         // 重置state
@@ -61,12 +61,14 @@ export default createStore({
         }
     },
     actions: {
-        setTime(context) {
-            context.commit("setTime");
+        setTime({commit}) {
+            commit("setTime");
         },
-        setInfo(context, data) {
-            context.commit("setInfo", data);
+        setInfo({commit}, data) {
+            commit("setInfo", data);
+        },
+        resetStore({commit}){
+            commit("resetStore");
         }
-    },
-    modules: {},
+    }
 });

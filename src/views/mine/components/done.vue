@@ -28,9 +28,12 @@
     </div>
     <!-- 宫格 -->
     <div>
-      <van-grid :border="false" :column-num="2" icon-size="22px">
-        <van-grid-item icon="clock-o" text="浏览历史"/>
-        <van-grid-item icon="orders-o" text="订单"/>
+      <van-grid :border="false" :column-num="5" icon-size="22px">
+        <van-grid-item icon="clock-o" text="浏览历史" @click="tips"/>
+        <van-grid-item icon="diamond-o" text="会员" @click="tips"/>
+        <van-grid-item icon="tv-o" text="课程" @click="tips"/>
+        <van-grid-item icon="orders-o" text="订单" @click="tips"/>
+        <van-grid-item icon="cash-o" text="钱包" @click="tips"/>
       </van-grid>
       <van-divider :style="{ color: '#e5e5e3',margin:0 }"/>
     </div>
@@ -72,16 +75,6 @@ const store = useStore()
 
 const active = ref(0);
 
-const info = computed({
-  get() {
-    return store.state.info
-  },
-  set(val) {
-    store.commit('setInfo', val)
-  }
-})
-
-
 // 下拉刷新
 const loading = ref(false);
 const onRefresh = () => {
@@ -92,12 +85,24 @@ const onRefresh = () => {
 };
 
 // 获取用户信息
+const info = computed({
+  get() {
+    return store.state.info
+  },
+  set(val) {
+    store.commit('setInfo', val)
+  }
+})
 async function getUserInfo() {
   const res = await getInfo()
   if (res.code && res.code === '00000') {
     info.value = res.data
     console.log(info.value)
   }
+}
+
+function tips(){
+  Toast({message: '功能暂未开通', duration: 1000});
 }
 </script>
 
