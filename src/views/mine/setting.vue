@@ -13,6 +13,7 @@
     </van-nav-bar>
 
     <div class="main">
+
       <div class="edit" @click="edit">
         <img :src="info.userAvatar">
         <div class="info">
@@ -21,10 +22,15 @@
         </div>
         <icon-svg class="right" name="icon-right"></icon-svg>
       </div>
-      <div :class="item.class" v-for="item in items" :key="item">
-        {{ item.name }}
+
+      <van-cell-group :border="false">
+        <van-cell value="密码"/>
+        <van-cell value="收货地址"/>
+      </van-cell-group>
+
+      <div class="quit">
+        <span @click="logout">退出当前账号</span>
       </div>
-      <span class="quit" @click="logout">退出当前账号</span>
     </div>
   </div>
 </template>
@@ -42,12 +48,7 @@ const store = useStore()
 // 用户信息
 const info = computed(() => store.state.info)
 
-const items = ref([
-  {name: '密码', class: 'psw'},
-  {name: '收货地址', class: 'address'}
-])
-
-function edit(){
+function edit() {
   router.push('/mine/setting/edit')
 }
 
@@ -67,9 +68,6 @@ function onClickLeft() {
 @import "@/assets/scss/color";
 
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   .edit {
     display: flex;
@@ -77,6 +75,7 @@ function onClickLeft() {
     width: 100%;
     height: 64px;
     margin-top: 12px;
+    margin-bottom: 13px;
     position: relative;
 
     img {
@@ -112,17 +111,10 @@ function onClickLeft() {
     }
   }
 
-  .psw, .address {
-    align-self: flex-start;
-    width: 100%;
-    font-size: 17px;
-    padding-left: 20px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-  }
-
   .quit {
     margin-top: 30px;
+    width: 100%;
+    text-align: center;
     font-size: 14px;
     color: $theme-color;
   }
