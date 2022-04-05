@@ -9,6 +9,7 @@ import {
     CheckboxGroup,
     Cascader,
     Field,
+    Cell,
     CellGroup,
     Popup,
     NavBar,
@@ -17,7 +18,10 @@ import {
     GridItem,
     Divider,
     Tab,
-    Tabs
+    Tabs,
+    Picker,
+    Uploader,
+    DatetimePicker
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -31,6 +35,7 @@ const options = [
     CheckboxGroup,
     Cascader,
     Field,
+    Cell,
     CellGroup,
     Popup,
     NavBar,
@@ -39,7 +44,10 @@ const options = [
     GridItem,
     Divider,
     Tab,
-    Tabs
+    Tabs,
+    Picker,
+    Uploader,
+    DatetimePicker
 ]
 
 export function vant(app) {

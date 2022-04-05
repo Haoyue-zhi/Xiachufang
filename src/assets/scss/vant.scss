@@ -13,3 +13,11 @@
 .van-pull-refresh{
   height: 100% !important;
 }
+
+//上传组件
+.van-uploader{
+  border-radius: 50%;
+  .van-uploader__preview{
+    margin: 0;
+  }
+}

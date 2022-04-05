@@ -1,31 +1,9 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 
-import layout from '@/layout/index.vue'
+import table from './modules/table'
 
 const routes = [
-    {
-        path: '/',
-        component: layout,
-        redirect: 'home',
-        children: [
-            {
-                path: '/home',
-                component: () => import('@/views/home/index.vue')
-            },
-            {
-                path: '/store',
-                component: () => import('@/views/store/index.vue')
-            },
-            {
-                path: '/collect',
-                component: () => import('@/views/collect/index.vue')
-            },
-            {
-                path: '/mine',
-                component: () => import('@/views/mine/index.vue')
-            },
-        ]
-    },
+    table,
     {
         path: '/mine/verification',
         component: () => import('@/views/mine/verification.vue'),
@@ -44,6 +22,11 @@ const routes = [
     {
         path:'/mine/setting',
         component: () => import('@/views/mine/setting.vue'),
+        meta: { transition: 'slide' }
+    },
+    {
+        path:'/mine/setting/edit',
+        component: () => import('@/views/mine/edit.vue'),
         meta: { transition: 'slide' }
     }
 ]

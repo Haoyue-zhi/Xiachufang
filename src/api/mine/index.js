@@ -45,3 +45,13 @@ export function getInfo(params) {
     params,
   });
 }
+
+// 编辑用户信息
+export function editInfo(data) {
+  return axios({
+    url: "/usve/user/simple",
+    method: "post",
+    otherURL: "java",
+    data,
+  });
+}

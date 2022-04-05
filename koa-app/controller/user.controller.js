@@ -41,7 +41,7 @@ class UserController {
     }
 
     /**
-     * @desc 验证码登录
+     * @desc 验证码登录/注册
      * @param {string} _id - ID
      * @param {string} user_code - 验证码
      */
@@ -97,15 +97,6 @@ class UserController {
         };
     }
 
-    // 获取用户信息
-    async info(ctx, next) {
-        ctx.status = 200;
-        ctx.body = {
-            code: "00000",
-            msg: "信息获取成功",
-            data: {},
-        };
-    }
 }
 
 module.exports = new UserController();

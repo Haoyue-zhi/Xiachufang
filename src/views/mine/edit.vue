@@ -3,7 +3,7 @@
     <van-nav-bar
         title="编辑个人资料"
         @click-left="onClickLeft"
-        right-text="保存"
+        @click-right="save"
         fixed
         placeholder
         :border="false"
@@ -11,117 +11,262 @@
       <template #left>
         <van-icon name="arrow-left" size="25" color="#000"/>
       </template>
+      <template #right>
+        <span style="color: #E86F58;font-size: 18px;">保存</span>
+      </template>
     </van-nav-bar>
 
     <div class="main">
-      <div class="edit">
-        <img :src="info.userAvatar">
-        <div class="info">
-          <span class="name">{{ info.userName }}</span>
-          <span class="num">手机号码登录: {{ info.userPhone.slice(3) }}</span>
-        </div>
-        <icon-svg class="right" name="icon-right"></icon-svg>
+      <div class="photo">
+        <van-uploader v-model="fileList" :deletable="false" :preview-full-image="false" :show-upload="false"/>
+        <span>点击更换头像</span>
       </div>
-      <div :class="item.class" v-for="item in items" :key="item">
-        {{ item.name }}
-      </div>
-      <span class="quit" @click="logout">退出当前账号</span>
+      <van-cell-group :border="false">
+        <van-field v-model="form.name" label="用户名" placeholder="填写用户名"/>
+        <van-field v-model="form.sex" readonly is-link @click="showSex = true" label="性别"/>
+        <van-field v-model="form.birthday" readonly is-link label="生日" @click="showBirth = true" placeholder="选择生日"/>
+        <van-field v-model="form.vocation" readonly is-link label="职业" @click="showVocation = true"
+                   placeholder="添加职业，让厨友更了解你"/>
+        <van-field v-model="form.hometown" readonly is-link label="家乡" @click="showHometown = true" placeholder="选择家乡"/>
+        <van-field v-model="form.residence" readonly is-link label="常居" @click="showResidence = true"
+                   placeholder="选择常居地"/>
+        <van-field
+            v-model="form.introduce"
+            rows="5"
+            autosize
+            label="个人简介"
+            type="textarea"
+            maxlength="255"
+            placeholder="未填写"
+            show-word-limit
+        />
+      </van-cell-group>
     </div>
+    <!-- 性别选择 -->
+    <van-popup v-model:show="showSex" round position="bottom">
+      <van-picker
+          :columns="sexTable"
+          @cancel="showSex = false"
+          @confirm="setSex"
+      />
+    </van-popup>
+    <!-- 生日选择 -->
+    <van-popup v-model:show="showBirth" round position="bottom">
+      <van-datetime-picker
+          v-model="currentDate"
+          type="date"
+          title="选择年月日"
+          :min-date="minDate"
+          :max-date="maxDate"
+          :formatter="formatter"
+          @confirm="setBirth"
+          @cancel="showBirth=false"
+      />
+    </van-popup>
+    <!-- 职业选择 -->
+    <van-popup v-model:show="showVocation" position="right" :style="{ height: '100%',width:'100%' }">
+      <van-nav-bar
+          title="选择职业"
+          @click-left="showVocation = false"
+          :border="false"
+          style="height: 47px;position: sticky;top: 0;"
+      >
+        <template #left>
+          <span style="color: #E86F58;font-size: 18px;">取消</span>
+        </template>
+      </van-nav-bar>
+      <van-cell v-for="item in vocation" :clickable="true" @click="setVocation">
+        {{ item }}
+      </van-cell>
+
+    </van-popup>
+    <!-- 选择家乡 -->
+    <van-popup v-model:show="showHometown" round position="bottom">
+      <van-picker
+          :columns="columns"
+          @cancel="showHometown = false"
+          @confirm="setHometown"
+      />
+    </van-popup>
+    <!-- 选择常居地 -->
+    <van-popup v-model:show="showResidence" round position="bottom">
+      <van-picker
+          :columns="columns"
+          @cancel="showResidence = false"
+          @confirm="setResidence"
+      />
+    </van-popup>
+
   </div>
 </template>
 
 <script setup>
-import {computed, ref} from 'vue'
+import city from '@/assets/city.json'
+import {computed, ref, reactive} from 'vue'
 import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
-import {removeToken} from '@/utils/auth'
+import {useRouter} from "vue-router";
+import {editInfo, getInfo} from '@/api/mine'
 
 const router = useRouter();
-const route = useRoute();
 const store = useStore()
 
 // 用户信息
-const info = computed(() => store.state.info)
-
-const items = ref([
-  {name: '密码', class: 'psw'},
-  {name: '收货地址', class: 'address'}
+const info = computed({
+  get() {
+    return store.state.info
+  },
+  set(val) {
+    store.commit('setInfo', val)
+  }
+})
+// 上传文件列表
+const fileList = ref([
+  {url: info.value.userAvatar}
 ])
+// 表单信息
+const form = reactive({
+  name: info.value.userName,
+  sex: info.value.userSex,
+  birthday: info.value.userBirth,
+  vocation: info.value.userOccp,
+  hometown: info.value.userHome,
+  residence: info.value.PermanentResidence,
+  introduce: info.value.userText
+})
 
-// 退出
-function logout() {
-  removeToken()
-  store.commit('resetStore')
-  router.replace('/mine')
+// 性别
+const showSex = ref(false)
+const sexTable = ['男', '女', '其他']
+
+function setSex(value, index) {
+  form.sex = value
+  showSex.value = false;
+}
+
+// 生日
+const showBirth = ref(false)
+const currentDate = ref(new Date(2022, 0, 1));
+const minDate = ref(new Date(1900, 0, 1))
+const maxDate = ref(new Date(2099, 12, 31))
+const formatter = (type, val) => {
+  if (type === 'year') {
+    return val + '年';
+  }
+  if (type === 'month') {
+    return val + '月';
+  }
+  if (type === 'day') {
+    return val + '日';
+  }
+  return val;
+};
+
+// 格式化日期
+function dateFormat(fmt, date) {
+  let ret;
+  const opt = {
+    "Y+": date.getFullYear().toString(),        // 年
+    "m+": (date.getMonth() + 1).toString(),     // 月
+    "d+": date.getDate().toString(),            // 日
+    "H+": date.getHours().toString(),           // 时
+    "M+": date.getMinutes().toString(),         // 分
+    "S+": date.getSeconds().toString()          // 秒
+    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+  };
+  for (let k in opt) {
+    ret = new RegExp("(" + k + ")").exec(fmt);
+    if (ret) {
+      fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+    }
+    ;
+  }
+  ;
+  return fmt;
+}
+
+function setBirth(value) {
+  form.birthday = dateFormat("YYYY-mm-dd", value)
+  showBirth.value = false
+}
+
+// 职业
+const showVocation = ref(false)
+const vocation = ['学生', '政府职员', '教师', '医生', '摄影师', '律师', '会计', '翻译', '编辑', '音乐人', '演艺人', '广告人', '公司文员', 'IT/互联网', '个体商人', '全职主妇', '其它']
+
+function setVocation(e) {
+  form.vocation = e.target.innerText
+  showVocation.value = false
+}
+
+// 地址
+const showHometown = ref(false)
+const showResidence = ref(false)
+const columns = city
+
+// 格式化地址
+function cityFormat(val) {
+  return val[0].text + ',' + val[0].children[0].text
+}
+
+function setHometown(value) {
+  form.hometown = cityFormat(value);
+  showHometown.value = false;
+}
+
+function setResidence(value) {
+  form.residence = cityFormat(value);
+  showResidence.value = false;
+}
+
+// 保存
+async function save() {
+  let data = {
+    username: form.name,
+    sex: form.sex,
+    birthday: form.birthday,
+    occp: form.vocation,
+    home: form.hometown,
+    permanentResidence: form.residence,
+    describe: form.introduce
+  }
+  const res = await editInfo(data)
+  if (res.code && res.code === '00000') {
+    getUserInfo()
+  }
+}
+
+async function getUserInfo() {
+  const res = await getInfo()
+  if (res.code && res.code === '00000') {
+    info.value = res.data
+    router.back()
+  }
 }
 
 function onClickLeft() {
   router.back()
 }
+
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/scss/color";
 
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
-  .edit {
+  .photo {
+    width: 100%;
+    height: 149px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 64px;
-    margin-top: 12px;
-    position: relative;
+    padding-top: 16px;
 
-    img {
-      margin-left: 19px;
-      height: 60px;
-      width: 60px;
-      border-radius: 50px;
-      object-fit: cover;
-    }
-
-    .info {
-      margin-left: 18px;
-      display: flex;
-      flex-direction: column;
-
-      .name {
-        font-size: 20px;
-        font-weight: bold;
-      }
-
-      .num {
-        font-size: 14px;
-        font-weight: normal;
-        letter-spacing: 0.02em;
-      }
-    }
-
-    .right {
-      position: absolute;
-      right: 19px;
-      width: 20px;
-      height: 13px;
+    span {
+      margin-top: 8px;
+      font-size: 12px;
     }
   }
 
-  .psw, .address {
-    align-self: flex-start;
-    width: 100%;
-    font-size: 17px;
-    padding-left: 20px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-  }
-
-  .quit {
-    margin-top: 30px;
-    font-size: 14px;
-    color: $theme-color;
-  }
 }
 </style>

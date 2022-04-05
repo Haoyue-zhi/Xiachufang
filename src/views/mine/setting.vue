@@ -13,7 +13,7 @@
     </van-nav-bar>
 
     <div class="main">
-      <div class="edit">
+      <div class="edit" @click="edit">
         <img :src="info.userAvatar">
         <div class="info">
           <span class="name">{{ info.userName }}</span>
@@ -47,6 +47,10 @@ const items = ref([
   {name: '收货地址', class: 'address'}
 ])
 
+function edit(){
+  router.push('/mine/setting/edit')
+}
+
 // 退出
 function logout() {
   removeToken()
@@ -79,7 +83,7 @@ function onClickLeft() {
       margin-left: 19px;
       height: 60px;
       width: 60px;
-      border-radius: 50px;
+      border-radius: 50%;
       object-fit: cover;
     }
 
