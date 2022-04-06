@@ -11,12 +11,9 @@
 </template>
 
 <script setup>
-import {createApp, ref} from "vue";
+import {ref} from "vue";
 import {useRouter, useRoute} from 'vue-router'
 import {Toast} from 'vant';
-
-const app = createApp();
-app.use(Toast);
 
 const router = useRouter()
 const route = useRoute()

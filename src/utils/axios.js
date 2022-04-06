@@ -1,11 +1,7 @@
 import axios from "axios";
 import {getToken, removeToken} from "./auth";
 import {Toast} from "vant";
-import {createApp} from "vue";
 import store from '@/store'
-
-const app = createApp();
-app.use(Toast);
 
 let config = {
     baseURL: import.meta.env.VITE_BASE_URL,

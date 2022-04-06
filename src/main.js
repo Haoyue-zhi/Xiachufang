@@ -6,8 +6,6 @@ import '@/assets/scss/index.scss'
 import axios from '@/utils/axios'
 import 'virtual:svg-icons-register'
 import iconSvg from '@/components/icon-svg/index.vue'
-import {Swiper, SwiperSlide} from 'swiper/vue'
-import 'swiper/css'
 import {vant} from '@/vant-ui'
 import 'amfe-flexible'
 
@@ -18,7 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = createApp(App)
 // 创建全局组件
-app.component('iconSvg', iconSvg).component('Swiper', Swiper).component('SwiperSlide', SwiperSlide)
+app.component('iconSvg', iconSvg)
 // 全局引入axios
 app.config.globalProperties.$axios = axios
 

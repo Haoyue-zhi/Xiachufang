@@ -8,17 +8,19 @@
       <van-tabs v-model:active="active" swipeable sticky offset-top="52px" line-width="20px" color="#E86F58">
         <van-tab title="关注">关注</van-tab>
         <van-tab title="推荐">
-          <h1 v-for="item in 20">推荐</h1>
+          <recommend></recommend>
         </van-tab>
         <van-tab title="分类">分类</van-tab>
       </van-tabs>
 
     </div>
+
   </div>
 </template>
 
 <script setup>
 import navbar from './components/navbar.vue'
+import recommend from './components/recommend.vue'
 import {ref} from 'vue'
 
 const active = ref(1);

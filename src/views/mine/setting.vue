@@ -18,7 +18,7 @@
         <img :src="info.userAvatar">
         <div class="info">
           <span class="name">{{ info.userName }}</span>
-          <span class="num">手机号码登录: {{ info.userPhone.slice(3) }}</span>
+          <span class="num">手机号码登录: {{ info.userPhone ? info.userPhone.slice(3) : null}}</span>
         </div>
         <icon-svg class="right" name="icon-right"></icon-svg>
       </div>

@@ -21,7 +21,9 @@ import {
     Tabs,
     Picker,
     Uploader,
-    DatetimePicker
+    DatetimePicker,
+    Lazyload,
+    Toast
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -47,7 +49,9 @@ const options = [
     Tabs,
     Picker,
     Uploader,
-    DatetimePicker
+    DatetimePicker,
+    Lazyload,
+    Toast
 ]
 
 export function vant(app) {
