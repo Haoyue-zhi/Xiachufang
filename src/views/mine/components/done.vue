@@ -23,7 +23,7 @@
         {{ info.userSex }} · {{ info.createTime.slice(0, 4) }}年 加入
       </van-cell>
       <van-cell>
-        {{ info.userText ?? '添加个人简介，让厨友更了解你' }}
+        {{ info.userText || '添加个人简介，让厨友更了解你' }}
       </van-cell>
     </van-cell-group>
     <!-- 宫格 -->
