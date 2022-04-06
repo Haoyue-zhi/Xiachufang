@@ -130,7 +130,7 @@ const form = reactive({
   birthday: info.value.userBirth,
   vocation: info.value.userOccp,
   hometown: info.value.userHome,
-  residence: info.value.PermanentResidence,
+  residence: info.value.userPermanentResidence,
   introduce: info.value.userText
 })
 
