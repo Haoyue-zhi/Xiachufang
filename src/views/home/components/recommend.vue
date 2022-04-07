@@ -1,6 +1,5 @@
 <template>
   <van-pull-refresh>
-    <div class="tips" v-show="false"></div>
     <div class="title">
       为你推荐
     </div>
@@ -209,17 +208,10 @@ const imageList = ref([
 <style scoped lang="scss">
 @import "@/assets/scss/color";
 
-.tips {
-  width: 350px;
-  height: 42.5px;
-  border-radius: 9px;
-  margin: 19px auto;
-  background: $theme-color;
-}
-
 .title {
   font-size: 19px;
   font-weight: bold;
+  margin-top: 19px;
   margin-left: 19px;
   margin-bottom: 25px;
 }

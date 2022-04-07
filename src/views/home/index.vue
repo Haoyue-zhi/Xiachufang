@@ -10,7 +10,9 @@
         <van-tab title="推荐">
           <recommend></recommend>
         </van-tab>
-        <van-tab title="分类">分类</van-tab>
+        <van-tab title="分类">
+          <sort></sort>
+        </van-tab>
       </van-tabs>
 
     </div>
@@ -20,6 +22,7 @@
 
 <script setup>
 import navbar from './components/navbar.vue'
+import sort from './components/sort.vue'
 import recommend from './components/recommend.vue'
 import {ref} from 'vue'
 

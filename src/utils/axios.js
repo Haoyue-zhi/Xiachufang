@@ -21,10 +21,16 @@ const _axios = axios.create(config);
 // 添加请求拦截器
 _axios.interceptors.request.use(
     function (config) {
-        if (config.otherURL === 'java') {
-            config.baseURL = import.meta.env.VITE_BASE_URL2
-        } else if (config.otherURL === 'map') {
-            config.baseURL = import.meta.env.VITE_BASE_URL3
+        switch (config.otherURL) {
+            case 'java':
+                config.baseURL = import.meta.env.VITE_BASE_URL2
+                break
+            case 'map':
+                config.baseURL = import.meta.env.VITE_BASE_URL3
+                break
+            case 'alipay':
+                config.baseURL = import.meta.env.VITE_BASE_URL4
+                break
         }
         config.otherURL !== 'map' ? config.headers["Authorization"] = getToken() : ''; // 除定位接口外请求头带上token
         console.log(config);
