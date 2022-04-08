@@ -9,7 +9,7 @@
         <van-tab title="菜单">
           <h1 v-for="item in 20">菜单</h1>
         </van-tab>
-        <van-tab title="分类">浏览历史</van-tab>
+        <van-tab title="浏览历史">浏览历史</van-tab>
       </van-tabs>
     </div>
 
