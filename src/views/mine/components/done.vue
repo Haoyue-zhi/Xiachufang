@@ -9,11 +9,11 @@
         </div>
         <div class="bottom">
           <div class="follow">
-            <div class="num">0</div>
+            <div class="num">{{info.userFollow}}</div>
             <div class="item">关注</div>
           </div>
           <div class="fans">
-            <div class="num">0</div>
+            <div class="num">{{info.userFans}}</div>
             <div class="item">粉丝</div>
           </div>
         </div>

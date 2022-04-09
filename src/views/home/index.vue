@@ -6,7 +6,9 @@
     <div class="content">
 
       <van-tabs v-model:active="active" swipeable sticky offset-top="52px" line-width="20px" color="#E86F58">
-        <van-tab title="关注">关注</van-tab>
+        <van-tab title="关注">
+          <follow></follow>
+        </van-tab>
         <van-tab title="推荐">
           <recommend></recommend>
         </van-tab>
@@ -24,6 +26,7 @@
 import navbar from './components/navbar.vue'
 import sort from './components/sort.vue'
 import recommend from './components/recommend.vue'
+import follow from './components/follow.vue'
 import {ref} from 'vue'
 
 const active = ref(1);

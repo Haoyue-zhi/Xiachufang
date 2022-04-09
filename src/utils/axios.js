@@ -5,15 +5,7 @@ import store from '@/store'
 
 let config = {
     baseURL: import.meta.env.VITE_BASE_URL,
-    timeout: 60 * 1000, // Timeout
-    headers: {
-        get: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-        },
-        post: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
-    },
+    timeout: 60 * 1000
 };
 
 const _axios = axios.create(config);
