@@ -23,7 +23,8 @@ import {
     Uploader,
     DatetimePicker,
     Lazyload,
-    Toast
+    Toast,
+    Overlay
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -51,7 +52,8 @@ const options = [
     Uploader,
     DatetimePicker,
     Lazyload,
-    Toast
+    Toast,
+    Overlay
 ]
 
 export function vant(app) {

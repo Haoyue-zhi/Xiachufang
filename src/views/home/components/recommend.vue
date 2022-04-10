@@ -1,27 +1,26 @@
 <template>
-  <van-pull-refresh>
-
-    <div class="title">
-      为你推荐
-    </div>
-    <div class="column">
-      <div class="item" v-for="item in imageList" :key="item">
-        <img class="photo" v-lazy="item.img">
-        <div class="item-title">
-          {{ item.title }}
+    <van-pull-refresh>
+      <div style="overflow: auto;height: 100%;">
+        <div class="title">
+          为你推荐
         </div>
-        <div class="subtitle">
-          {{ item.subtitle }}
-        </div>
-        <div class="author">
-          <img :src="item.portrait">
-          <span>{{ item.author }}</span>
+        <div class="column">
+          <div class="item" v-for="item in imageList" :key="item">
+            <img class="photo" v-lazy="item.img">
+            <div class="item-title">
+              {{ item.title }}
+            </div>
+            <div class="subtitle">
+              {{ item.subtitle }}
+            </div>
+            <div class="author">
+              <img :src="item.portrait">
+              <span>{{ item.author }}</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-
-  </van-pull-refresh>
+    </van-pull-refresh>
 </template>
 
 <script setup>
@@ -146,6 +145,10 @@ const imageList = [
 <style scoped lang="scss">
 @import "@/assets/scss/color";
 
+.van-pull-refresh {
+  height: calc(100vh - 147px) !important;
+}
+
 .title {
   font-size: 19px;
   font-weight: bold;
@@ -157,7 +160,7 @@ const imageList = [
 .column {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  justify-items:center;
+  justify-items: center;
 
   .item {
     width: 181px;

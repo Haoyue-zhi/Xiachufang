@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-
     <div class="sort-item" v-for="item in demo" :key="item">
       <div class="sort-title">
         {{ item.title }}
@@ -14,7 +13,6 @@
       </div>
 
     </div>
-
   </div>
 </template>
 
@@ -50,6 +48,8 @@ const demo = [
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 148px);
+  overflow: auto;
 
   .sort-item {
     width: 350px;

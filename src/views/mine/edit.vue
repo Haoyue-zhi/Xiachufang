@@ -19,7 +19,7 @@
     <div class="main">
       <div class="photo">
         <img :src="form.photo">
-        <van-uploader :max-count="1" :after-read="afterRead" :max-size="800 * 1024" @oversize="onOversize">
+        <van-uploader :max-count="1" :after-read="afterRead" :max-size="500 * 1024" @oversize="onOversize">
           <span>点击更换头像</span>
         </van-uploader>
       </div>
@@ -129,7 +129,7 @@ function afterRead(file){
 }
 
 function onOversize(file){
-  Toast('文件大小不能超过 800kb');
+  Toast('文件大小不能超过 500kb');
 }
 
 // 表单信息

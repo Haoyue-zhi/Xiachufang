@@ -1,13 +1,15 @@
 <template>
   <div class="nav">
-    <icon-svg class="add" name="icon-add"></icon-svg>
+    <icon-svg class="add" name="icon-add" @click="show = true"></icon-svg>
     <van-search placeholder="搜索菜谱、食材" background="#ffffff"/>
     <icon-svg class="bell" name="icon-bell"></icon-svg>
+    <overlay :show="show"  @isShow="show = false"></overlay>
   </div>
 </template>
 
 <script setup>
-import {computed} from "vue";
+import overlay from '@/components/overlay/index.vue'
+import {ref} from "vue";
 import {useStore} from "vuex";
 import {useRouter, useRoute} from "vue-router";
 
@@ -15,6 +17,7 @@ const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
+const show = ref(false)
 
 </script>
 
