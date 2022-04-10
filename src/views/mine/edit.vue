@@ -18,8 +18,10 @@
 
     <div class="main">
       <div class="photo">
-        <van-uploader v-model="fileList" :deletable="false" :preview-full-image="false" :show-upload="false"/>
-        <span>点击更换头像</span>
+        <img :src="form.photo">
+        <van-uploader :max-count="1" :after-read="afterRead" :max-size="800 * 1024" @oversize="onOversize">
+          <span>点击更换头像</span>
+        </van-uploader>
       </div>
       <van-cell-group :border="false">
         <van-field v-model="form.name" label="用户名" placeholder="填写用户名"/>
@@ -106,6 +108,7 @@ import {computed, ref, reactive} from 'vue'
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import {editInfo, getInfo} from '@/api/mine'
+import { Toast } from 'vant';
 
 const router = useRouter();
 const store = useStore()
@@ -119,12 +122,19 @@ const info = computed({
     store.commit('setInfo', val)
   }
 })
+
 // 上传文件列表
-const fileList = ref([
-  {url: info.value.userAvatar}
-])
+function afterRead(file){
+  form.photo = file.content
+}
+
+function onOversize(file){
+  Toast('文件大小不能超过 800kb');
+}
+
 // 表单信息
 const form = reactive({
+  photo: info.value.userAvatar,
   name: info.value.userName,
   sex: info.value.userSex,
   birthday: info.value.userBirth,
@@ -221,6 +231,7 @@ function setResidence(value) {
 // 保存
 async function save() {
   let data = {
+    avatar:form.photo,
     username: form.name,
     sex: form.sex,
     birthday: form.birthday,
@@ -261,10 +272,14 @@ function onClickLeft() {
     flex-direction: column;
     align-items: center;
     padding-top: 16px;
+    font-size: 12px;
 
-    span {
-      margin-top: 8px;
-      font-size: 12px;
+    img {
+      display: block;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      margin-bottom: 8px;
     }
   }
 
