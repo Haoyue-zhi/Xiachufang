@@ -33,6 +33,7 @@ const onRefresh = () => {
 .van-pull-refresh {
   min-height: calc(100vh - 164px);
   .empty {
+    min-height: calc(100vh - 164px);
     text-align: center;
 
     .title {

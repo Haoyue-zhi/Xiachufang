@@ -165,8 +165,6 @@ function tips () {
 
   .tabs {
     .van-tabs {
-      min-height: 289px !important;
-
       :deep .van-tabs__nav--line {
         padding-left: 100px;
         padding-right: 100px;
@@ -175,12 +173,11 @@ function tips () {
 
     .menu,
     .works {
-      margin-top: 75px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100%;
+      min-height: 365px;
       font-size: 19px;
       font-weight: 900;
       letter-spacing: 0.01em;
