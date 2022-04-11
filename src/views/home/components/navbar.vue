@@ -28,13 +28,7 @@ const show = ref(false)
     position: absolute;
     left: 56px;
     right: 100px;
-    padding: 0;
     width: 274px;
-    height: 36px;
-
-    :deep(.van-search__content) {
-      border-radius: 10px !important;
-    }
   }
 
   .add {

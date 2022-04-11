@@ -24,13 +24,7 @@ const store = useStore();
     position: absolute;
     left: 11px;
     right: 100px;
-    padding: 0;
     width: 268px;
-    height: 36px;
-
-    :deep(.van-search__content) {
-      border-radius: 10px !important;
-    }
   }
 
   .add {

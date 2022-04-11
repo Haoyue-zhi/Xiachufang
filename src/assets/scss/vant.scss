@@ -6,7 +6,8 @@
   color: #454545 !important;
 }
 
-.van-toast--html, .van-toast--text {
+.van-toast--html,
+.van-toast--text {
   padding: 15px !important;
 }
 
@@ -22,4 +23,13 @@
 // 遮罩层
 .van-overlay {
   background: #ffffff;
+}
+
+// 搜索框
+.van-search {
+  padding: 0;
+  height: 36px;
+  .van-search__content {
+    border-radius: 10px;
+  }
 }

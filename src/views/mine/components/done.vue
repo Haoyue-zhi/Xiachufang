@@ -165,7 +165,7 @@ function tips () {
 
   .tabs {
     .van-tabs {
-      :deep .van-tabs__nav--line {
+      :deep(.van-tabs__nav--line) {
         padding-left: 100px;
         padding-right: 100px;
       }

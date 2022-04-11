@@ -29,13 +29,7 @@ const store = useStore();
   .van-search {
     position: absolute;
     left: 56px;
-    padding: 0;
     width: 281px;
-    height: 36px;
-
-    :deep(.van-search__content) {
-      border-radius: 10px !important;
-    }
   }
 
   .location {
