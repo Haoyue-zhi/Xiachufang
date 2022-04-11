@@ -24,7 +24,9 @@ import {
     DatetimePicker,
     Lazyload,
     Toast,
-    Overlay
+    Overlay,
+    Swipe,
+    SwipeItem
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -53,7 +55,9 @@ const options = [
     DatetimePicker,
     Lazyload,
     Toast,
-    Overlay
+    Overlay,
+    Swipe,
+    SwipeItem
 ]
 
 export function vant(app) {
