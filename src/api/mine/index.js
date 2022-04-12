@@ -55,3 +55,12 @@ export function editInfo(data) {
     data,
   });
 }
+
+// 修改密码
+export function editPas(data) {
+  return axios({
+    url: "/users/editPas",
+    method: "post",
+    data,
+  });
+}

@@ -1,12 +1,13 @@
 const Router = require("koa-router");
 const {
   test,
-  sendSms,
+  sendsms,
   register,
-  login
+  login,
+  editPas
 } = require("../controller/user.controller"); // 引入控制器
 const {
-  smsValidator,
+  phoneValidator,
   codeValidator,
   userValidator,
   codeError,
@@ -26,7 +27,7 @@ router.get("/test", test);
  * @desc 发送验证码
  * @param {string} phone - 手机号
  */
-router.post("/sendSms", smsValidator, sendSms);
+router.post("/sendSms", phoneValidator, sendsms);
 
 /**
  * @route POST /api/users/register
@@ -45,9 +46,13 @@ router.post("/register", codeValidator, codeError, register);
 router.post("/login", userEmpty, userValidator, pasError, login);
 
 /**
- * @route POST /api/users/info
- * @desc 用户信息接口地址
+ * @route POST /api/users/editPas
+ * @desc 修改密码接口地址
+ * @param {string} _id - ID
+ * @param {string} user_code - 验证码
+ * @param {string} password - 密码
  */
-// router.get("/info", checkToken);
+router.post("/editPas", codeValidator, codeError, editPas);
+
 
 module.exports = router;

@@ -23,7 +23,7 @@ class SmsService {
   }
 
   // 发送短信
-  async sendSms(user_code, phone) {
+  async ssendSms(user_code, phone) {
     return await client.SendSms({
       PhoneNumberSet: [phone], // 接收短信的手机号
       SmsSdkAppId: "1400409842",

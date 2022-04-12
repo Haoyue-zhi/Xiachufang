@@ -1,11 +1,11 @@
 const {
     createCode,
-    sendSms,
+    ssendSms,
     saveCode,
     getCode,
     removeCode,
 } = require("../service/sms.service");
-const {createToken, getUserInfo, signUp} = require("../service/user.service");
+const {createToken, getUserInfo, signUp, updatePas} = require("../service/user.service");
 
 class UserController {
     // 测试
@@ -22,11 +22,11 @@ class UserController {
      * @desc 发送验证码
      * @param {string} phone - 手机号
      */
-    async sendSms(ctx, next) {
+    async sendsms(ctx, next) {
         try {
             const code = createCode();
             const {phone} = ctx.request.body;
-            await sendSms(code, phone);
+            await ssendSms(code, phone);
             ctx.status = 200;
             ctx.body = {
                 code: "00000",
@@ -94,6 +94,25 @@ class UserController {
             data: {
                 token: token,
             },
+        };
+    }
+
+    /**
+     * @desc 修改密码登录
+     * @param {string} user_code - 验证码
+     * @param {string} password - 密码
+     */
+    async editPas(ctx, next) {
+        const {_id, password} = ctx.request.body;
+        const {phone} = await getCode(_id); // 从验证码表查到手机号
+        await updatePas(phone, password)
+
+        // 密码输入正确
+        ctx.status = 200;
+        ctx.body = {
+            code: "00000",
+            msg: "密码修改成功！",
+            data: {},
         };
     }
 

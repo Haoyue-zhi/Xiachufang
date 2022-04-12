@@ -13,18 +13,7 @@ const {
   getCode
 } = require("../service/sms.service");
 
-// 手机号为空
-const smsValidator = async (ctx, next) => {
-  const {
-    phone
-  } = ctx.request.body;
-  if (!phone) {
-    console.error("手机号为空！", ctx.request.body);
-    ctx.app.emit("error", userPhoneEmpty, ctx);
-    return;
-  }
-  await next();
-};
+
 // 验证码为空
 const codeValidator = async (ctx, next) => {
   const {
@@ -33,19 +22,6 @@ const codeValidator = async (ctx, next) => {
   if (!user_code) {
     console.error("验证码为空！", ctx.request.body);
     ctx.app.emit("error", userCodeEmpty, ctx);
-    return;
-  }
-  await next();
-};
-// 手机号或密码为空
-const userValidator = async (ctx, next) => {
-  const {
-    phone,
-    password
-  } = ctx.request.body;
-  if (!phone || !password) {
-    console.error("手机号或密码为空！", ctx.request.body);
-    ctx.app.emit("error", userPasEmpty, ctx);
     return;
   }
   await next();
@@ -62,6 +38,31 @@ const codeError = async (ctx, next) => {
   if (code !== user_code) {
     console.error("验证码错误！", ctx.request.body);
     ctx.app.emit("error", userCodeError, ctx);
+    return;
+  }
+  await next();
+};
+// 手机号为空
+const phoneValidator = async (ctx, next) => {
+  const {
+    phone
+  } = ctx.request.body;
+  if (!phone) {
+    console.error("手机号为空！", ctx.request.body);
+    ctx.app.emit("error", userPhoneEmpty, ctx);
+    return;
+  }
+  await next();
+};
+// 手机号或密码为空
+const userValidator = async (ctx, next) => {
+  const {
+    phone,
+    password
+  } = ctx.request.body;
+  if (!phone || !password) {
+    console.error("手机号或密码为空！", ctx.request.body);
+    ctx.app.emit("error", userPasEmpty, ctx);
     return;
   }
   await next();
@@ -93,10 +94,10 @@ const userEmpty = async (ctx, next) => {
 }
 
 module.exports = {
-  smsValidator,
   codeValidator,
-  userValidator,
   codeError,
+  phoneValidator,
+  userValidator,
   pasError,
   userEmpty
 };

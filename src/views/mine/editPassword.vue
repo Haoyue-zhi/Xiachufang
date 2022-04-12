@@ -1,16 +1,17 @@
 <template>
   <div>
-    <van-icon name="arrow-left" @click="back" size="25" />
+    <van-icon name="arrow-left" @click="back" size="25"/>
     <p class="title">
       请输入验证码<br>
       <span class="tips">
-        验证码已通过短信发送至 {{ info.userPhone.slice(0,-11) }} {{ info.userPhone.slice(-11) }}
+        验证码已通过短信发送至 {{ info.userPhone.slice(0, -11) }} {{ info.userPhone.slice(-11) }}
       </span>
     </p>
     <div class="content">
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
-          <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;" :disabled="store.state.time === 0 ? false : true" @click="sendCode">
+          <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;"
+                      :disabled="store.state.time === 0 ? false : true" @click="sendCode">
             <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
@@ -21,16 +22,19 @@
           <div class="tip" style="color:#D0D0D1;font-size:19px;">不少于6位</div>
         </template>
       </van-field>
-      <van-button class="success" type="default" :disabled="areaCode.length !== 6 || password.length < 6" :color="areaCode.length === 6 &&  password.length >= 6 ? '#E86F58' : '#EEEEEE'" @click="edit">完成</van-button>
+      <van-button class="success" type="default" :disabled="areaCode.length !== 6 || password.length < 6"
+                  :color="areaCode.length === 6 &&  password.length >= 6 ? '#E86F58' : '#EEEEEE'" @click="edit">完成
+      </van-button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { sendSms } from "@/api/mine";
+import {ref, computed, onMounted} from "vue";
+import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+import {sendSms, editPas} from "@/api/mine";
+import { Toast } from 'vant';
 
 const router = useRouter();
 const store = useStore();
@@ -43,29 +47,38 @@ onMounted(() => {
 });
 
 // 发送验证码
-async function sendCode () {
-  // if (!store.state.timer) {
-    // let data = {
-    //   phone: info.value.userPhone
-    // }
-    // const res = await sendSms(data)
-    // if (res.code && res.code === '00000') {
+async function sendCode() {
+  if (!store.state.timer) {
+    let data = {
+      phone: info.value.userPhone
+    }
+    const res = await sendSms(data)
+    if (res.code && res.code === '00000') {
       store.dispatch("setTime")
-      // store.commit("setCodeid", res.data.code_id)
-    // }
-  // }
+      store.commit("setCodeid", res.data.code_id)
+    }
+  }
 }
 
 const areaCode = ref(""); // 验证码
 const password = ref(""); // 密码
 // 修改密码
-async function edit () {
-
+async function edit() {
+  let data = {
+    _id: store.state.code_id,
+    user_code: areaCode.value,
+    password: password.value
+  }
+  const res = await editPas(data)
+  if (res.code && res.code === '00000') {
+    Toast({ message: res.msg, duration: 1000 });
+    back()
+  }
 }
 
 
 // 回退
-function back () {
+function back() {
   router.back();
 }
 </script>
