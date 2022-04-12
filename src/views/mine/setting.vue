@@ -1,14 +1,8 @@
 <template>
   <div class="setting">
-    <van-nav-bar
-        title="设置"
-        @click-left="onClickLeft"
-        fixed
-        placeholder
-        :border="false"
-    >
+    <van-nav-bar title="设置" @click-left="onClickLeft" fixed placeholder :border="false">
       <template #left>
-        <van-icon name="arrow-left" size="25" color="#000"/>
+        <van-icon name="arrow-left" size="25" color="#000" />
       </template>
     </van-nav-bar>
 
@@ -24,8 +18,8 @@
       </div>
 
       <van-cell-group :border="false">
-        <van-cell value="密码"/>
-        <van-cell value="收货地址"/>
+        <van-cell value="密码" @click="editPas" />
+        <van-cell value="收货地址" />
       </van-cell-group>
 
       <div class="quit">
@@ -36,10 +30,11 @@
 </template>
 
 <script setup>
-import {computed, ref} from 'vue'
-import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
-import {removeToken} from '@/utils/auth'
+import { computed, ref } from 'vue'
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
+import { removeToken } from '@/utils/auth'
+import { Dialog } from 'vant';
 
 const router = useRouter();
 const route = useRoute();
@@ -48,18 +43,38 @@ const store = useStore()
 // 用户信息
 const info = computed(() => store.state.info)
 
-function edit() {
+function edit () {
   router.push('/mine/setting/edit')
 }
 
+const timer = computed(() => store.state.timer)
+function editPas () {
+  Dialog.confirm({
+    message: '修改密码需要\n手机号码验证，是否继续',
+    width: 270,
+    confirmButtonText: '好的',
+    confirmButtonColor: '#3478F6',
+    cancelButtonColor: '#3478F6'
+  })
+    .then(() => {
+      if (timer.value === null) {
+        router.push('/mine/setting/editPassword')
+      } else {
+        Dialog({ message: '你获取验证码太快了，等一分钟再试试吧', confirmButtonColor: '#3478F6' });
+      }
+    })
+    .catch(() => {
+    });
+}
+
 // 退出
-function logout() {
+function logout () {
   removeToken()
   store.commit('resetStore')
   router.replace('/mine')
 }
 
-function onClickLeft() {
+function onClickLeft () {
   router.back()
 }
 </script>
@@ -68,7 +83,6 @@ function onClickLeft() {
 @import "@/assets/scss/color";
 
 .main {
-
   .edit {
     display: flex;
     align-items: center;

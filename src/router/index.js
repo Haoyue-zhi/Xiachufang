@@ -28,7 +28,13 @@ const routes = [
         path:'/mine/setting/edit',
         component: () => import('@/views/mine/edit.vue'),
         meta: { transition: 'slide' }
-    }
+    },
+    {
+        path:'/mine/setting/editPassword',
+        component: () => import('@/views/mine/editPassword.vue'),
+        meta: { transition: 'slide' }
+    },
+
 ]
 
 const router = createRouter({

@@ -58,7 +58,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { Toast } from "vant";
+import { Dialog } from 'vant';
 
 const router = useRouter();
 const route = useRoute();
@@ -108,7 +108,7 @@ async function collect() {
       store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
       router.push('/mine/checkCode')
     } else {
-      Toast({ message: '你获取验证码太快了，等一分钟再试试吧', duration: 1000 });
+      Dialog({ message: '你获取验证码太快了，等一分钟再试试吧' });
     }
   } else {
     store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })

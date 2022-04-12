@@ -26,7 +26,8 @@ import {
     Toast,
     Overlay,
     Swipe,
-    SwipeItem
+    SwipeItem,
+    Dialog
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -57,7 +58,8 @@ const options = [
     Toast,
     Overlay,
     Swipe,
-    SwipeItem
+    SwipeItem,
+    Dialog
 ]
 
 export function vant(app) {

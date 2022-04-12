@@ -38,6 +38,10 @@ const info = computed(() => store.state.info)
 </script>
 
 <style scoped lang="scss">
+// 遮罩层
+.van-overlay {
+  background: #ffffff;
+}
 .clear {
   position: absolute;
   left: 20px;

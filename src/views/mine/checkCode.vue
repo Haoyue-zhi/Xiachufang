@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div>
     <van-icon name="arrow-left" @click="back" size="25"/>
     <p class="title">
