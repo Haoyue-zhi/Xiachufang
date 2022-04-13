@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import city from '@/assets/city.json'
+import city from '@/assets/json/city.json'
 import { computed, ref, reactive } from 'vue'
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";

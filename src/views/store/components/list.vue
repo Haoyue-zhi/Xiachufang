@@ -41,17 +41,9 @@ const props = defineProps(['title','items'])
   .column {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 0;
     justify-items: center;
+    padding: 0 17px;
     .commodity {
-      &:nth-child(odd) {
-        justify-self: end;
-        padding-right: 3px;
-      }
-      &:nth-child(even) {
-        justify-self: start;
-        padding-left: 3px;
-      }
       margin-bottom: 65px;
       img {
         display: block;
