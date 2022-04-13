@@ -27,7 +27,10 @@ import {
     Overlay,
     Swipe,
     SwipeItem,
-    Dialog
+    Dialog,
+    AddressList,
+    AddressEdit,
+    Area
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -59,7 +62,10 @@ const options = [
     Overlay,
     Swipe,
     SwipeItem,
-    Dialog
+    Dialog,
+    AddressList,
+    AddressEdit,
+    Area
 ]
 
 export function vant(app) {

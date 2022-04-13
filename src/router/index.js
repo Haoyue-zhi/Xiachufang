@@ -34,6 +34,16 @@ const routes = [
         component: () => import('@/views/mine/editPassword.vue'),
         meta: { transition: 'slide' }
     },
+    {
+        path:'/mine/setting/address',
+        component: () => import('@/views/mine/address.vue'),
+        meta: { transition: 'slide' }
+    },
+    {
+        path:'/mine/setting/editAddress',
+        component: () => import('@/views/mine/editAddress.vue'),
+        meta: { transition: 'slide' }
+    },
 
 ]
 

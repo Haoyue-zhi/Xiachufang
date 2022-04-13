@@ -19,7 +19,7 @@
 
       <van-cell-group :border="false">
         <van-cell value="密码" @click="editPas" />
-        <van-cell value="收货地址" />
+        <van-cell value="收货地址" @click="router.push('/mine/setting/address')"/>
       </van-cell-group>
 
       <div class="quit">

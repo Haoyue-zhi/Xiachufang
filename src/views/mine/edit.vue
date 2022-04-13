@@ -28,15 +28,15 @@
     </div>
     <!-- 性别选择 -->
     <van-popup v-model:show="showSex" round position="bottom">
-      <van-picker :columns="sexTable" @cancel="showSex = false" @confirm="setSex" />
+      <van-picker confirm-button-text="确定" :columns="sexTable" @cancel="showSex = false" @confirm="setSex" />
     </van-popup>
     <!-- 生日选择 -->
     <van-popup v-model:show="showBirth" round position="bottom">
-      <van-datetime-picker v-model="currentDate" type="date" title="选择年月日" :min-date="minDate" :max-date="maxDate" :formatter="formatter" @confirm="setBirth" @cancel="showBirth=false" />
+      <van-datetime-picker confirm-button-text="确定" v-model="currentDate" type="date" title="选择年月日" :min-date="minDate" :max-date="maxDate" :formatter="formatter" @confirm="setBirth" @cancel="showBirth=false" />
     </van-popup>
     <!-- 职业选择 -->
     <van-popup v-model:show="showVocation" position="right" :style="{ height: '100%',width:'100%' }">
-      <van-nav-bar title="选择职业" @click-left="showVocation = false" :border="false" style="height: 47px;position: sticky;top: 0;">
+      <van-nav-bar title="选择职业" @click-left="showVocation = false" :border="false" :fixed="true" placeholder style="height: 47px;">
         <template #left>
           <span style="color: #E86F58;font-size: 18px;">取消</span>
         </template>
@@ -48,22 +48,22 @@
     </van-popup>
     <!-- 选择家乡 -->
     <van-popup v-model:show="showHometown" round position="bottom">
-      <van-picker :columns="columns" @cancel="showHometown = false" @confirm="setHometown" />
+      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showHometown = false" @confirm="setHometown"/>
     </van-popup>
     <!-- 选择常居地 -->
     <van-popup v-model:show="showResidence" round position="bottom">
-      <van-picker :columns="columns" @cancel="showResidence = false" @confirm="setResidence" />
+      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showResidence = false" @confirm="setResidence"/>
     </van-popup>
 
   </div>
 </template>
 
 <script setup>
-import city from '@/assets/json/city.json'
 import { computed, ref, reactive } from 'vue'
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { editInfo, getInfo } from '@/api/mine'
+import { areaList } from '@vant/area-data';
 import { Toast } from 'vant';
 
 const router = useRouter();
@@ -167,11 +167,10 @@ function setVocation (e) {
 // 地址
 const showHometown = ref(false)
 const showResidence = ref(false)
-const columns = city
 
 // 格式化地址
 function cityFormat (val) {
-  return val[0].text + ',' + val[0].children[0].text
+  return val[0].name + ',' + val[1].name
 }
 
 function setHometown (value) {
