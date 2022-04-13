@@ -5,12 +5,14 @@
   margin: 0;
 }
 
-body, html, #app {
+body,
+html,
+#app {
   box-sizing: border-box;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: MiSans,OPPOSans;
+  font-family: OPPOSans, MiSans;
 }
 
 .box {
@@ -46,4 +48,3 @@ body, html, #app {
   top: 55px;
   overflow: auto;
 }
-
