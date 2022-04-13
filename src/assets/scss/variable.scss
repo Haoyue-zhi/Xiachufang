@@ -3,7 +3,7 @@
 // 引入MiSans字体
 @font-face {
   font-family: MiSans;
-  src: url('@/assets/font/misans-light.ttf');
+  src: url('@/assets/font/misans-normal.ttf');
 }
 
 @font-face {
@@ -15,11 +15,11 @@
 // 引入OPPOSans字体
 @font-face {
   font-family: OPPOSans;
-  src: url('@/assets/font/opposans-l.ttf');
+  src: url('@/assets/font/opposans-regular.ttf');
 }
 
 @font-face {
   font-family: OPPOSans;
-  src: url('@/assets/font/opposans-b.ttf');
+  src: url('@/assets/font/opposans-bold.ttf');
   font-weight: bold;
 }
