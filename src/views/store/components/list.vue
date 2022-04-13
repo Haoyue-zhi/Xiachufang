@@ -43,8 +43,8 @@ const props = defineProps(['title','items'])
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     padding: 0 17px;
+    grid-row-gap: 65px;
     .commodity {
-      margin-bottom: 65px;
       img {
         display: block;
         width: 170px;
