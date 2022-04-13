@@ -1,7 +1,25 @@
 // 变量
 
-//引入MiSans字体
+// 引入MiSans字体
 @font-face {
   font-family: MiSans;
-  src: url('@/assets/font/MiSans-Normal.ttf')
+  src: url('@/assets/font/MiSans-Light.ttf');
+}
+
+@font-face {
+  font-family: MiSans;
+  src: url('@/assets/font/MiSans-Light.ttf');
+  font-weight: bold;
+}
+
+// 引入OPPOSans字体
+@font-face {
+  font-family: OPPOSans;
+  src: url('@/assets/font/OPPOSans-L.ttf');
+}
+
+@font-face {
+  font-family: OPPOMiSans;
+  src: url('@/assets/font/OPPOSans-B.ttf');
+  font-weight: bold;
 }
