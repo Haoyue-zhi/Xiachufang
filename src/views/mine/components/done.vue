@@ -33,7 +33,7 @@
         <van-grid-item icon="diamond-o" text="会员" @click="tips"/>
         <van-grid-item icon="tv-o" text="课程" @click="tips"/>
         <van-grid-item icon="orders-o" text="订单" badge="0"
-                       :badge-props="{color: '#E86F58', max: '99', ':show-zero': false}"
+                       :badge-props="{color: '#E86F58', max: '99', 'show-zero': false}"
                        @click="tips"/>
         <van-grid-item icon="cash-o" text="钱包" @click="tips"/>
       </van-grid>
