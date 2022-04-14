@@ -8,11 +8,11 @@
       </div>
       <div class="bottom">
         <div class="follow">
-          <div class="num">{{info.userFollow}}</div>
+          <div class="num">{{ info.userFollow }}</div>
           <div class="item">关注</div>
         </div>
         <div class="fans">
-          <div class="num">{{info.userFans}}</div>
+          <div class="num">{{ info.userFans }}</div>
           <div class="item">粉丝</div>
         </div>
       </div>
@@ -29,11 +29,13 @@
     <!-- 宫格 -->
     <div class="van-hairline--bottom">
       <van-grid :border="false" :column-num="5" icon-size="22px">
-        <van-grid-item icon="clock-o" text="浏览历史" @click="tips" />
-        <van-grid-item icon="diamond-o" text="会员" @click="tips" />
-        <van-grid-item icon="tv-o" text="课程" @click="tips" />
-        <van-grid-item icon="orders-o" text="订单" @click="tips" />
-        <van-grid-item icon="cash-o" text="钱包" @click="tips" />
+        <van-grid-item icon="clock-o" text="浏览历史" @click="tips"/>
+        <van-grid-item icon="diamond-o" text="会员" @click="tips"/>
+        <van-grid-item icon="tv-o" text="课程" @click="tips"/>
+        <van-grid-item icon="orders-o" text="订单" badge="0"
+                       :badge-props="{color: '#E86F58', max: '99', ':show-zero': false}"
+                       @click="tips"/>
+        <van-grid-item icon="cash-o" text="钱包" @click="tips"/>
       </van-grid>
     </div>
     <!-- 标签页 -->
@@ -58,11 +60,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useStore } from "vuex";
-import { getInfo } from "@/api/mine";
-import { Toast } from 'vant';
+import {computed, ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useStore} from "vuex";
+import {getInfo} from "@/api/mine";
+import {Toast} from 'vant';
 
 const router = useRouter()
 const route = useRoute()
@@ -81,15 +83,15 @@ const onRefresh = () => {
 
 // 获取用户信息
 const info = computed({
-  get () {
+  get() {
     return store.state.info
   },
-  set (val) {
+  set(val) {
     store.commit('setInfo', val)
   }
 })
 
-async function getUserInfo () {
+async function getUserInfo() {
   const res = await getInfo()
   if (res.code && res.code === '00000') {
     info.value = res.data
@@ -97,8 +99,8 @@ async function getUserInfo () {
   }
 }
 
-function tips () {
-  Toast({ message: '功能暂未开通', duration: 1000 });
+function tips() {
+  Toast({message: '功能暂未开通', duration: 1000});
 }
 </script>
 
@@ -107,6 +109,7 @@ function tips () {
 
 .main {
   min-height: calc(100vh - 105px);
+
   .info {
     height: 170px;
     position: relative;
