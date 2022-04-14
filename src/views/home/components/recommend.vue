@@ -10,10 +10,10 @@
         <div class="item" v-for="item in imageList" :key="item">
           <img class="photo" v-lazy="item.img">
           <div class="item-title">
-            {{ item.title }}
+            {{ item.title.slice(0,11) }}
           </div>
           <div class="subtitle">
-            {{ item.subtitle }}
+            {{ item.subtitle }} 人做过
           </div>
           <div class="author">
             <img :src="item.portrait">

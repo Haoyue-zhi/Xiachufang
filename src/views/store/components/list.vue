@@ -41,9 +41,9 @@ const props = defineProps(['title','items'])
   .column {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-row-gap: 65px;
     justify-items: center;
     padding: 0 17px;
-    grid-row-gap: 65px;
     .commodity {
       img {
         display: block;
