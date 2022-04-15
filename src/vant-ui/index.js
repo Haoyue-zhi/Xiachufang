@@ -30,7 +30,8 @@ import {
     Dialog,
     AddressList,
     AddressEdit,
-    Area
+    Area,
+    Skeleton
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -65,7 +66,8 @@ const options = [
     Dialog,
     AddressList,
     AddressEdit,
-    Area
+    Area,
+    Skeleton
 ]
 
 export function vant(app) {

@@ -10,6 +10,7 @@ export default createStore({
         timer: null, // 计时器开关
         info: {}, // 用户信息
         code_id: "", // 短信ID
+        showSkeleton: false // 骨架屏开关
     },
     mutations: {
         // 保存区号、手机号
@@ -58,6 +59,10 @@ export default createStore({
         clearTimer(state) {
             state.timer = clearInterval(state.timer)
             state.timer = null
+        },
+        // 设置骨架屏
+        setSkeleton(state, data){
+            state.showSkeleton = data
         }
     },
     actions: {

@@ -76,6 +76,7 @@ async function login() {
   if (res.code && res.code === '00000') {
     setToken(res.data.token)
     store.commit('clearTimer')
+    store.commit('setSkeleton', true)
     router.replace('/mine')
   }
 }

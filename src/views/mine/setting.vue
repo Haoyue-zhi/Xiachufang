@@ -71,6 +71,7 @@ function editPas () {
 function logout () {
   removeToken()
   store.commit('resetStore')
+  store.commit('setSkeleton', false)
   router.replace('/mine')
 }
 

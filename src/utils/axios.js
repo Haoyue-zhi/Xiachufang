@@ -46,6 +46,7 @@ _axios.interceptors.response.use(
         } else if (error.response.data.code === '20100' || error.response.data.code === '20101') { // token过期或无效
             removeToken()
             store.dispatch('resetStore')
+            store.commit('setSkeleton', false)
         } else {
             Toast({message: error.response.data.msg, duration: 1000});
         }

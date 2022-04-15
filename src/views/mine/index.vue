@@ -4,9 +4,12 @@
   <!-- 主要内容 -->
   <div class="content">
     <!-- 未登录页面 -->
-    <def v-if="info"></def>
+    <def v-if="info === 0 && loading === false"></def>
+    <!--骨架屏-->
+    <van-skeleton title :row="10" :loading="loading" v-else-if="info === 0 && loading === true"/>
     <!-- 已登录页面 -->
     <done v-else></done>
+
   </div>
 </template>
 
@@ -14,14 +17,14 @@
 import navbar from './components/navbar.vue'
 import def from './components/default.vue'
 import done from './components/done.vue'
-import { computed } from 'vue'
-import { useStore } from "vuex";
+import {computed} from 'vue'
+import {useStore} from "vuex";
 
 const store = useStore()
 
-const info = computed(() => {
-  return Object.keys(store.state.info).length === 0
-})
+const loading = computed(() => store.state.showSkeleton)
+
+const info = computed(() => Object.keys(store.state.info).length)
 </script>
 
 <style scoped lang="scss">

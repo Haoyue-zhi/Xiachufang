@@ -45,12 +45,14 @@
 
 <script setup>
 import {ref} from 'vue';
+import {useStore} from "vuex";
 import {useRouter, useRoute} from 'vue-router'
 import {setToken} from "@/utils/auth";
 import {login} from '@/api/mine/index'
 
 const router = useRouter()
 const route = useRoute()
+const store = useStore()
 
 const value = ref(''); // 手机号码
 const password = ref(''); // 密码
@@ -91,6 +93,7 @@ async function collect() {
   const res = await login(data)
   if (res.code && res.code === '00000') {
     setToken(res.data.token)
+    store.commit('setSkeleton', true)
     router.replace('/mine')
   }
 }
