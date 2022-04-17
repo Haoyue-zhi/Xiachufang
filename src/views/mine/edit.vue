@@ -2,7 +2,7 @@
   <div class="setting">
     <van-nav-bar title="编辑个人资料" @click-left="onClickLeft" @click-right="save" fixed placeholder :border="false">
       <template #left>
-        <van-icon name="arrow-left" size="25" color="#000" />
+        <van-icon name="arrow-left" size="25" color="#000"/>
       </template>
       <template #right>
         <span style="color: #E86F58;font-size: 18px;">保存</span>
@@ -17,26 +17,31 @@
         </van-uploader>
       </div>
       <van-cell-group :border="false">
-        <van-field v-model="form.name" label="用户名" placeholder="填写用户名" />
-        <van-field v-model="form.sex" readonly is-link @click="showSex = true" label="性别" />
-        <van-field v-model="form.birthday" readonly is-link label="生日" @click="showBirth = true" placeholder="选择生日" />
-        <van-field v-model="form.vocation" readonly is-link label="职业" @click="showVocation = true" placeholder="添加职业，让厨友更了解你" />
-        <van-field v-model="form.hometown" readonly is-link label="家乡" @click="showHometown = true" placeholder="选择家乡" />
-        <van-field v-model="form.residence" readonly is-link label="常居" @click="showResidence = true" placeholder="选择常居地" />
-        <van-field v-model="form.introduce" rows="5" autosize label="个人简介" type="textarea" maxlength="255" placeholder="未填写" show-word-limit />
+        <van-field v-model="form.name" label="用户名" placeholder="填写用户名"/>
+        <van-field v-model="form.sex" readonly is-link @click="showSex = true" label="性别"/>
+        <van-field v-model="form.birthday" readonly is-link label="生日" @click="showBirth = true" placeholder="选择生日"/>
+        <van-field v-model="form.vocation" readonly is-link label="职业" @click="showVocation = true"
+                   placeholder="添加职业，让厨友更了解你"/>
+        <van-field v-model="form.hometown" readonly is-link label="家乡" @click="showHometown = true" placeholder="选择家乡"/>
+        <van-field v-model="form.residence" readonly is-link label="常居" @click="showResidence = true"
+                   placeholder="选择常居地"/>
+        <van-field v-model="form.introduce" rows="5" autosize label="个人简介" type="textarea" maxlength="255"
+                   placeholder="未填写" show-word-limit/>
       </van-cell-group>
     </div>
     <!-- 性别选择 -->
     <van-popup v-model:show="showSex" round position="bottom">
-      <van-picker confirm-button-text="确定" :columns="sexTable" @cancel="showSex = false" @confirm="setSex" />
+      <van-picker confirm-button-text="确定" :columns="sexTable" @cancel="showSex = false" @confirm="setSex"/>
     </van-popup>
     <!-- 生日选择 -->
     <van-popup v-model:show="showBirth" round position="bottom">
-      <van-datetime-picker confirm-button-text="确定" v-model="currentDate" type="date" title="选择年月日" :min-date="minDate" :max-date="maxDate" :formatter="formatter" @confirm="setBirth" @cancel="showBirth=false" />
+      <van-datetime-picker confirm-button-text="确定" v-model="currentDate" type="date" title="选择年月日" :min-date="minDate"
+                           :max-date="maxDate" :formatter="formatter" @confirm="setBirth" @cancel="showBirth=false"/>
     </van-popup>
     <!-- 职业选择 -->
     <van-popup v-model:show="showVocation" position="right" :style="{ height: '100%',width:'100%' }">
-      <van-nav-bar title="选择职业" @click-left="showVocation = false" :border="false" :fixed="true" placeholder style="height: 47px;">
+      <van-nav-bar title="选择职业" @click-left="showVocation = false" :border="false" :fixed="true" placeholder
+                   style="height: 47px;">
         <template #left>
           <span style="color: #E86F58;font-size: 18px;">取消</span>
         </template>
@@ -48,43 +53,45 @@
     </van-popup>
     <!-- 选择家乡 -->
     <van-popup v-model:show="showHometown" round position="bottom">
-      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showHometown = false" @confirm="setHometown"/>
+      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showHometown = false"
+                @confirm="setHometown"/>
     </van-popup>
     <!-- 选择常居地 -->
     <van-popup v-model:show="showResidence" round position="bottom">
-      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showResidence = false" @confirm="setResidence"/>
+      <van-area confirm-button-text="确定" :area-list="areaList" :columns-num="2" @cancel="showResidence = false"
+                @confirm="setResidence"/>
     </van-popup>
 
   </div>
 </template>
 
 <script setup>
-import { computed, ref, reactive } from 'vue'
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { editInfo, getInfo } from '@/api/mine'
-import { areaList } from '@vant/area-data';
-import { Toast } from 'vant';
+import {computed, ref, reactive} from 'vue'
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
+import {editInfo, getInfo} from '@/api/mine'
+import {areaList} from '@vant/area-data';
+import {Toast} from 'vant';
 
 const router = useRouter();
 const store = useStore()
 
 // 用户信息
 const info = computed({
-  get () {
+  get() {
     return store.state.info
   },
-  set (val) {
+  set(val) {
     store.commit('setInfo', val)
   }
 })
 
 // 上传文件列表
-function afterRead (file) {
+function afterRead(file) {
   form.photo = file.content
 }
 
-function onOversize (file) {
+function onOversize(file) {
   Toast('文件大小不能超过 500kb');
 }
 
@@ -104,7 +111,7 @@ const form = reactive({
 const showSex = ref(false)
 const sexTable = ['男', '女', '其他']
 
-function setSex (value, index) {
+function setSex(value, index) {
   form.sex = value
   showSex.value = false;
 }
@@ -128,7 +135,7 @@ const formatter = (type, val) => {
 };
 
 // 格式化日期
-function dateFormat (fmt, date) {
+function dateFormat(fmt, date) {
   let ret;
   const opt = {
     "Y+": date.getFullYear().toString(),        // 年
@@ -150,7 +157,7 @@ function dateFormat (fmt, date) {
   return fmt;
 }
 
-function setBirth (value) {
+function setBirth(value) {
   form.birthday = dateFormat("YYYY-mm-dd", value)
   showBirth.value = false
 }
@@ -159,7 +166,7 @@ function setBirth (value) {
 const showVocation = ref(false)
 const vocation = ['学生', '政府职员', '教师', '医生', '摄影师', '律师', '会计', '翻译', '编辑', '音乐人', '演艺人', '广告人', '公司文员', 'IT/互联网', '个体商人', '全职主妇', '其它']
 
-function setVocation (e) {
+function setVocation(e) {
   form.vocation = e.target.innerText
   showVocation.value = false
 }
@@ -169,22 +176,22 @@ const showHometown = ref(false)
 const showResidence = ref(false)
 
 // 格式化地址
-function cityFormat (val) {
+function cityFormat(val) {
   return val[0].name + ',' + val[1].name
 }
 
-function setHometown (value) {
+function setHometown(value) {
   form.hometown = cityFormat(value);
   showHometown.value = false;
 }
 
-function setResidence (value) {
+function setResidence(value) {
   form.residence = cityFormat(value);
   showResidence.value = false;
 }
 
 // 保存
-async function save () {
+async function save() {
   let data = {
     username: form.name,
     sex: form.sex,
@@ -195,12 +202,9 @@ async function save () {
     describe: form.introduce
   }
 
-  // 未更改头像就上传头像
+  // 上传头像
   if (info.value.userAvatar !== form.photo) {
-    Object.defineProperty(data, 'avatar', {
-      value: form.photo,
-      writable: true
-    })
+    data.avatar = form.photo
   }
 
   const res = await editInfo(data)
@@ -209,7 +213,7 @@ async function save () {
   }
 }
 
-async function getUserInfo () {
+async function getUserInfo() {
   const res = await getInfo()
   if (res.code && res.code === '00000') {
     info.value = res.data
@@ -217,7 +221,7 @@ async function getUserInfo () {
   }
 }
 
-function onClickLeft () {
+function onClickLeft() {
   router.back()
 }
 
