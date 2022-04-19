@@ -1,21 +1,21 @@
 <template>
   <teleport to="body" :disabled="!show">
     <van-overlay :show="show">
-      <icon-svg name="icon-clear" class="clear" @click="$emit('isShow')"></icon-svg>
+      <icon-svg name="icon-clear" class="clear" @click="closeShow"></icon-svg>
       <div class="info">
-        <img :src="info.userAvatar">
+        <img v-if="info.userAvatar" :src="info.userAvatar">
         <span>分享的人是厨房里的天使</span>
       </div>
       <div class="btn">
-        <div class="item">
+        <div class="item" @click="upload('/menu')">
           <img src="@/assets/img/menu.png">
           <span>传菜谱</span>
         </div>
-        <div class="item">
+        <div class="item" @click="upload('/works')">
           <img src="@/assets/img/works.png">
           <span>传作品</span>
         </div>
-        <div class="item">
+        <div class="item" @click="Toast('功能暂未开通');">
           <img src="@/assets/img/video.png">
           <span>传视频</span>
         </div>
@@ -25,8 +25,13 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useStore } from "vuex";
+import {computed} from 'vue';
+import {useStore} from "vuex";
+import {useRouter, useRoute} from 'vue-router'
+import {Toast} from 'vant';
+
+const router = useRouter()
+const route = useRoute()
 
 const props = defineProps(['show'])
 const emit = defineEmits(['isShow'])
@@ -35,6 +40,22 @@ const store = useStore()
 
 // 用户信息
 const info = computed(() => store.state.info)
+
+// 关闭遮罩层
+function closeShow() {
+  emit('isShow')
+}
+
+// 路由跳转
+function upload(path) {
+  if (Object.keys(info.value).length === 0) {
+    router.push('/mine')
+    closeShow()
+  } else {
+    router.push(path)
+    closeShow()
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +63,7 @@ const info = computed(() => store.state.info)
 .van-overlay {
   background: #ffffff;
 }
+
 .clear {
   position: absolute;
   left: 20px;
@@ -49,6 +71,7 @@ const info = computed(() => store.state.info)
   width: 26px;
   height: 26px;
 }
+
 .info {
   display: flex;
   flex-direction: column;
@@ -72,6 +95,7 @@ const info = computed(() => store.state.info)
     letter-spacing: 0.02em;
   }
 }
+
 .btn {
   position: absolute;
   top: 565px;

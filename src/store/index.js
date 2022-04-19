@@ -10,7 +10,8 @@ export default createStore({
         timer: null, // 计时器开关
         info: {}, // 用户信息
         code_id: "", // 短信ID
-        showSkeleton: false // 骨架屏开关
+        showSkeleton: false, // 骨架屏开关
+        works: "", // 作品
     },
     mutations: {
         // 保存区号、手机号
@@ -61,8 +62,12 @@ export default createStore({
             state.timer = null
         },
         // 设置骨架屏
-        setSkeleton(state, data){
+        setSkeleton(state, data) {
             state.showSkeleton = data
+        },
+        // 添加作品
+        setWorks(state, data){
+            state.works = data
         }
     },
     actions: {
@@ -72,7 +77,7 @@ export default createStore({
         setInfo({commit}, data) {
             commit("setInfo", data);
         },
-        resetStore({commit}){
+        resetStore({commit}) {
             commit("resetStore");
         }
     }
