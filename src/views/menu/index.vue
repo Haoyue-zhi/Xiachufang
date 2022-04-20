@@ -10,7 +10,9 @@
       </template>
     </van-nav-bar>
     <!-- 上传封面 -->
-    <cover-upload></cover-upload>
+    <transition name="van-fade">
+      <cover-upload v-if="isShow"></cover-upload>
+    </transition>
     <!-- 标题 -->
     <div class="title van-hairline--bottom">
       <van-field
@@ -24,7 +26,7 @@
       />
     </div>
     <van-cell-group :border="false" v-if="!isShow">
-      <van-cell :border="false">
+      <van-cell class="tips" :border="false">
         <template #title>
           <span class="custom-title">提示</span>
           <div class="tag"></div>
@@ -36,7 +38,10 @@
         </template>
       </van-cell>
     </van-cell-group>
-
+    <!-- 用料 -->
+    <transition name="van-fade">
+      <materials v-if="isShow"></materials>
+    </transition>
   </div>
 </template>
 
@@ -46,6 +51,7 @@ import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import {Toast, Dialog} from 'vant';
 import coverUpload from './components/uploader.vue'
+import materials from './components/materials.vue'
 
 const router = useRouter();
 const store = useStore()
@@ -96,7 +102,7 @@ function next() {
 
   }
 
-  .van-cell {
+  .tips {
     margin-top: 19px;
 
     .custom-title {

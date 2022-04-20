@@ -31,7 +31,8 @@ import {
     AddressList,
     AddressEdit,
     Area,
-    Skeleton
+    Skeleton,
+    SwipeCell
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -67,7 +68,8 @@ const options = [
     AddressList,
     AddressEdit,
     Area,
-    Skeleton
+    Skeleton,
+    SwipeCell
 ]
 
 export function vant(app) {
