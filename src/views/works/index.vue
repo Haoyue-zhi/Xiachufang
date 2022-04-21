@@ -25,7 +25,7 @@
 
 <script setup>
 import {onMounted, ref} from 'vue'
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {useRouter} from "vue-router";
 import {Toast, Dialog} from 'vant';
 

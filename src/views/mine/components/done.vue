@@ -62,7 +62,7 @@
 <script setup>
 import {computed, ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {getInfo} from "@/api/mine";
 import {Toast} from 'vant';
 
@@ -82,20 +82,12 @@ const onRefresh = () => {
 };
 
 // 获取用户信息
-const info = computed({
-  get() {
-    return store.state.info
-  },
-  set(val) {
-    store.commit('setInfo', val)
-  }
-})
+const info = computed(() => store.info)
 
 async function getUserInfo() {
   const res = await getInfo()
   if (res.code && res.code === '00000') {
-    info.value = res.data
-    console.log(info.value)
+    store.setInfo(res.data)
   }
 }
 

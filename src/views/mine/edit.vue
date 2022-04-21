@@ -12,7 +12,8 @@
     <div class="main">
       <div class="photo">
         <img :src="form.photo">
-        <van-uploader :max-count="1" :after-read="afterRead" accept="image/jpeg ,image/png" :max-size="500 * 1024" @oversize="onOversize">
+        <van-uploader :max-count="1" :after-read="afterRead" accept="image/jpeg ,image/png" :max-size="500 * 1024"
+                      @oversize="onOversize">
           <span>点击更换头像</span>
         </van-uploader>
       </div>
@@ -67,7 +68,7 @@
 
 <script setup>
 import {computed, ref, reactive} from 'vue'
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {useRouter} from "vue-router";
 import {editInfo, getInfo} from '@/api/mine'
 import {areaList} from '@vant/area-data';
@@ -77,14 +78,7 @@ const router = useRouter();
 const store = useStore()
 
 // 用户信息
-const info = computed({
-  get() {
-    return store.state.info
-  },
-  set(val) {
-    store.commit('setInfo', val)
-  }
-})
+const info = computed(() => store.info)
 
 // 上传文件列表
 function afterRead(file) {

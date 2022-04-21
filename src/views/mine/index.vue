@@ -18,13 +18,14 @@ import navbar from './components/navbar.vue'
 import def from './components/default.vue'
 import done from './components/done.vue'
 import {computed} from 'vue'
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 
 const store = useStore()
 
-const loading = computed(() => store.state.showSkeleton)
 
-const info = computed(() => Object.keys(store.state.info).length)
+const loading = computed(() => store.showSkeleton)
+
+const info = computed(() => Object.keys(store.info).length)
 </script>
 
 <style scoped lang="scss">

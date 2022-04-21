@@ -1,9 +1,9 @@
 import axios from "axios";
 import {getToken, removeToken} from "./auth";
 import {Toast} from "vant";
-import store from '@/store'
+import {useStore} from '@/store'
 
-let config = {
+const config = {
     baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 60 * 1000
 };
@@ -41,12 +41,13 @@ _axios.interceptors.response.use(
         return response.data;
     },
     function (error) {
+        const store = useStore()
         if (error.response === undefined) { // 服务器连接超时
             Toast({message: '服务器连接超时！', duration: 1000});
         } else if (error.response.data.code === '20100' || error.response.data.code === '20101') { // token过期或无效
             removeToken()
-            store.dispatch('resetStore')
-            store.commit('setSkeleton', false)
+            store.resetStore()
+            store.setSkeleton(false)
         } else {
             Toast({message: error.response.data.msg, duration: 1000});
         }

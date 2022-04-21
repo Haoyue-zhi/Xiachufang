@@ -1,7 +1,7 @@
 import {createApp} from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
-import store from '@/store'
+import {createPinia} from 'pinia'
 import '@/assets/scss/index.scss'
 import axios from '@/utils/axios'
 import 'virtual:svg-icons-register'
@@ -15,9 +15,13 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = createApp(App)
+// 初始化pinia
+const pinia = createPinia()
 // 创建全局组件
 app.component('iconSvg', iconSvg)
 // 全局引入axios
 app.config.globalProperties.$axios = axios
 
-app.use(vant).use(router).use(store).mount('#app')
+app.use(vant).use(router).use(pinia)
+
+app.mount('#app')

@@ -5,16 +5,15 @@
     <van-search v-show="info" placeholder="搜索我的菜谱" background="#ffffff"/>
     <icon-svg v-show="info" class="adduser" name="icon-adduser"></icon-svg>
     <icon-svg v-show="info" class="set" name="icon-set" @click="router.push('/mine/setting')"></icon-svg>
-    <overlay :show="show"  @isShow="show = false"></overlay>
+    <overlay :show="show" @isShow="show = false"></overlay>
   </div>
 </template>
 
 <script setup>
 import overlay from '@/components/overlay/index.vue'
-import {ref} from "vue";
-import {computed} from "vue";
-import {useStore} from "vuex";
-import { useRouter, useRoute } from "vue-router";
+import {ref, computed} from "vue";
+import {useStore} from '@/store'
+import {useRouter, useRoute} from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,9 +21,7 @@ const store = useStore();
 
 const show = ref(false)
 
-const info = computed(() => {
-  return Object.keys(store.state.info).length !== 0
-})
+const info = computed(() => Object.keys(store.info).length !== 0)
 
 </script>
 

@@ -15,7 +15,17 @@
 .van-search {
   padding: 0;
   height: 36px;
+
   .van-search__content {
     border-radius: 10px;
+  }
+}
+
+// tab标签
+.van-tabs {
+  .van-tabs__wrap {
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 }

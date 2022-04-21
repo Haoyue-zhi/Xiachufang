@@ -14,14 +14,14 @@
     "amfe-flexible": "^2.2.1",
     "axios": "^0.23.0",
     "gulp": "^4.0.2",
-    "mockjs": "^1.1.0",
+    "pinia": "^2.0.13",
     "vant": "^3.4.8",
     "vue": "^3.2.16",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
+    "mockjs": "^1.1.0",
     "postcss-pxtorem": "^6.0.0",
     "sass": "^1.43.3",
     "vite": "^2.6.4",
