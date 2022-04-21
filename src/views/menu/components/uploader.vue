@@ -28,6 +28,7 @@ const fileList = ref([]);
       align-items: center;
       color: #95958f;
       background-color: #fafaf8;
+      margin: 0;
 
       .one {
         font-size: 14px;
