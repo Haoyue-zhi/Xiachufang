@@ -145,9 +145,7 @@ function dateFormat(fmt, date) {
     if (ret) {
       fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
     }
-    ;
   }
-  ;
   return fmt;
 }
 
@@ -210,7 +208,7 @@ async function save() {
 async function getUserInfo() {
   const res = await getInfo()
   if (res.code && res.code === '00000') {
-    info.value = res.data
+    store.setInfo(res.data)
     router.back()
   }
 }

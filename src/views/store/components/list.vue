@@ -1,20 +1,20 @@
 <template>
   <div class="list">
     <div class="title">
-      {{title || ''}}
+      {{title}}
     </div>
     <div class="column">
       <div class="commodity" v-for="item in items" :key="item">
         <img v-lazy="item.img">
         <div class="name">
-          {{item.name || ''}}
+          {{item.name}}
         </div>
         <div class="num">
           <div class="price">
-            ￥{{item.price || ''}}
+            ￥{{item.price}}
           </div>
           <div class="sales">
-            月销 {{item.sales || ''}}
+            月销 {{item.sales}}
           </div>
         </div>
       </div>

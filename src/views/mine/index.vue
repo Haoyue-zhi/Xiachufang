@@ -22,7 +22,6 @@ import {useStore} from '@/store'
 
 const store = useStore()
 
-
 const loading = computed(() => store.showSkeleton)
 
 const info = computed(() => Object.keys(store.info).length)
