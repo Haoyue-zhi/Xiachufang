@@ -4,7 +4,7 @@
   <!-- 主要内容 -->
   <div class="content">
 
-    <van-tabs v-model:active="active" swipeable sticky offset-top="52px" line-width="20px" color="#E86F58">
+    <van-tabs v-model:active="active" swipeable line-width="20px" color="#E86F58">
       <van-tab title="关注">
         <follow></follow>
       </van-tab>

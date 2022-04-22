@@ -11,8 +11,8 @@
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
           <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;"
-                      :disabled="store.state.time === 0 ? false : true" @click="sendCode">
-            <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
+                      :disabled="store.time === 0 ? false : true" @click="sendCode">
+            <template v-if="store.time !== 0">{{ store.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
         </template>
@@ -32,7 +32,7 @@
 <script setup>
 import {ref, computed, onMounted} from "vue";
 import {useRouter} from "vue-router";
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {sendSms, editPas} from "@/api/mine";
 import { Toast } from 'vant';
 
@@ -40,7 +40,7 @@ const router = useRouter();
 const store = useStore();
 
 // 用户信息
-const info = computed(() => store.state.info)
+const info = computed(() => store.info)
 
 onMounted(() => {
   sendCode()
@@ -48,14 +48,14 @@ onMounted(() => {
 
 // 发送验证码
 async function sendCode() {
-  if (!store.state.timer) {
+  if (!store.timer) {
     let data = {
       phone: info.value.userPhone
     }
     const res = await sendSms(data)
     if (res.code && res.code === '00000') {
-      store.dispatch("setTime")
-      store.commit("setCodeid", res.data.code_id)
+      store.setTime()
+      store.setCodeid(res.data.code_id)
     }
   }
 }
@@ -65,7 +65,7 @@ const password = ref(""); // 密码
 // 修改密码
 async function edit() {
   let data = {
-    _id: store.state.code_id,
+    _id: store.code_id,
     user_code: areaCode.value,
     password: password.value
   }

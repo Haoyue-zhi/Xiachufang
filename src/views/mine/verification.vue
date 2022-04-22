@@ -57,7 +57,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
+import {useStore} from '@/store'
 import { Dialog } from 'vant';
 
 const router = useRouter();
@@ -94,24 +94,24 @@ const onFinish = ({ selectedOptions }) => {
 };
 
 onMounted(() => {
-  if (store.state.phone && store.state.areaCode) {
-    phone.value = store.state.phone
-    areaCode.value = store.state.areaCode
+  if (store.phone && store.areaCode) {
+    phone.value = store.phone
+    areaCode.value = store.areaCode
   }
 })
 
 // 收取验证码
 async function collect() {
 
-  if (store.state.timer) {
-    if (phone.value.replace(/\s/g, '') === store.state.phone) {
-      store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
+  if (store.timer) {
+    if (phone.value.replace(/\s/g, '') === store.phone) {
+      store.setPhone({ areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
       router.push('/mine/checkCode')
     } else {
       Dialog({ message: '你获取验证码太快了，等一分钟再试试吧' });
     }
   } else {
-    store.commit('setPhone', { areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
+    store.setPhone({ areaCode: areaCode.value, phone: phone.value.replace(/\s/g, '') })
     router.push('/mine/checkCode')
   }
 }

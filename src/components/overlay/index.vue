@@ -26,20 +26,20 @@
 
 <script setup>
 import {computed} from 'vue';
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {useRouter, useRoute} from 'vue-router'
 import {Toast} from 'vant';
 
 const router = useRouter()
 const route = useRoute()
-
-const props = defineProps(['show'])
-const emit = defineEmits(['isShow'])
-
 const store = useStore()
 
+const props = defineProps(['show'])
+
+const emit = defineEmits(['isShow'])
+
 // 用户信息
-const info = computed(() => store.state.info)
+const info = computed(() => store.info)
 
 // 关闭遮罩层
 function closeShow() {

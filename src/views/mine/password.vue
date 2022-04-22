@@ -45,7 +45,7 @@
 
 <script setup>
 import {ref} from 'vue';
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {useRouter, useRoute} from 'vue-router'
 import {setToken} from "@/utils/auth";
 import {login} from '@/api/mine/index'
@@ -93,7 +93,7 @@ async function collect() {
   const res = await login(data)
   if (res.code && res.code === '00000') {
     setToken(res.data.token)
-    store.commit('setSkeleton', true)
+    store.setSkeleton(true)
     router.replace('/mine')
   }
 }

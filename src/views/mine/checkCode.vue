@@ -4,15 +4,15 @@
     <p class="title">
       请输入验证码<br>
       <span class="tips">
-      验证码已通过短信发送至 {{ store.state.areaCode }} {{ phone }}
+      验证码已通过短信发送至 {{ store.areaCode }} {{ phone }}
       </span>
     </p>
     <div class="content">
       <van-field class="tel" v-model="areaCode" type="number" maxlength="6" placeholder="输入验证码">
         <template #button>
           <van-button type="primary" color="transparent" style="color:#D0D0D1;font-size:19px;"
-                      :disabled="store.state.time === 0 ? false : true" @click="sendCode">
-            <template v-if="store.state.time !== 0">{{ store.state.time }}</template>
+                      :disabled="store.time === 0 ? false : true" @click="sendCode">
+            <template v-if="store.time !== 0">{{ store.time }}</template>
             <template v-else>重新发送</template>
           </van-button>
         </template>
@@ -32,7 +32,7 @@
 <script setup>
 import {ref, computed, onMounted} from "vue";
 import {useRouter, useRoute} from "vue-router";
-import {useStore} from "vuex";
+import {useStore} from '@/store'
 import {sendSms, register} from "@/api/mine";
 import {setToken} from "@/utils/auth";
 
@@ -42,9 +42,9 @@ const route = useRoute();
 const store = useStore();
 
 const phone = ref(
-    store.state.phone.substring(0, 3) +
+    store.phone.substring(0, 3) +
     "****" +
-    store.state.phone.substring(7, 11)
+    store.phone.substring(7, 11)
 );
 
 onMounted(() => {
@@ -53,14 +53,14 @@ onMounted(() => {
 
 // 发送验证码
 async function sendCode() {
-  if (!store.state.timer) {
+  if (!store.timer) {
     let data = {
-      phone: store.state.areaCode + store.state.phone
+      phone: store.areaCode + store.phone
     }
     const res = await sendSms(data)
     if (res.code && res.code === '00000') {
-      store.dispatch("setTime")
-      store.commit("setCodeid", res.data.code_id)
+      store.setTime()
+      store.setCodeid(res.data.code_id)
     }
   }
 }
@@ -69,14 +69,14 @@ const areaCode = ref(""); // 验证码
 // 登录
 async function login() {
   let data = {
-    _id: store.state.code_id,
+    _id: store.code_id,
     user_code: areaCode.value
   }
   const res = await register(data)
   if (res.code && res.code === '00000') {
     setToken(res.data.token)
-    store.commit('clearTimer')
-    store.commit('setSkeleton', true)
+    store.clearTimer()
+    store.setSkeleton(true)
     router.replace('/mine')
   }
 }

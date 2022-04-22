@@ -31,7 +31,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useStore } from "vuex";
+import {useStore} from '@/store'
 import { useRouter, useRoute } from "vue-router";
 import { removeToken } from '@/utils/auth'
 import { Dialog } from 'vant';
@@ -41,13 +41,13 @@ const route = useRoute();
 const store = useStore()
 
 // 用户信息
-const info = computed(() => store.state.info)
+const info = computed(() => store.info)
 
 function edit () {
   router.push('/mine/setting/edit')
 }
 
-const timer = computed(() => store.state.timer)
+const timer = computed(() => store.timer)
 function editPas () {
   Dialog.confirm({
     message: '修改密码需要\n手机号码验证，是否继续',
@@ -70,8 +70,8 @@ function editPas () {
 // 退出
 function logout () {
   removeToken()
-  store.commit('resetStore')
-  store.commit('setSkeleton', false)
+  store.resetStore()
+  store.setSkeleton(false)
   router.replace('/mine')
 }
 
