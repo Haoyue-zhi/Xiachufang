@@ -1,14 +1,18 @@
 <template>
   <van-uploader v-model="fileList" :preview-full-image="false" :show-upload="fileList.length !==1 ">
     <div class="van-uploader__upload">
-      <p class="one">+菜谱封面</p>
-      <p class="two">诱人的封面是吸引厨友的关键</p>
+      <p class="one">{{ cover ? '+步骤图' : '+菜谱封面' }}</p>
+      <p class="two">{{ cover ? '清晰的步骤图会让菜谱更受欢迎' : '诱人的封面是吸引厨友的关键' }}</p>
     </div>
   </van-uploader>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import {ref} from 'vue'
+
+const props = defineProps({
+  cover: Boolean
+})
 
 const fileList = ref([]);
 </script>

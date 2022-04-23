@@ -16,7 +16,7 @@
     "gulp": "^4.0.2",
     "pinia": "^2.0.13",
     "vant": "^3.4.8",
-    "vue": "^3.2.16",
+    "vue": "^3.2.33",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

@@ -42,6 +42,10 @@
     <transition name="van-fade">
       <materials v-if="isShow"></materials>
     </transition>
+    <!-- 步骤 -->
+    <transition name="van-fade">
+      <step v-if="isShow"></step>
+    </transition>
   </div>
 </template>
 
@@ -52,6 +56,7 @@ import {useRouter} from "vue-router";
 import {Toast, Dialog} from 'vant';
 import coverUpload from './components/uploader.vue'
 import materials from './components/materials.vue'
+import step from './components/step.vue'
 
 const router = useRouter();
 const store = useStore()
