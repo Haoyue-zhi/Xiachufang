@@ -24,33 +24,42 @@
         type="textarea"
         placeholder="这道菜还有哪些需要注意的细节和小技巧？"
     />
-    <van-cell>
-      <template #title>
-        烹饪时长
-      </template>
-      <template #label>
-        <div class="time">
-          <van-tag type="primary" size="large">15分钟左右</van-tag>
-          <van-tag type="primary" size="large">15~30分钟</van-tag>
-          <van-tag type="primary" size="large">30~60分钟</van-tag>
-          <van-tag type="primary" size="large">1小时以上</van-tag>
-        </div>
-      </template>
-    </van-cell>
+    <van-cell title="烹饪时长"/>
+    <div class="time">
+      <div class="swipe">
+        <div class="tag">15分钟左右</div>
+        <div class="tag">15~30分钟</div>
+        <div class="tag">30~60分钟</div>
+        <div class="tag">1小时以上</div>
+      </div>
+    </div>
+    <van-cell title="烹饪难度"/>
+    <div class="difficulty">
+      <div class="swipe">
+        <div class="tag">零厨艺</div>
+        <div class="tag">容易做</div>
+        <div class="tag">有点挑战</div>
+        <div class="tag">压力略大</div>
+      </div>
+    </div>
+    
+    <div class="release">
+      发布这个菜谱
+    </div>
   </van-cell-group>
 </template>
 
 <script setup>
-import {ref,reactive} from 'vue'
+import {ref, reactive} from 'vue'
 import upload from './uploader.vue'
 
 const items = reactive([
   {
-    explain:''
+    explain: ''
   }
 ])
 
-function add(){
+function add() {
   const obj = {
     explain: ''
   }
@@ -87,5 +96,44 @@ const tips = ref('')
   }
 }
 
+.time, .difficulty {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+
+  .swipe {
+    display: flex;
+
+    .tag {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      height: 54px;
+      padding: 0 12px;
+      border-radius: 3px;
+      margin-right: 8px;
+      font-size: 16px;
+      background-color: #f3f3f3;
+
+      &:nth-child(1) {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+.release {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+  color: #fff;
+  background-color: $theme-color;
+  margin-top: 20px;
+}
 
 </style>
