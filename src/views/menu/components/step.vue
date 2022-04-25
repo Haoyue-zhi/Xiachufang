@@ -13,8 +13,29 @@
         />
       </template>
     </van-cell>
-    <van-cell>
+    <van-cell :border="false">
       <span class="add" @click="add">再增加一步</span>
+    </van-cell>
+    <van-cell title-class="title" :border="false" title="小贴士"/>
+    <van-field
+        v-model="tips"
+        rows="3"
+        autosize
+        type="textarea"
+        placeholder="这道菜还有哪些需要注意的细节和小技巧？"
+    />
+    <van-cell>
+      <template #title>
+        烹饪时长
+      </template>
+      <template #label>
+        <div class="time">
+          <van-tag type="primary" size="large">15分钟左右</van-tag>
+          <van-tag type="primary" size="large">15~30分钟</van-tag>
+          <van-tag type="primary" size="large">30~60分钟</van-tag>
+          <van-tag type="primary" size="large">1小时以上</van-tag>
+        </div>
+      </template>
     </van-cell>
   </van-cell-group>
 </template>
@@ -35,6 +56,8 @@ function add(){
   }
   items.push(obj)
 }
+
+const tips = ref('')
 
 </script>
 
