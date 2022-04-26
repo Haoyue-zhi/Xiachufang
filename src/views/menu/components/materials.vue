@@ -10,13 +10,14 @@
     <van-cell title-class="title" title="用料"/>
     <!-- 滑动单元格 -->
     <van-swipe-cell ref="itemRefs" v-for="(item,index) in items" :key="item" :name="index" @open="openSwipeCell(index)">
-      <div style="display: flex;">
+      <div class="van-hairline--bottom" style="display: flex;">
         <van-field
             v-model="item.Ingredients"
             rows="1"
             autosize
             type="textarea"
             placeholder="食材：如鸡蛋"
+            :border="false"
         />
         <van-field
             v-model="item.consumption"
@@ -24,6 +25,7 @@
             autosize
             type="textarea"
             placeholder="用量：如1只"
+            :border="false"
         />
       </div>
       <template #right>

@@ -27,25 +27,33 @@
     <van-cell title="烹饪时长"/>
     <div class="time">
       <div class="swipe">
-        <div class="tag">15分钟左右</div>
-        <div class="tag">15~30分钟</div>
-        <div class="tag">30~60分钟</div>
-        <div class="tag">1小时以上</div>
+        <div class="tag" :class="{choose: timeActive.key === index}" v-for="(item,index) in times" :key="item"
+             @click="chooseTime(index,item)">
+          {{ item }}
+        </div>
       </div>
     </div>
     <van-cell title="烹饪难度"/>
     <div class="difficulty">
       <div class="swipe">
-        <div class="tag">零厨艺</div>
-        <div class="tag">容易做</div>
-        <div class="tag">有点挑战</div>
-        <div class="tag">压力略大</div>
+        <div class="tag" :class="{choose: diffActive.key === index}" v-for="(item,index) in difficulty" :key="item"
+             @click="chooseDifficult(index,item)">
+          {{ item }}
+        </div>
       </div>
     </div>
-    
+    <van-cell is-link title-class="title" :border="false" title="推荐至分类" @click="showPopup" style="margin-top: 30px;"/>
     <div class="release">
       发布这个菜谱
     </div>
+    <van-popup v-model:show="show" position="left" style="height:100%;width: 100%;">
+      <van-nav-bar title="选择分类" @click-left="show = false" :border="false" :fixed="true" placeholder
+                   style="height: 47px;">
+        <template #left>
+          <span style="color: #E86F58;font-size: 18px;">取消</span>
+        </template>
+      </van-nav-bar>
+    </van-popup>
   </van-cell-group>
 </template>
 
@@ -59,6 +67,7 @@ const items = reactive([
   }
 ])
 
+// 新增步骤
 function add() {
   const obj = {
     explain: ''
@@ -66,8 +75,43 @@ function add() {
   items.push(obj)
 }
 
+// 小贴士
 const tips = ref('')
 
+const times = reactive([
+  '15分钟左右',
+  '15~30分钟',
+  '30~60分钟',
+  '1小时以上'
+])
+
+const timeActive = ref({key: null, item: null});
+
+function chooseTime(key, item) {
+  timeActive.value.key = key
+  timeActive.value.item = item
+  console.log(timeActive.value)
+}
+
+const difficulty = reactive([
+  '零厨艺',
+  '容易做',
+  '有点挑战',
+  '压力略大'
+])
+
+const diffActive = ref({key: null, item: null});
+
+function chooseDifficult(key, item) {
+  diffActive.value.key = key
+  diffActive.value.item = item
+  console.log(diffActive.value)
+}
+
+const show = ref(false);
+const showPopup = () => {
+  show.value = true;
+};
 </script>
 
 <style scoped lang="scss">
@@ -119,6 +163,11 @@ const tips = ref('')
       &:nth-child(1) {
         margin-left: 20px;
       }
+    }
+
+    .choose {
+      background-color: $theme-color;
+      color: #ffffff;
     }
   }
 }
