@@ -3,23 +3,23 @@
 // 引入MiSans字体
 @font-face {
   font-family: MiSans;
-  src: url('@/assets/font/misans-normal.ttf');
+  src: url('../font/misans-normal.ttf');
 }
 
 @font-face {
   font-family: MiSans;
-  src: url('@/assets/font/misans-bold.ttf');
+  src: url('../font/misans-bold.ttf');
   font-weight: bold;
 }
 
 // 引入OPPOSans字体
 @font-face {
   font-family: OPPOSans;
-  src: url('@/assets/font/opposans-regular.ttf');
+  src: url('../font/opposans-regular.ttf');
 }
 
 @font-face {
   font-family: OPPOSans;
-  src: url('@/assets/font/opposans-bold.ttf');
+  src: url('../font/opposans-bold.ttf');
   font-weight: bold;
 }

@@ -53,13 +53,12 @@ export default defineConfig({
         // 在 outDir 中生成 manifest.json
         manifest: false,
         //生成静态资源的存放路径
-        assetsDir: "img",
+        assetsDir: "assets",
         //自定义底层的 Rollup 打包配置
         rollupOptions: {
             output: {
                 chunkFileNames: 'js/[name]-[hash].js',
-                entryFileNames: 'js/[name]-[hash].js',
-                assetFileNames: '[ext]/[name]-[hash].[ext]',
+                entryFileNames: 'js/[name]-[hash].js'
             },
         },
         //启用/禁用 brotli 压缩大小报告
