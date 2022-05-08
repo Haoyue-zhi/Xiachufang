@@ -1,8 +1,9 @@
 <template>
   <van-cell-group :border="false">
     <van-cell title-class="title" title="做法" :border="false"/>
-    <van-cell title-class="title" :title="'步骤' + (index + 1)" v-for="(item,index) in items" :key="item">
-      <template #label>
+    <van-swipe-cell ref="itemRefs" v-for="(item,index) in items" :key="item" :name="index" @open="openSwipeCell(index)">
+      <van-cell title-class="title" :title="'步骤' + (index + 1)" :border="false"/>
+      <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
         <upload></upload>
         <van-field
             v-model="item.explain"
@@ -11,8 +12,11 @@
             type="textarea"
             placeholder="添加步骤说明"
         />
+      </div>
+      <template #right>
+        <van-button square type="danger" text="删除" @click="del(index)" style="height: 100%"/>
       </template>
-    </van-cell>
+    </van-swipe-cell>
     <van-cell :border="false">
       <span class="add" @click="add">再增加一步</span>
     </van-cell>
@@ -22,7 +26,8 @@
         rows="3"
         autosize
         type="textarea"
-        placeholder="这道菜还有哪些需要注意的细节和小技巧？"
+        placeholder="这道菜还有哪些需要注意的细节和小技巧?"
+        @update:model-value="setTips"
     />
     <van-cell title="烹饪时长"/>
     <div class="time">
@@ -42,17 +47,22 @@
         </div>
       </div>
     </div>
-    <van-cell is-link title-class="title" :border="false" title="推荐至分类" @click="showPopup" style="margin-top: 30px;"/>
-    <div class="release">
+    <van-cell is-link title-class="title" :border="false" title="推荐至分类" @click="showPopup" style="margin-top: 30px;"
+              :value="sortItem"/>
+    <!-- 发布按钮 -->
+    <div class="release" @click="emit('issue')">
       发布这个菜谱
     </div>
     <van-popup v-model:show="show" position="left" style="height:100%;width: 100%;">
-      <van-nav-bar title="选择分类" @click-left="show = false" :border="false" :fixed="true" placeholder
+      <van-nav-bar title="选择分类" @click-left="showPopup" :border="false" :fixed="true" placeholder
                    style="height: 47px;">
         <template #left>
           <span style="color: #E86F58;font-size: 18px;">取消</span>
         </template>
       </van-nav-bar>
+      <van-cell v-for="item in sortItems" :key="item" :clickable="true" @click="setSort(item.title)">
+        {{ item.title }}
+      </van-cell>
     </van-popup>
   </van-cell-group>
 </template>
@@ -60,6 +70,13 @@
 <script setup>
 import {ref, reactive} from 'vue'
 import upload from './uploader.vue'
+import sort from '@/assets/json/sort.json'
+
+const emit = defineEmits(['setTips', 'setSort', 'issue'])
+
+function setTips(value) {
+  emit('setTips', value)
+}
 
 const items = reactive([
   {
@@ -73,6 +90,28 @@ function add() {
     explain: ''
   }
   items.push(obj)
+}
+
+const itemRefs = ref([])
+
+// 关闭其他cell
+function openSwipeCell(index) {
+  const otherRow = itemRefs.value.filter((item) => {
+    return item !== itemRefs.value[index]
+  })
+  otherRow.forEach(item => item.close())
+}
+
+// 删除cell
+function del(key) {
+  new Promise((resolve, reject) => {
+    itemRefs.value[key].close()
+    setTimeout(() => resolve("done"), 200);
+  }).then(result => {
+    if (items.length > 1) {
+      items.splice(key, 1)
+    }
+  })
 }
 
 // 小贴士
@@ -108,14 +147,39 @@ function chooseDifficult(key, item) {
   console.log(diffActive.value)
 }
 
+const sortItems = ref([])
+const sortItem = ref('')
+concatSort()
+
+// 设置分类选项
+function concatSort() {
+  sort.forEach(item => {
+    sortItems.value = sortItems.value.concat(item.subject)
+  })
+}
+
+// 选择类别
+function setSort(title) {
+  emit('setSort', title)
+  sortItem.value = title
+  showPopup()
+}
+
 const show = ref(false);
-const showPopup = () => {
-  show.value = true;
+
+// 控制分类弹窗开关
+function showPopup() {
+  show.value = !show.value;
 };
+
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/scss/color';
+
+.van-swipe-cell {
+
+}
 
 .van-cell {
 

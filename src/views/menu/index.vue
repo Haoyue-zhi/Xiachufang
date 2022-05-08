@@ -40,17 +40,17 @@
     </van-cell-group>
     <!-- 用料 -->
     <transition name="van-fade">
-      <materials v-if="isShow"></materials>
+      <materials v-if="isShow" @setStory="setStory"></materials>
     </transition>
     <!-- 步骤 -->
     <transition name="van-fade">
-      <step v-if="isShow"></step>
+      <step v-if="isShow" @setTips="setTips" @setSort="setSort" @issue="issue"></step>
     </transition>
   </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, reactive} from 'vue'
 import {useStore} from '@/store'
 import {useRouter} from "vue-router";
 import {Toast, Dialog} from 'vant';
@@ -65,6 +65,21 @@ function back() {
   router.back()
 }
 
+const uploadData = reactive({
+  recipeName:'', // 菜谱名称
+  recipeDescribe:'', // 菜谱描述
+  recipeTips:'', // 小贴士
+  recipeTime:'', // 烹饪时间
+  recipeDifficulty:'', // 烹饪难度
+  recipeLable:'', // 分类标签，多个标签以英文逗号隔开
+  recipeImage:'', // 菜谱封面
+  materialDosage:[], // 剂量，原料数组
+  materialIngredients:[], // 名称，原料数组
+  practiceMedia:[], // 图片，步骤数组
+  practiceText:[], // 描述，步骤数组
+})
+
+
 // 页面标题
 const title = ref('菜谱名称')
 // 菜谱标题
@@ -75,8 +90,29 @@ const isShow = ref(false)
 function next() {
   if (menuTit.value) {
     title.value = '创建菜谱'
+    uploadData.recipeName = menuTit.value // 设置菜谱名称
     isShow.value = true
   }
+}
+
+// 设置故事
+function setStory(value){
+  uploadData.recipeDescribe = value
+  console.log(value)
+}
+
+// 设置小贴士
+function setTips(value){
+  uploadData.recipeTips = value
+}
+
+// 设置分类
+function setSort(title){
+  uploadData.recipeLable = title
+}
+
+function issue(){
+  console.log(uploadData)
 }
 
 </script>

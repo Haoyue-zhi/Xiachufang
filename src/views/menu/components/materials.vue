@@ -6,6 +6,7 @@
         autosize
         type="textarea"
         placeholder="输入这道美食背后的故事"
+        @update:model-value="setStory"
     />
     <van-cell title-class="title" title="用料"/>
     <!-- 滑动单元格 -->
@@ -42,7 +43,13 @@
 <script setup>
 import {onMounted, reactive, ref} from 'vue'
 
+const emit = defineEmits(['setStory'])
+
 const story = ref('')
+
+function setStory(value){
+  emit('setStory',value)
+}
 
 const items = reactive([
   {

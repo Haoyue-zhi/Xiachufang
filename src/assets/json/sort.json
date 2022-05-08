@@ -1,6 +1,8 @@
-[{
+[
+  {
     "title": "热门分类",
-    "subject": [{
+    "subject": [
+      {
         "icon": "https://i2.chuimg.com/8a8334907df24fbc80d9018792c2cd30_1616w_1080h.jpg?imageView2/1/w/250/h/250/q/90/format/webp",
         "title": "家常菜"
       },

@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="sort-item" v-for="item in sotr" :key="item">
+    <div class="sort-item" v-for="item in sort" :key="item">
       <div class="sort-title">
         {{ item.title }}
       </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import sotr from '@/assets/json/sort.json'
+import sort from '@/assets/json/sort.json'
 </script>
 
 <style scoped lang="scss">
