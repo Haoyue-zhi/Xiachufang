@@ -39,7 +39,7 @@ async function init() {
       AddressList.id = item.id
       AddressList.name = item.addressName
       AddressList.tel = item.addressPhone
-      AddressList.address = item.addressSuper.replaceAll(',', '') + item.addressDetail
+      AddressList.address = item.addressSuper.replace(/,/g, '') + item.addressDetail
       AddressList.isDefault = item.addressDefault
       list.value.push(AddressList)
       if (item.addressDefault === 1) {
