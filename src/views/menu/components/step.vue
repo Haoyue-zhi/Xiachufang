@@ -4,7 +4,7 @@
     <van-swipe-cell ref="itemRefs" v-for="(item,index) in items" :key="item" :name="index" @open="openSwipeCell(index)">
       <van-cell title-class="title" :title="'步骤' + (index + 1)" :border="false"/>
       <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-        <upload></upload>
+        <Upload @afterRead="afterRead" :index="index" cover></Upload>
         <van-field
             v-model="item.explain"
             rows="2"
@@ -69,7 +69,7 @@
 
 <script setup>
 import {ref, reactive} from 'vue'
-import upload from './uploader.vue'
+import Upload from './uploader.vue'
 import sort from '@/assets/json/sort.json'
 
 const emit = defineEmits(['setTips', 'setSort', 'issue'])
@@ -80,13 +80,19 @@ function setTips(value) {
 
 const items = reactive([
   {
+    photo: '',
     explain: ''
   }
 ])
 
+function afterRead(file,index){
+  items[index].photo = file.file
+}
+
 // 新增步骤
 function add() {
   const obj = {
+    photo: '',
     explain: ''
   }
   items.push(obj)
@@ -129,7 +135,6 @@ const timeActive = ref({key: null, item: null});
 function chooseTime(key, item) {
   timeActive.value.key = key
   timeActive.value.item = item
-  console.log(timeActive.value)
 }
 
 const difficulty = reactive([
@@ -144,7 +149,6 @@ const diffActive = ref({key: null, item: null});
 function chooseDifficult(key, item) {
   diffActive.value.key = key
   diffActive.value.item = item
-  console.log(diffActive.value)
 }
 
 const sortItems = ref([])
@@ -170,7 +174,14 @@ const show = ref(false);
 // 控制分类弹窗开关
 function showPopup() {
   show.value = !show.value;
-};
+}
+
+defineExpose({
+  timeActive,
+  diffActive,
+  sortItem,
+  items
+})
 
 </script>
 

@@ -11,7 +11,7 @@
     </van-nav-bar>
     <!-- 上传封面 -->
     <transition name="van-fade">
-      <cover-upload v-if="isShow"></cover-upload>
+      <Cover-upload v-if="isShow" ref="coverupload" @afterRead="afterRead"></Cover-upload>
     </transition>
     <!-- 标题 -->
     <div class="title van-hairline--bottom">
@@ -40,11 +40,11 @@
     </van-cell-group>
     <!-- 用料 -->
     <transition name="van-fade">
-      <materials v-if="isShow" @setStory="setStory"></materials>
+      <Materials ref="materials" v-if="isShow" @setStory="setStory"></Materials>
     </transition>
     <!-- 步骤 -->
     <transition name="van-fade">
-      <step v-if="isShow" @setTips="setTips" @setSort="setSort" @issue="issue"></step>
+      <Step ref="step" v-if="isShow" @setTips="setTips" @setSort="setSort" @issue="issue"></Step>
     </transition>
   </div>
 </template>
@@ -53,30 +53,35 @@
 import {onMounted, ref, reactive} from 'vue'
 import {useStore} from '@/store'
 import {useRouter} from "vue-router";
-import {Toast, Dialog} from 'vant';
-import coverUpload from './components/uploader.vue'
-import materials from './components/materials.vue'
-import step from './components/step.vue'
+import CoverUpload from './components/uploader.vue'
+import Materials from './components/materials.vue'
+import Step from './components/step.vue'
+import {upload} from '@/api/menu'
 
 const router = useRouter();
 const store = useStore()
+
+// 子组件实例数据
+const coverupload = ref(null)
+const materials = ref(null)
+const step = ref(null)
 
 function back() {
   router.back()
 }
 
 const uploadData = reactive({
-  recipeName:'', // 菜谱名称
-  recipeDescribe:'', // 菜谱描述
-  recipeTips:'', // 小贴士
-  recipeTime:'', // 烹饪时间
-  recipeDifficulty:'', // 烹饪难度
-  recipeLable:'', // 分类标签，多个标签以英文逗号隔开
-  recipeImage:'', // 菜谱封面
-  materialDosage:[], // 剂量，原料数组
-  materialIngredients:[], // 名称，原料数组
-  practiceMedia:[], // 图片，步骤数组
-  practiceText:[], // 描述，步骤数组
+  recipeName: '', // 菜谱名称
+  recipeDescribe: '', // 菜谱故事
+  recipeTips: '', // 小贴士
+  recipeTime: '', // 烹饪时间
+  recipeDifficulty: '', // 烹饪难度
+  recipeLable: '', // 分类标签，多个标签以英文逗号隔开
+  recipeImage: '', // 菜谱封面
+  materialDosage: [], // 剂量，原料数组
+  materialIngredients: [], // 名称，原料数组
+  practiceMedia: [], // 图片，步骤数组
+  practiceText: [], // 描述，步骤数组
 })
 
 
@@ -87,6 +92,7 @@ const menuTit = ref('')
 
 const isShow = ref(false)
 
+// 下一步
 function next() {
   if (menuTit.value) {
     title.value = '创建菜谱'
@@ -95,24 +101,70 @@ function next() {
   }
 }
 
+// 上传图片
+function afterRead(file) {
+  uploadData.recipeImage = file.file
+}
+
 // 设置故事
-function setStory(value){
+function setStory(value) {
   uploadData.recipeDescribe = value
-  console.log(value)
 }
 
 // 设置小贴士
-function setTips(value){
+function setTips(value) {
   uploadData.recipeTips = value
 }
 
 // 设置分类
-function setSort(title){
+function setSort(title) {
   uploadData.recipeLable = title
 }
 
-function issue(){
-  console.log(uploadData)
+// 设置用料
+function setMaterials() {
+  materials.value.items.forEach(item => {
+    uploadData.materialDosage.push(item.Ingredients)
+    uploadData.materialIngredients.push(item.consumption)
+  })
+}
+
+// 设置步骤
+function setStep() {
+  step.value.items.forEach(item => {
+    uploadData.practiceMedia.push(item.photo)
+    uploadData.practiceText.push(item.explain)
+  })
+}
+
+// 转换为formdata
+function getFormData(object) {
+  const formData = new FormData()
+  Object.keys(object).forEach(key => {
+    const value = object[key]
+    if (Array.isArray(value)) {
+      value.forEach((subValue, i) =>
+          formData.append(key + `[${i}]`, subValue)
+      )
+    } else {
+      formData.append(key, object[key])
+    }
+  })
+  return formData
+}
+
+
+// 发布
+async function issue() {
+  setMaterials()
+  setStep()
+  uploadData.recipeTime = step.value.timeActive.item // 设置烹饪时长
+  uploadData.recipeDifficulty = step.value.diffActive.item // 设置烹饪难度
+  uploadData.recipeLable = step.value.sortItem // 设置分类
+  const res = await upload(getFormData(uploadData))
+  if (res.code && res.code === '00000') {
+
+  }
 }
 
 </script>

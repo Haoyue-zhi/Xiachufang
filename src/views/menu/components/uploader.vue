@@ -1,5 +1,6 @@
 <template>
-  <van-uploader v-model="fileList" :preview-full-image="false" :show-upload="fileList.length !==1 ">
+  <van-uploader v-model="fileList" :preview-full-image="false" :show-upload="fileList.length !== 1"
+                :after-read="afterRead">
     <div class="van-uploader__upload">
       <p class="one">{{ cover ? '+步骤图' : '+菜谱封面' }}</p>
       <p class="two">{{ cover ? '清晰的步骤图会让菜谱更受欢迎' : '诱人的封面是吸引厨友的关键' }}</p>
@@ -10,17 +11,27 @@
 <script setup>
 import {ref} from 'vue'
 
+const emit = defineEmits(['afterRead'])
+
 const props = defineProps({
-  cover: Boolean
+  cover: Boolean, // 默认菜谱封面
+  index: Number
 })
 
 const fileList = ref([]);
+
+function afterRead(file) {
+  emit('afterRead', file, props.index)
+}
 </script>
 
 <style scoped lang="scss">
 .van-uploader {
 
   :deep(.van-uploader__wrapper) {
+    .van-uploader__preview{
+      margin-right: 0;
+    }
     .van-image, .van-uploader__upload {
       width: 390px;
       height: 292px;

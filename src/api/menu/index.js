@@ -6,5 +6,6 @@ export function upload(data) {
         method: "put",
         otherURL:'java', // 调用java接口
         data,
+        headers: {'content-type': 'multipart/form-data'}
     });
 }

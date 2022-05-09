@@ -88,6 +88,10 @@ function del(key) {
     }
   })
 }
+
+defineExpose({
+  items
+})
 </script>
 
 <style scoped lang="scss">

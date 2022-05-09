@@ -10,35 +10,62 @@
         :list="list"
         @add="onAdd"
         @edit="onEdit"
+        @select="onDefault"
     />
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {ref, onMounted, reactive} from 'vue';
 import {useRouter, useRoute} from "vue-router";
 import {Toast} from 'vant';
+import {showAddress,addAddress} from '@/api/mine'
 
 const router = useRouter();
 const route = useRoute();
 
-const chosenAddressId = ref('1');
-const list = [
-  {
-    id: '1',
-    name: '张三',
-    tel: '13000000000',
-    address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-    isDefault: true,
-  }
-];
 
-function onAdd() {
-  router.push({ path: '/mine/setting/editAddress', query: { plan: '0' } })
+init()
+const chosenAddressId = ref('');
+const list = ref([])
+
+// 初始化
+async function init() {
+  const res = await showAddress()
+  if (res.code && res.code === '00000') {
+    list.value = []
+    res.data.forEach((item, index) => {
+      let AddressList = {}
+      AddressList.id = item.id
+      AddressList.name = item.addressName
+      AddressList.tel = item.addressPhone
+      AddressList.address = item.addressSuper.replaceAll(',', '') + item.addressDetail
+      AddressList.isDefault = item.addressDefault
+      list.value.push(AddressList)
+      if (item.addressDefault === 1) {
+        chosenAddressId.value = item.id
+      }
+    })
+  }
 }
 
+// 新增地址
+function onAdd() {
+  router.push({path: '/mine/setting/editAddress', query: {plan: '0'}})
+}
+
+// 修改地址
 function onEdit(item, index) {
-  router.push({ path: '/mine/setting/editAddress', query: { plan: '1' } })
+  router.push({path: '/mine/setting/editAddress', query: {plan: '1', ID: item.id}})
+}
+
+// 设置默认
+async function onDefault(item) {
+  const res = await addAddress(item.id)
+  if (res.code && res.code === '00000') {
+    init()
+    console.log(res)
+  }
 }
 
 function onClickLeft() {
