@@ -54,7 +54,11 @@ const routes = [
         component: () => import('@/views/works/index.vue'),
         meta: { transition: 'bottom' }
     },
-
+    {
+        path:'/menulist/:id',
+        component: () => import('@/views/menulist/index.vue'),
+        meta: { transition: 'left' }
+    }
 ]
 
 const router = createRouter({

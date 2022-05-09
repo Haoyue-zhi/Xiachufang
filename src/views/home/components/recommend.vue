@@ -7,17 +7,14 @@
         为你推荐
       </div>
       <div class="column">
-        <div class="item" v-for="item in imageList" :key="item">
-          <img class="photo" v-lazy="item.img">
+        <div class="item" v-for="(item,index) in imageList" :key="item" @click="choose(index)">
+          <img class="photo" v-lazy="item.recipeImage">
           <div class="item-title">
-            {{ item.title.slice(0,11) }}
-          </div>
-          <div class="subtitle">
-            {{ item.subtitle }} 人做过
+            {{ item.recipeName.slice(0,11) }}
           </div>
           <div class="author">
-            <img :src="item.portrait">
-            <span>{{ item.author }}</span>
+            <img :src="item.userAvatar">
+            <span>{{ item.userName }}</span>
           </div>
         </div>
       </div>
@@ -29,6 +26,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+
+const router = useRouter();
+const route = useRoute();
+
 const props = defineProps(['imageList'])
 // 下拉刷新
 const loading = ref(false);
@@ -37,6 +39,11 @@ const onRefresh = () => {
     loading.value = false;
   }, 1000);
 };
+
+function choose(index){
+  router.push(`/menulist/${props.imageList[index].id}`)
+  // props.imageList[index].id
+}
 </script>
 
 <style scoped lang="scss">
@@ -81,17 +88,10 @@ const onRefresh = () => {
           white-space: nowrap;
         }
 
-        .subtitle {
-          font-size: 12px;
-          font-weight: bold;
-          letter-spacing: 0.03em;
-          padding-left: 14px;
-          padding-bottom: 8px;
-        }
-
         .author {
           display: flex;
           align-items: center;
+          padding-top: 8px;
           padding-left: 10px;
 
           img {

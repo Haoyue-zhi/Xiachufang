@@ -1,9 +1,11 @@
 import axios from "@/utils/axios";
 
-export function test(params){
+// 筛选菜谱
+export function list(params,pageSize,pageNum){
     return axios({
+        url:`/reip/recipe/${pageSize}/${pageNum}`,
         method: "get",
-        otherURL:'alipay.trade.wap.pay',
-        params,
+        otherURL:'java',
+        params
     })
 }
