@@ -9,7 +9,7 @@
         <follow></follow>
       </van-tab>
       <van-tab title="推荐">
-        <recommend :imageList="menuList"></recommend>
+        <recommend :imageList="menuList" @onRefresh="getList"></recommend>
       </van-tab>
       <van-tab title="分类">
         <sort></sort>

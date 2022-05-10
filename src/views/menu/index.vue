@@ -46,6 +46,12 @@
     <transition name="van-fade">
       <Step ref="step" v-if="isShow" @setTips="setTips" @setSort="setSort" @issue="issue"></Step>
     </transition>
+
+    <van-overlay :show="show">
+      <div class="wrapper" @click.stop>
+        <van-loading size="24px" color="#E86F58" vertical>上传中...</van-loading>
+      </div>
+    </van-overlay>
   </div>
 </template>
 
@@ -57,9 +63,12 @@ import CoverUpload from './components/uploader.vue'
 import Materials from './components/materials.vue'
 import Step from './components/step.vue'
 import {upload} from '@/api/menu'
+import {Toast} from 'vant';
 
 const router = useRouter();
 const store = useStore()
+
+const show = ref(false);
 
 // 子组件实例数据
 const coverupload = ref(null)
@@ -70,19 +79,7 @@ function back() {
   router.back()
 }
 
-const uploadData = reactive({
-  recipeName: '', // 菜谱名称
-  recipeDescribe: '', // 菜谱故事
-  recipeTips: '', // 小贴士
-  recipeTime: '', // 烹饪时间
-  recipeDifficulty: '', // 烹饪难度
-  recipeLable: '', // 分类标签，多个标签以英文逗号隔开
-  recipeImage: '', // 菜谱封面
-  materialDosage: [], // 剂量，原料数组
-  materialIngredients: [], // 名称，原料数组
-  practiceMedia: [], // 图片，步骤数组
-  practiceText: [], // 描述，步骤数组
-})
+const form = ref(new FormData())
 
 
 // 页面标题
@@ -96,74 +93,63 @@ const isShow = ref(false)
 function next() {
   if (menuTit.value) {
     title.value = '创建菜谱'
-    uploadData.recipeName = menuTit.value // 设置菜谱名称
+    form.value.append('recipeName', menuTit.value) // 设置菜谱名称
+    form.value.append('utensilBrand', '临时')
+    form.value.append('utensilModel', '临时')
+    form.value.append('utensilType', '临时')
     isShow.value = true
   }
 }
 
 // 上传图片
 function afterRead(file) {
-  uploadData.recipeImage = file.file
+  form.value.append('recipeImage', file.file)
 }
 
 // 设置故事
 function setStory(value) {
-  uploadData.recipeDescribe = value
+  form.value.append('recipeDescribe', value)
 }
 
 // 设置小贴士
 function setTips(value) {
-  uploadData.recipeTips = value
+  form.value.append('recipeTips', value)
 }
 
 // 设置分类
 function setSort(title) {
-  uploadData.recipeLable = title
+  form.value.append('recipeLable', title)
 }
 
 // 设置用料
 function setMaterials() {
   materials.value.items.forEach(item => {
-    uploadData.materialDosage.push(item.Ingredients)
-    uploadData.materialIngredients.push(item.consumption)
+    form.value.append('materialDosage', item.Ingredients)
+    form.value.append('materialIngredients', item.consumption)
   })
 }
 
 // 设置步骤
 function setStep() {
   step.value.items.forEach(item => {
-    uploadData.practiceMedia.push(item.photo)
-    uploadData.practiceText.push(item.explain)
+    form.value.append('practiceMedia', item.photo)
+    form.value.append('practiceText', item.explain)
   })
 }
-
-// 转换为formdata
-function getFormData(object) {
-  const formData = new FormData()
-  Object.keys(object).forEach(key => {
-    const value = object[key]
-    if (Array.isArray(value)) {
-      value.forEach((subValue, i) =>
-          formData.append(key + `[${i}]`, subValue)
-      )
-    } else {
-      formData.append(key, object[key])
-    }
-  })
-  return formData
-}
-
 
 // 发布
 async function issue() {
   setMaterials()
   setStep()
-  uploadData.recipeTime = step.value.timeActive.item // 设置烹饪时长
-  uploadData.recipeDifficulty = step.value.diffActive.item // 设置烹饪难度
-  uploadData.recipeLable = step.value.sortItem // 设置分类
-  const res = await upload(getFormData(uploadData))
+  form.value.append('recipeTime', step.value.timeActive.item)
+  form.value.append('recipeDifficulty', step.value.diffActive.item)
+  form.value.append('recipeLable', step.value.sortItem)
+  show.value = true
+  const res = await upload(form.value)
   if (res.code && res.code === '00000') {
-
+    Toast('上传成功')
+    show.value = false
+    back()
   }
 }
 
@@ -211,5 +197,12 @@ async function issue() {
   }
 
 
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>

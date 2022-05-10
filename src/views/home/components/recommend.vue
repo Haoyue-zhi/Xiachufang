@@ -28,6 +28,8 @@
 import { ref } from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 
+const emit = defineEmits(['onRefresh'])
+
 const router = useRouter();
 const route = useRoute();
 
@@ -36,13 +38,13 @@ const props = defineProps(['imageList'])
 const loading = ref(false);
 const onRefresh = () => {
   setTimeout(() => {
+    emit('onRefresh')
     loading.value = false;
   }, 1000);
 };
 
 function choose(index){
   router.push(`/menulist/${props.imageList[index].id}`)
-  // props.imageList[index].id
 }
 </script>
 

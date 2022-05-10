@@ -1,5 +1,6 @@
 import axios from "@/utils/axios";
 
+// 菜谱上传
 export function upload(data) {
     return axios({
         url: `/reip/recipe/upload`,

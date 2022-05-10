@@ -33,7 +33,8 @@ import {
     Area,
     Skeleton,
     SwipeCell,
-    Tag
+    Tag,
+    Loading
 } from 'vant';
 // vant按需引入组件
 const options = [
@@ -71,7 +72,8 @@ const options = [
     Area,
     Skeleton,
     SwipeCell,
-    Tag
+    Tag,
+    Loading
 ]
 
 export function vant(app) {
