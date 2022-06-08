@@ -8,7 +8,7 @@
 
 此APP基于Vue3进行开发  
 - 登录功能后台[Koa](./koa-app/README.md)  
-- 系统后台[gokit](https://gitee.com/chase-light/gokit)  [国内站点](https://gitee.com/chase-light/gokit)
+- 系统后台[gokit](https://gitee.com/chase-light/gokit)
 
 </div>
 
