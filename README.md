@@ -6,8 +6,7 @@
 
 ## 简介
 
-[仿下厨房APP](https://gitee.com/zhang-wenhaoyue/vite-vue3-element-cli)
-此APP基于Vue3进行开发，登录功能后台使用[Koa](./koa-app/README.md)进行开发，其他功能使用Java进行开发（非本人开发）。
+此APP基于Vue3进行开发，登录功能后台使用[Koa](./koa-app/README.md)进行开发，其他功能使用[Java](./gokit/README.md)后台（非本人开发）。
 
 </div>
 
@@ -44,7 +43,7 @@
 |─── .env.production                  # 生产环境变量配置
 |─── index.html                       # html模板
 |─── package.json                     # package.json
-|─── gulpfile.js                       # gulp配置文件
+|─── gulpfile.js                      # gulp配置文件
 └─── vite.index.js                    # vite配置
 
 ```
@@ -66,7 +65,7 @@
 1. 下载SVG文件 https://www.iconfont.cn/
 2. 将SVG文件复制到src/icons/svg文件夹中
 3. 重命名SVG文件格式为 icon- *
-4. 组件模版中使用 `&lt;icon-svg name="icon-*" color="#fff"&gt;&lt;/icon-svg&gt;`
+4. 组件模版中使用 &lt;icon-svg name="icon-*" color="#fff"&gt;&lt;/icon-svg&gt;
 
 |  参数   |说明|类型|默认值|
 |-------|:---:|:---:|:---:|
@@ -90,8 +89,8 @@ npm run dev
 ```
 
 浏览器访问 <http://localhost:3000>  
-开发环境使用<font color="#646CFF">.env.development</font>配置文件  
-生产环境使用<font color="#42B883">.env.production</font>配置文件
+开发环境使用 <b>.env.development</b> 配置文件  
+生产环境使用 <b>.env.production</b> 配置文件
 
 ## 打包
 ```
@@ -116,6 +115,10 @@ npm run dev
 ## 文档
 [HTML 5+ API规范](https://www.html5plus.org/doc/h5p.html)  
 [Native.js入门指南](https://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/88)
+
+## 附录
+Koa后台[README](./koa-app/README.md)  
+Java后台[README](./gokit/README.md)
 
 ## 截图
 <div style="text-align: center">
