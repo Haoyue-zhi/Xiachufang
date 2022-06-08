@@ -20,9 +20,6 @@ _axios.interceptors.request.use(
             case 'map':
                 config.baseURL = import.meta.env.VITE_BASE_URL3
                 break
-            case 'alipay':
-                config.baseURL = import.meta.env.VITE_BASE_URL4
-                break
         }
         config.otherURL !== 'map' ? config.headers["Authorization"] = getToken() : ''; // 除定位接口外请求头带上token
         console.log(config);

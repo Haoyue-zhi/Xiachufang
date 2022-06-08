@@ -8,33 +8,49 @@
 
     <div class="main">
       <div class="cover">
-        <img src="https://t7.baidu.com/it/u=3631608752,3069876728&fm=193&f=GIF">
+        <img :src="fengmian">
       </div>
       <div class="tit van-hairline--bottom">
-        测试
+        虎皮可乐鸡蛋
       </div>
       <div class="info">
         <div class="info-item">
           <img class="avatar"
-               src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2F1113%2F052420110515%2F200524110515-2-1200.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654757295&t=e5cb32c645e3ba9d281fc5c066080779">
+               :src="info.userAvatar">
           <div class="name">
-            阿斯顿发送到发是
+            {{ info.userName }}
           </div>
         </div>
         <van-button color="#E86F58">关注</van-button>
       </div>
       <van-cell title-class="title" title="用料" :border="false"/>
       <ul class="materials">
-        <li v-for="item in 10">
-          <div class="left">盐</div>
-          <div class="right">1克</div>
+        <li v-for="item in items">
+          <div class="left">{{item.left}}</div>
+          <div class="right">{{item.right}}</div>
         </li>
       </ul>
 
       <ul class="setup">
-        <li v-for="item in 10">
-          <div class="title">步骤</div>
-          <img src="https://t7.baidu.com/it/u=3631608752,3069876728&fm=193&f=GIF">
+        <li>
+          <div class="title">步骤 1</div>
+          <img :src="buzhou1">
+          <div class="miaoshu">
+            <p>1.鸡蛋冷水下锅煮8分钟捞出过凉剥壳备用</p>
+            <p>2.锅里少许油放入鸡蛋煎至金黄虎皮状，下
+              蒜末爆香</p>
+            <p>3.加入一小碗可乐加1勺生抽和1勾蚝油煮几
+              分钟</p>
+            <p>4.大火收汁至汤汁浓稠即可关火</p>
+          </div>
+        </li>
+        <li>
+          <div class="title">步骤 2</div>
+          <img :src="buzhou2">
+          <div class="miaoshu">
+            <p>超级好吃的虎皮鸡蛋就做好了，你一定要试
+              试，不好吃你来打我今</p>
+          </div>
         </li>
       </ul>
     </div>
@@ -70,6 +86,9 @@ import {ref, computed} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {useStore} from '@/store'
 import {details} from '@/api/menulist'
+import fengmian from '@/assets/img/fengmian.jpg'
+import buzhou1 from '@/assets/img/buzhou1.jpg'
+import buzhou2 from '@/assets/img/buzhou2.jpg'
 
 const router = useRouter();
 const route = useRoute();
@@ -100,6 +119,15 @@ function upload(path) {
     router.push(path)
   }
 }
+
+const items = [
+  {left:'鸡蛋',right:'8个'},
+  {left:'蒜末',right:'2瓣'},
+  {left:'可乐',right:'一小碗'},
+  {left:'生抽',right:'一勺'},
+  {left:'蚝油',right:'一勺'},
+]
+
 </script>
 
 <style scoped lang="scss">
@@ -192,11 +220,16 @@ function upload(path) {
           font-weight: bold;
           margin-bottom: 5px;
         }
+
         img {
           width: 350px;
           height: 280px;
           object-fit: cover;
           border-radius: 13px;
+        }
+
+        .miaoshu{
+          font-size: 16px;
         }
       }
 
