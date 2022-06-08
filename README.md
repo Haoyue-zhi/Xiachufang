@@ -103,7 +103,7 @@ npm run dev
 ```
 1. 运行npm run build打包项目，生成dist文件夹
 2. 使用HBuilderX打开dist文件夹，选择发行-原生app云打包（仅支持安卓APP）
-3. 在APP打包界面输入证书别名和密码，证书选择public-unpackage-haoyue.keystore。
+3. 在APP打包界面输入证书别名和密码，证书选择public文件夹-unpackage文件夹-haoyue.keystore。
 4. 打包即可  
 <i>注：</i>manifest.json为打包APP配置文件，相关配置请查看[文档](https://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/94)
 
