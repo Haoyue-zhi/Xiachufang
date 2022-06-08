@@ -7,8 +7,8 @@
 ## 简介
 
 此APP基于Vue3进行开发  
-- 登录功能后台使用[Koa](./koa-app/README.md)  
-- 主要功能后台使用[Java](https://gitee.com/chase-light/gokit)
+- 登录功能后台[Koa](./koa-app/README.md)  
+- 系统后台[gokit](https://gitee.com/chase-light/gokit)  [国内站点](https://gitee.com/chase-light/gokit)
 
 </div>
 
@@ -74,7 +74,7 @@
 | name  |图标类名|string|—|
 | color |图标颜色|string|—|
 
-## 安装
+## 启动
 
 ```bash
 # 克隆项目
