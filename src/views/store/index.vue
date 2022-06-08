@@ -31,7 +31,7 @@ getMap()
 const address = ref('')
 async function getMap () {
   const params = {
-    key: '765497128df15f589daa56c0c79b35a5',
+    key: '', // 高德地图key
   }
   const res = await map(params)
   if (res && res.infocode === "10000") {

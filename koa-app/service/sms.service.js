@@ -4,8 +4,8 @@ const Code = require("../model/Code"); // 引入Code
 const SmsClient = tencentcloud.sms.v20210111.Client;
 const clientConfig = {
   credential: {
-    secretId: "AKIDoa7NNAG1VTaRwDvzUxi8ID1atvkvZyc0",
-    secretKey: "H8izDSZXNxHC0aBVUkDSTE1bvUebIj0I",
+    secretId: "",
+    secretKey: "",
   },
   region: "ap-guangzhou",
   profile: {

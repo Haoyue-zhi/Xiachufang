@@ -6,7 +6,9 @@
 
 ## 简介
 
-此APP基于Vue3进行开发，登录功能后台使用[Koa](./koa-app/README.md)进行开发，其他功能使用[Java](./gokit/README.md)后台（非本人开发）。
+此APP基于Vue3进行开发  
+- 登录功能后台使用[Koa](./koa-app/README.md)  
+- 主要功能后台使用[Java](https://gitee.com/chase-light/gokit)
 
 </div>
 
@@ -115,10 +117,6 @@ npm run dev
 ## 文档
 [HTML 5+ API规范](https://www.html5plus.org/doc/h5p.html)  
 [Native.js入门指南](https://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/88)
-
-## 附录
-Koa后台[README](./koa-app/README.md)  
-Java后台[README](./gokit/README.md)
 
 ## 截图
 <div style="text-align: center">
