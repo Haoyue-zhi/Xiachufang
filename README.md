@@ -1,4 +1,4 @@
-<div style="text-align: center">
+<div align="center">
 
 # 仿下厨房APP
 
@@ -8,7 +8,7 @@
 
 此APP基于Vue3进行开发  
 - 登录功能后台[Koa](./koa-app/README.md)  
-- 系统后台[gokit](https://gitee.com/chase-light/gokit)
+- 系统后台[gokit](https://github.com/Cyan-kingfisher/gokit)
 
 </div>
 
